@@ -1055,7 +1055,6 @@
 //     </>
 //   );
 // }
-
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BarChart3, ArrowRight, Zap, Menu, X, Rocket, Brain } from "lucide-react";
@@ -1087,7 +1086,7 @@ const GlobalStyles = () => (
     }
     .fcard:hover {
       transform: translateY(-4px) scale(1.02) !important;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.14) !important;
+      box-shadow: 0 20px 48px rgba(0,0,0,0.16), 0 2px 8px rgba(0,0,0,0.07) !important;
     }
 
     .nav-link {
@@ -1321,13 +1320,11 @@ function Navbar() {
   );
 }
 
-/* ── Transparent card base ── */
+/* ── Solid off-white card base — premium, high contrast ── */
 const cardBase = {
-  background: "rgba(255,255,255,0.13)",
-  backdropFilter: "blur(16px)",
-  WebkitBackdropFilter: "blur(16px)",
-  border: "1px solid rgba(255,255,255,0.28)",
-  boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+  background: "#F4F3EF",
+  border: "1px solid rgba(0,0,0,0.06)",
+  boxShadow: "0 6px 24px rgba(0,0,0,0.13), 0 1px 4px rgba(0,0,0,0.06)",
 };
 
 /* ── Connector line ── */
@@ -1347,8 +1344,8 @@ function Connector({ side = "right", delay = 1.6, width = 44 }) {
         width,
         height: 1.5,
         background: side === "right"
-          ? "linear-gradient(to right, rgba(255,255,255,0.55), rgba(255,255,255,0))"
-          : "linear-gradient(to left, rgba(255,255,255,0.55), rgba(255,255,255,0))",
+          ? "linear-gradient(to right, rgba(0,0,0,0.18), rgba(0,0,0,0))"
+          : "linear-gradient(to left, rgba(0,0,0,0.18), rgba(0,0,0,0))",
         borderRadius: 2,
         pointerEvents: "none",
       }}
@@ -1371,14 +1368,14 @@ function CardAI() {
       <Connector side="right" delay={1.5} width={44} />
       <div style={{
         width: 36, height: 36, borderRadius: 10, flexShrink: 0,
-        background: "rgba(129,140,248,0.25)", border: "1px solid rgba(129,140,248,0.4)",
+        background: "#ede9fe", border: "1px solid #c4b5fd",
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
-        <Brain size={16} color="#c7d2fe" />
+        <Brain size={16} color="#5b21b6" />
       </div>
       <div>
-        <p className="dFont" style={{ fontSize: 12.5, fontWeight: 700, color: "white", fontStyle: "italic", lineHeight: 1.2 }}>AI-Powered</p>
-        <p className="bFont" style={{ fontSize: 10.5, color: "rgba(255,255,255,0.6)", fontWeight: 500 }}>Learning Experience</p>
+        <p className="dFont" style={{ fontSize: 12.5, fontWeight: 700, color: "#111", fontStyle: "italic", lineHeight: 1.2 }}>AI-Powered</p>
+        <p className="bFont" style={{ fontSize: 10.5, color: "#666", fontWeight: 500 }}>Learning Experience</p>
       </div>
     </motion.div>
   );
@@ -1401,7 +1398,7 @@ function CardLearn() {
           <p key={word} className="dFont" style={{
             fontSize: i === 0 ? 14 : i === 1 ? 16 : 13,
             fontWeight: 800, fontStyle: "italic",
-            color: i === 0 ? "#5eead4" : i === 1 ? "white" : "#fb923c",
+            color: i === 0 ? "#0d9488" : i === 1 ? "#111" : "#f97316",
             lineHeight: 1.15,
           }}>{word}</p>
         ))}
@@ -1425,14 +1422,14 @@ function CardBuild() {
       <Connector side="left" delay={1.58} width={44} />
       <div style={{
         width: 38, height: 38, borderRadius: 10, flexShrink: 0,
-        background: "rgba(249,115,22,0.22)", border: "1px solid rgba(249,115,22,0.38)",
+        background: "#fff1e6", border: "1px solid #fcd9b0",
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
-        <Rocket size={16} color="#fb923c" />
+        <Rocket size={16} color="#ea6800" />
       </div>
       <div>
-        <p className="bFont" style={{ fontSize: 12, fontWeight: 700, color: "white" }}>Start Building</p>
-        <p className="bFont" style={{ fontSize: 10.5, color: "rgba(255,255,255,0.55)" }}>Modern Projects 🚀</p>
+        <p className="bFont" style={{ fontSize: 12, fontWeight: 700, color: "#111" }}>Start Building</p>
+        <p className="bFont" style={{ fontSize: 10.5, color: "#777" }}>Modern Projects 🚀</p>
       </div>
     </motion.div>
   );
@@ -1451,7 +1448,7 @@ function BadgeInnovation() {
     >
       <Connector side="left" delay={1.78} width={44} />
       <Zap size={12} fill="#fbbf24" color="#fbbf24" />
-      <span className="bFont" style={{ fontSize: 11.5, fontWeight: 700, color: "white", whiteSpace: "nowrap" }}>Innovation First ⚡</span>
+      <span className="bFont" style={{ fontSize: 11.5, fontWeight: 700, color: "#111", whiteSpace: "nowrap" }}>Innovation First ⚡</span>
     </motion.div>
   );
 }
@@ -1464,14 +1461,15 @@ function BadgeChart() {
       transition={{ delay: 1.45, duration: 0.44, type: "spring", stiffness: 200 }}
       style={{
         width: 42, height: 42,
-        background: "rgba(236,72,153,0.22)",
-        border: "1px solid rgba(236,72,153,0.38)",
+        background: "#ec4899",
+        border: "none",
         borderRadius: 12,
         display: "flex", alignItems: "center", justifyContent: "center",
         position: "relative",
+        boxShadow: "0 4px 14px rgba(236,72,153,0.35)",
       }}
     >
-      <BarChart3 size={19} color="#f9a8d4" />
+      <BarChart3 size={19} color="white" />
     </motion.div>
   );
 }
@@ -1598,7 +1596,7 @@ function Hero() {
               display: "block",
               flexShrink: 0,
               zIndex: 10,
-              filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.18)) brightness(1.04) contrast(1.04)",
+              filter: "brightness(1.03) contrast(1.03)",
               position: "relative",
               bottom: 0,
               alignSelf: "flex-end",
