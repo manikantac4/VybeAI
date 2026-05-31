@@ -1054,11 +1054,12 @@
 //       <Footer />
 //     </>
 //   );
-// }
+// }import { useState, useEffect } from "react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BarChart3, ArrowRight, Zap, Menu, X, Rocket, Brain } from "lucide-react";
 import HeroImg from "../assets/heroimg-removebg-preview.png";
+import VisionMission from "./visonmission";
 
 const GlobalStyles = () => (
   <style>{`
@@ -1223,62 +1224,136 @@ function AnimatedWave() {
 
 /* ── Navbar ── */
 function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [heroH, setHeroH] = useState(window.innerHeight);
   const [open, setOpen] = useState(false);
+
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", fn);
-    return () => window.removeEventListener("scroll", fn);
+    const onScroll = () => setScrollY(window.scrollY);
+    const onResize = () => setHeroH(window.innerHeight);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
+
+  // over hero = teal section; past hero = white section
+  const overHero = scrollY < heroH - 60;
+  const atTop    = scrollY < 20;
+
+  // derive per-state style tokens
+  const navBg     = atTop    ? "transparent"
+                  : overHero ? "rgba(10,122,112,0.93)"
+                             : "rgba(255,255,255,0.97)";
+  const navBorder = atTop    ? "none"
+                  : overHero ? "1px solid rgba(255,255,255,0.07)"
+                             : "1px solid rgba(0,0,0,0.07)";
+  const logoColor  = overHero ? "white"        : "#0a7a70";
+  const logoBox    = overHero ? "rgba(255,255,255,0.17)" : "rgba(13,148,136,0.1)";
+  const logoBoxBdr = overHero ? "rgba(255,255,255,0.35)" : "rgba(13,148,136,0.25)";
+  const logoInner  = overHero ? "white"        : "#0d9488";
+  const linkColor  = overHero ? "rgba(255,255,255,0.88)" : "#444";
+  const linkHover  = overHero ? "white"        : "#0d9488";
+  const linkActive = overHero ? "white"        : "#0a7a70";
+  const linkUnder  = overHero ? "white"        : "#0d9488";
+
   const links = ["Home", "Programs", "Community", "Buildathons", "About"];
 
   return (
     <>
+      {/* inject dynamic nav-link colors */}
+      <style>{`
+        .nav-link-dyn { color: ${linkColor}; }
+        .nav-link-dyn:hover { color: ${linkHover}; }
+        .nav-link-dyn::after { background: ${linkUnder}; }
+        .nav-link-dyn.active { color: ${linkActive}; }
+        .nav-link-dyn.active::after { width: 100%; }
+      `}</style>
+
       <motion.nav
         initial={{ y: -70, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
           display: "flex", alignItems: "center", justifyContent: "space-between",
-          padding: scrolled ? "12px 52px" : "18px 52px",
-          background: scrolled ? "rgba(10,122,112,0.93)" : "transparent",
-          backdropFilter: scrolled ? "blur(18px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "none",
+          padding: atTop ? "18px 52px" : "12px 52px",
+          background: navBg,
+          backdropFilter: atTop ? "none" : "blur(18px)",
+          WebkitBackdropFilter: atTop ? "none" : "blur(18px)",
+          borderBottom: navBorder,
           transition: "all 0.32s ease",
         }}
       >
+        {/* Logo */}
         <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
           <div style={{
             width: 33, height: 33, borderRadius: 9,
-            background: "rgba(255,255,255,0.17)", border: "2px solid rgba(255,255,255,0.35)",
+            background: logoBox, border: `2px solid ${logoBoxBdr}`,
             display: "flex", alignItems: "center", justifyContent: "center",
+            transition: "all 0.32s ease",
           }}>
-            <div style={{ width: 13, height: 13, border: "2.5px solid white", borderRadius: 3, transform: "rotate(12deg)" }} />
+            <div style={{ width: 13, height: 13, border: `2.5px solid ${logoInner}`, borderRadius: 3, transform: "rotate(12deg)", transition: "all 0.32s ease" }} />
           </div>
-          <span className="dFont" style={{ color: "white", fontWeight: 800, fontSize: 18, letterSpacing: 0.5 }}>VybeAI</span>
+          <span className="dFont" style={{ color: logoColor, fontWeight: 800, fontSize: 18, letterSpacing: 0.5, transition: "color 0.32s ease" }}>VybeAI</span>
         </div>
 
+        {/* Desktop links */}
         <ul className="desktop-nav" style={{ display: "flex", gap: 32, listStyle: "none" }}>
           {links.map((item, i) => (
             <motion.li key={item} initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 * i + 0.18 }}>
-              <a href="#" className={`nav-link${item === "Home" ? " active" : ""}`}>{item}</a>
+              <a href="#" className={`nav-link nav-link-dyn${item === "Home" ? " active" : ""}`}>{item}</a>
             </motion.li>
           ))}
         </ul>
 
+        {/* Desktop buttons */}
         <div className="nav-buttons-desktop" style={{ display: "flex", gap: 9 }}>
-          <button className="btn-ghost" style={{ padding: "9px 20px", fontSize: 13 }}>Explore Programs</button>
-          <button className="btn-primary" style={{ padding: "9px 20px", fontSize: 13 }}>Start Building <ArrowRight size={13} /></button>
+          {overHero ? (
+            <>
+              <button className="btn-ghost" style={{ padding: "9px 20px", fontSize: 13 }}>Explore Programs</button>
+              <button className="btn-primary" style={{ padding: "9px 20px", fontSize: 13 }}>Start Building <ArrowRight size={13} /></button>
+            </>
+          ) : (
+            <>
+              <button style={{
+                background: "transparent", border: "1.5px solid rgba(13,148,136,0.35)",
+                color: "#0d9488", fontWeight: 600, fontSize: 13, padding: "9px 20px",
+                borderRadius: 50, cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
+                transition: "all 0.2s ease", whiteSpace: "nowrap",
+              }}
+                onMouseEnter={e => { e.currentTarget.style.background = "rgba(13,148,136,0.06)"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}
+              >Explore Programs</button>
+              <button style={{
+                background: "linear-gradient(135deg,#0d9488,#0a7a70)",
+                color: "white", fontWeight: 700, fontSize: 13, padding: "9px 20px",
+                borderRadius: 50, border: "none", cursor: "pointer",
+                fontFamily: "'DM Sans', sans-serif",
+                display: "inline-flex", alignItems: "center", gap: 6,
+                boxShadow: "0 4px 14px rgba(13,148,136,0.3)",
+                transition: "transform 0.2s ease, box-shadow 0.2s ease",
+              }}
+                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 22px rgba(13,148,136,0.38)"; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = "0 4px 14px rgba(13,148,136,0.3)"; }}
+              >Start Building <ArrowRight size={13} /></button>
+            </>
+          )}
         </div>
 
+        {/* Mobile hamburger */}
         <button className="mobile-menu-btn" onClick={() => setOpen(o => !o)}
           style={{
-            background: "rgba(255,255,255,0.13)", border: "1.5px solid rgba(255,255,255,0.3)",
+            background: overHero ? "rgba(255,255,255,0.13)" : "rgba(13,148,136,0.08)",
+            border: overHero ? "1.5px solid rgba(255,255,255,0.3)" : "1.5px solid rgba(13,148,136,0.2)",
             borderRadius: 9, width: 39, height: 39,
             alignItems: "center", justifyContent: "center",
-            cursor: "pointer", color: "white", transition: "background 0.2s",
+            cursor: "pointer", transition: "background 0.2s",
           }}>
-          {open ? <X size={19} color="white" /> : <Menu size={19} color="white" />}
+          {open
+            ? <X size={19} color={overHero ? "white" : "#0d9488"} />
+            : <Menu size={19} color={overHero ? "white" : "#0d9488"} />}
         </button>
       </motion.nav>
 
@@ -1627,6 +1702,7 @@ export default function VybeAILanding() {
       <GlobalStyles />
       <Navbar />
       <Hero />
+      <VisionMission />
     </div>
   );
 }
