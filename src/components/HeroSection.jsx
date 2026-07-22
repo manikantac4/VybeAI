@@ -63,7 +63,7 @@ export default function HeroSection() {
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2"
             >
               <Link
-                to="/login"
+                to="/portal/auth/v1/account-access"
                 className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 text-white font-bold text-sm shadow-lg shadow-cyan-500/25 hover:shadow-xl hover:scale-[1.02] transition-all flex items-center justify-center gap-2 group"
               >
                 <span>Start Building Now</span>

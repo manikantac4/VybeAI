@@ -7,6 +7,7 @@ import ProgramsSection from "./components/ProgramsSection";
 import ReviewsSection from "./components/ReviewsSection";
 import Footer from "./components/Footer";
 import LoginPage from "./pages/LoginPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import WelcomeIntroScreen from "./components/WelcomeIntroScreen";
 
 function HomePage() {
@@ -42,7 +43,10 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        {/* Professional Secure Enterprise Auth Route */}
+        <Route path="/portal/auth/v1/account-access" element={<LoginPage />} />
+        {/* Wildcard 404 Route */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

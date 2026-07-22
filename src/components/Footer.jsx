@@ -8,7 +8,7 @@ export default function Footer() {
         
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
           
-          {/* Column 1: Brand (Text logo without icon as requested) */}
+          {/* Column 1: Brand */}
           <div className="md:col-span-6 space-y-4 text-left">
             <div className="flex flex-col text-left select-none">
               <div className="font-extrabold tracking-wide text-xl leading-none text-white">
@@ -33,7 +33,7 @@ export default function Footer() {
               <li><a href="#mission-vision" className="hover:text-cyan-400 transition-colors">About & Vision</a></li>
               <li><a href="#programs" className="hover:text-cyan-400 transition-colors">Initial Programs</a></li>
               <li><a href="#reviews" className="hover:text-cyan-400 transition-colors">Creator Reviews</a></li>
-              <li><Link to="/login" className="hover:text-cyan-400 transition-colors">Login / Portal</Link></li>
+              <li><Link to="/portal/auth/v1/account-access" className="hover:text-cyan-400 transition-colors">Login / Portal</Link></li>
             </ul>
           </div>
 
@@ -44,7 +44,7 @@ export default function Footer() {
               Join our buildathons, workshops, and creator sprints.
             </p>
             <Link
-              to="/login"
+              to="/portal/auth/v1/account-access"
               className="inline-block px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-bold text-xs shadow-md hover:scale-105 transition-all mt-2"
             >
               Join Ecosystem →

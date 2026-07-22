@@ -115,7 +115,7 @@ export default function ProgramsSection() {
           </h2>
         </div>
 
-        {/* Interactive Course Selection Tabs (Mobile Horizontally Scrollable) */}
+        {/* Interactive Course Selection Tabs */}
         <div className="flex overflow-x-auto pb-3 sm:pb-0 sm:flex-wrap justify-start sm:justify-center gap-2 mb-8 sm:mb-10 max-w-full">
           {programs.map((prog, idx) => (
             <button
@@ -183,7 +183,7 @@ export default function ProgramsSection() {
               {/* Action Buttons */}
               <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <Link
-                  to="/login"
+                  to="/portal/auth/v1/account-access"
                   className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 text-white font-bold text-xs shadow-lg shadow-cyan-500/20 hover:scale-105 transition-all flex items-center justify-center gap-2"
                 >
                   <span>Enroll In Bootcamp</span>
@@ -262,7 +262,7 @@ export default function ProgramsSection() {
 
               <div className="flex justify-end">
                 <Link
-                  to="/login"
+                  to="/portal/auth/v1/account-access"
                   className="px-6 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-bold text-xs"
                 >
                   Enroll Now →

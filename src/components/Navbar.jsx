@@ -29,7 +29,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
-        {/* Clean Text Brand Logo (No image icon in navbar as requested) */}
+        {/* Clean Text Brand Logo */}
         <Link to="/" className="flex flex-col text-left group select-none">
           <div className="font-extrabold tracking-wide text-xl sm:text-2xl leading-none text-slate-900">
             <span>TURING </span>
@@ -65,7 +65,7 @@ export default function Navbar() {
           </a>
 
           <Link
-            to="/login"
+            to="/portal/auth/v1/account-access"
             className="px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 text-white font-bold text-sm shadow-md shadow-cyan-500/20 hover:shadow-lg hover:scale-[1.02] transition-all flex items-center gap-1.5 group"
           >
             <Sparkles className="w-4 h-4 text-cyan-200 animate-pulse" />
@@ -108,7 +108,7 @@ export default function Navbar() {
                 Explore Programs
               </a>
               <Link
-                to="/login"
+                to="/portal/auth/v1/account-access"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full text-center py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-bold shadow-md"
               >

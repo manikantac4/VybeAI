@@ -136,7 +136,7 @@ export default function ReviewsSection() {
             </p>
             <div className="pt-2 flex justify-center">
               <Link
-                to="/login"
+                to="/portal/auth/v1/account-access"
                 className="px-8 py-3.5 rounded-full bg-white text-slate-900 font-bold text-sm shadow-lg hover:bg-slate-100 hover:scale-105 transition-all flex items-center gap-2"
               >
                 <span>Start Building Now</span>
