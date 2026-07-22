@@ -12,12 +12,24 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Home", href: "#hero" },
-    { name: "Programs", href: "#programs" },
-    { name: "Reviews", href: "#reviews" },
-    { name: "About", href: "#mission-vision" },
-  ];
+const navLinks = [
+  {
+    name: "Home",
+    href: "/portal/core/v1/dashboard-overview",
+  },
+  {
+    name: "Programs",
+    href: "/portal/services/v2/program-catalog",
+  },
+  {
+    name: "Reviews",
+    href: "/portal/analytics/v1/feedback-center",
+  },
+  {
+    name: "About",
+    href: "/portal/system/v1/organization-profile",
+  },
+];
 
   return (
     <header
