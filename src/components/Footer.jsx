@@ -29,10 +29,10 @@ export default function Footer() {
           <div className="md:col-span-3 space-y-3 text-left">
             <h4 className="text-sm font-bold uppercase tracking-wider text-cyan-400 font-mono">Navigation</h4>
             <ul className="space-y-2 text-xs text-slate-300">
-              <li><a href="#hero" className="hover:text-cyan-400 transition-colors">Home</a></li>
-              <li><a href="#mission-vision" className="hover:text-cyan-400 transition-colors">About & Vision</a></li>
-              <li><a href="#programs" className="hover:text-cyan-400 transition-colors">Initial Programs</a></li>
-              <li><a href="#reviews" className="hover:text-cyan-400 transition-colors">Creator Reviews</a></li>
+              <li><Link to="/portal/core/v1/dashboard-overview" className="hover:text-cyan-400 transition-colors">Home</Link></li>
+              <li><Link to="/portal/system/v1/organization-profile" className="hover:text-cyan-400 transition-colors">About & Vision</Link></li>
+              <li><Link to="/portal/services/v2/program-catalog" className="hover:text-cyan-400 transition-colors">Initial Programs</Link></li>
+              <li><Link to="/portal/analytics/v1/feedback-center" className="hover:text-cyan-400 transition-colors">Creator Reviews</Link></li>
               <li><Link to="/portal/auth/v1/account-access" className="hover:text-cyan-400 transition-colors">Login / Portal</Link></li>
             </ul>
           </div>

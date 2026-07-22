@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ArrowRight, Sparkles } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -12,24 +13,24 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-const navLinks = [
-  {
-    name: "Home",
-    href: "/portal/core/v1/dashboard-overview",
-  },
-  {
-    name: "Programs",
-    href: "/portal/services/v2/program-catalog",
-  },
-  {
-    name: "Reviews",
-    href: "/portal/analytics/v1/feedback-center",
-  },
-  {
-    name: "About",
-    href: "/portal/system/v1/organization-profile",
-  },
-];
+  const navLinks = [
+    {
+      name: "Home",
+      href: "/portal/core/v1/dashboard-overview",
+    },
+    {
+      name: "Programs",
+      href: "/portal/services/v2/program-catalog",
+    },
+    {
+      name: "Reviews",
+      href: "/portal/analytics/v1/feedback-center",
+    },
+    {
+      name: "About",
+      href: "/portal/system/v1/organization-profile",
+    },
+  ];
 
   return (
     <header
@@ -56,25 +57,30 @@ const navLinks = [
 
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-sm font-semibold text-slate-700 hover:text-cyan-600 transition-colors"
-            >
-              {link.name}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.href;
+            return (
+              <Link
+                key={link.name}
+                to={link.href}
+                className={`text-sm font-semibold transition-colors ${
+                  isActive ? "text-cyan-600 font-bold" : "text-slate-700 hover:text-cyan-600"
+                }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Action CTAs */}
         <div className="hidden md:flex items-center gap-4">
-          <a
-            href="#programs"
+          <Link
+            to="/portal/services/v2/program-catalog"
             className="px-5 py-2 rounded-full border border-slate-200 text-slate-700 font-bold text-sm hover:border-cyan-500 hover:text-cyan-600 transition-all"
           >
             Explore Programs
-          </a>
+          </Link>
 
           <Link
             to="/portal/auth/v1/account-access"
@@ -102,23 +108,23 @@ const navLinks = [
         <div className="md:hidden bg-white border-b border-slate-200 px-6 py-6 space-y-4 shadow-xl">
           <div className="flex flex-col gap-4">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-base font-semibold text-slate-800 hover:text-cyan-600 py-1"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
             <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
-              <a
-                href="#programs"
+              <Link
+                to="/portal/services/v2/program-catalog"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full text-center py-2.5 rounded-full border border-slate-200 text-slate-700 font-bold"
               >
                 Explore Programs
-              </a>
+              </Link>
               <Link
                 to="/portal/auth/v1/account-access"
                 onClick={() => setMobileMenuOpen(false)}

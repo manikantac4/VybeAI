@@ -71,7 +71,7 @@ export default function HeroSection() {
               </Link>
 
               <a
-                href="#programs"
+                href="/portal/services/v2/program-catalog"
                 className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-slate-50 border border-slate-200 text-slate-700 font-bold text-sm hover:border-cyan-500 hover:text-cyan-600 transition-all text-center shadow-sm"
               >
                 Explore Programs
