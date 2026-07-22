@@ -38,7 +38,7 @@ export default function MissionVisionSection() {
 
             <motion.blockquote variants={fadeInUp} className="text-xl sm:text-2xl font-serif italic text-slate-800 py-3.5 border-l-4 border-cyan-500 pl-4 bg-white shadow-sm rounded-r-2xl">
               “Digital creation and modern technology for everyone, at every level.”
-            </blockquote>
+            </motion.blockquote>
 
             {/* Stats Row */}
             <motion.div variants={fadeInUp} className="grid grid-cols-3 gap-3 sm:gap-4 pt-2">
