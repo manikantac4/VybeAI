@@ -1,8 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import VisionMissionImg from "../assets/visionmission2.png";
 
 export default function MissionVisionSection() {
+  const visionMissionImageUrl = "https://res.cloudinary.com/dihdjq2u4/image/upload/v1784740534/Gemini_Generated_Image_vp0ik0vp0ik0vp0i_cg1dcl.png";
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 25 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
@@ -37,7 +38,7 @@ export default function MissionVisionSection() {
 
             <motion.blockquote variants={fadeInUp} className="text-xl sm:text-2xl font-serif italic text-slate-800 py-3.5 border-l-4 border-cyan-500 pl-4 bg-white shadow-sm rounded-r-2xl">
               “Digital creation and modern technology for everyone, at every level.”
-            </motion.blockquote>
+            </blockquote>
 
             {/* Stats Row */}
             <motion.div variants={fadeInUp} className="grid grid-cols-3 gap-3 sm:gap-4 pt-2">
@@ -57,7 +58,7 @@ export default function MissionVisionSection() {
 
           </motion.div>
 
-          {/* Right Column: Team Illustration & About Us Card */}
+          {/* Right Column: Cloudinary Team Illustration & About Us Card */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -72,7 +73,7 @@ export default function MissionVisionSection() {
               className="rounded-3xl bg-white border border-slate-200/80 p-3 sm:p-4 shadow-lg overflow-hidden"
             >
               <img
-                src={VisionMissionImg}
+                src={visionMissionImageUrl}
                 alt="Creation Workspace"
                 className="w-full h-auto object-cover rounded-2xl"
               />

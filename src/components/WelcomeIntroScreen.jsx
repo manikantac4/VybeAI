@@ -1,10 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import IntroVideo from "../assets/intro.mp4";
 
 export default function WelcomeIntroScreen({ onComplete }) {
   const videoRef = useRef(null);
   const [fade, setFade] = useState(false);
+
+  const introVideoUrl = "https://res.cloudinary.com/dihdjq2u4/video/upload/v1784740155/logoremover_1784739841824_cu1hlw.mp4";
 
   const handleFinish = () => {
     if (fade) return;
@@ -25,7 +26,7 @@ export default function WelcomeIntroScreen({ onComplete }) {
     // Safety fallback timer if video fails to emit ended event
     const timer = setTimeout(() => {
       handleFinish();
-    }, 5500);
+    }, 6000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -35,13 +36,13 @@ export default function WelcomeIntroScreen({ onComplete }) {
       initial={{ opacity: 1 }}
       animate={fade ? { opacity: 0 } : { opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
-      className="fixed inset-0 z-9999 bg-black flex items-center justify-center overflow-hidden select-none"
+      className="fixed inset-0 z-[9999] bg-black flex items-center justify-center overflow-hidden select-none"
     >
-      {/* Pure Fullscreen HD Video (No overlays on top) */}
+      {/* Pure Fullscreen HD Cloudinary Video */}
       <div className="absolute inset-0 flex items-center justify-center bg-black">
         <video
           ref={videoRef}
-          src={IntroVideo}
+          src={introVideoUrl}
           autoPlay
           muted
           playsInline

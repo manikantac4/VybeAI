@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import NewHeroImg from "../assets/newhero.png";
 
 export default function HeroSection() {
+  const heroImageUrl = "https://res.cloudinary.com/dihdjq2u4/image/upload/v1784740319/Gemini_Generated_Image_gfh511gfh511gfh5_qo5hc8.png";
+
   return (
     <section id="hero" className="relative pt-24 pb-16 sm:pt-32 sm:pb-24 bg-white text-slate-900 min-h-[85vh] sm:min-h-[92vh] flex items-center scroll-mt-20 select-none">
       
@@ -92,10 +93,10 @@ export default function HeroSection() {
 
           </div>
 
-          {/* Right Column: Direct 3D Rocket Image tailored for Mobile & Desktop */}
+          {/* Right Column: Cloudinary Hero Image */}
           <div className="lg:col-span-6 flex items-center justify-center mt-4 lg:mt-0">
             <motion.img
-              src={NewHeroImg}
+              src={heroImageUrl}
               alt="Build Beyond Limits with AI"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
