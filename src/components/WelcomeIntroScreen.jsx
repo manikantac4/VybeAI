@@ -35,7 +35,7 @@ export default function WelcomeIntroScreen({ onComplete }) {
       initial={{ opacity: 1 }}
       animate={fade ? { opacity: 0 } : { opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
-      className="fixed inset-0 z-[9999] bg-black flex items-center justify-center overflow-hidden select-none"
+      className="fixed inset-0 z-9999 bg-black flex items-center justify-center overflow-hidden select-none"
     >
       {/* Pure Fullscreen HD Video (No overlays on top) */}
       <div className="absolute inset-0 flex items-center justify-center bg-black">
