@@ -7,6 +7,7 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useTheme } from "../context/ThemeContext";
+import LayeredMetallicGoldButton from "../components/LayeredMetallicGoldButton";
 
 export default function ContactPage() {
   const { theme } = useTheme();
@@ -430,25 +431,25 @@ export default function ContactPage() {
               </div>
 
               {/* Animated Submit Button */}
-              <motion.button
-                type="submit"
-                disabled={isSubmitting}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 text-slate-950 font-extrabold text-xs shadow-lg shadow-amber-500/20 hover:opacity-95 transition-all flex items-center justify-center gap-2 mt-3"
-              >
-                {isSubmitting ? (
-                  <span className="flex items-center gap-2">
-                    <span className="w-4 h-4 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin" />
-                    <span>Sending Message...</span>
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">
-                    <Send className="w-4 h-4 text-slate-950" />
-                    <span>Submit Query</span>
-                  </span>
-                )}
-              </motion.button>
+              <div className="pt-2 flex justify-center w-full">
+                <LayeredMetallicGoldButton
+                  type="submit"
+                  disabled={isSubmitting}
+                  size="md"
+                  className="w-full text-center"
+                >
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-2 text-amber-300">
+                      <span className="w-3.5 h-3.5 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
+                      <span>Sending Message...</span>
+                    </span>
+                  ) : (
+                    <span className="bg-gradient-to-b from-[#ffffff] via-[#f7d774] to-[#e2b740] bg-clip-text text-transparent font-serif italic">
+                      Submit Query
+                    </span>
+                  )}
+                </LayeredMetallicGoldButton>
+              </div>
 
             </form>
           </motion.div>

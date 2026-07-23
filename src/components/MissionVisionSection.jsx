@@ -22,13 +22,13 @@ export default function MissionVisionSection() {
         isLight ? "bg-[#f8f6f0] text-slate-900" : "bg-[#0b0e17] text-slate-100"
       }`}
     >
-      {/* Ambient Gold Glows */}
+      {/* Static Ambient Gold Glows */}
       <div className={`absolute top-1/3 left-10 w-96 h-96 rounded-full blur-[140px] pointer-events-none ${
-        isLight ? "bg-amber-200/30" : "bg-amber-500/10"
+        isLight ? "bg-amber-300/30" : "bg-amber-500/15"
       }`} />
       
       <div className={`absolute bottom-10 right-10 w-96 h-96 rounded-full blur-[140px] pointer-events-none ${
-        isLight ? "bg-yellow-200/30" : "bg-yellow-500/10"
+        isLight ? "bg-yellow-300/30" : "bg-yellow-500/15"
       }`} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

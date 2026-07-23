@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Clock, ArrowRight, Check, Sparkles, X } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import LayeredMetallicGoldButton from "./LayeredMetallicGoldButton";
 
 export default function ProgramsSection() {
   const [activeCourseIndex, setActiveCourseIndex] = useState(0);
@@ -103,13 +104,13 @@ export default function ProgramsSection() {
         isLight ? "bg-[#f8fffe] text-slate-900" : "bg-[#0a0d14] text-slate-100"
       }`}
     >
-      {/* Ambient Gold Mesh Glow */}
+      {/* Static Ambient Gold Mesh Glow */}
       <div className={`absolute top-1/4 right-10 w-[500px] h-[500px] rounded-full blur-[160px] pointer-events-none ${
-        isLight ? "bg-amber-200/30" : "bg-amber-500/10"
+        isLight ? "bg-amber-300/30" : "bg-amber-500/15"
       }`} />
       
       <div className={`absolute bottom-10 left-10 w-[500px] h-[500px] rounded-full blur-[160px] pointer-events-none ${
-        isLight ? "bg-yellow-200/30" : "bg-yellow-500/10"
+        isLight ? "bg-yellow-300/30" : "bg-yellow-500/15"
       }`} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -216,20 +217,19 @@ export default function ProgramsSection() {
 
               {/* Action Buttons */}
               <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <Link
+                <LayeredMetallicGoldButton
+                  text="Enroll In Bootcamp"
                   to="/portal/auth/v1/account-access"
-                  className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 text-slate-950 font-extrabold text-xs shadow-lg shadow-amber-500/20 hover:scale-105 transition-all flex items-center justify-center gap-2"
-                >
-                  <span>Enroll In Bootcamp</span>
-                  <ArrowRight className="w-4 h-4 text-slate-950" />
-                </Link>
+                  size="md"
+                />
 
                 <button
+                  type="button"
                   onClick={() => setSelectedModal(activeCourse)}
-                  className={`w-full sm:w-auto px-6 py-3.5 rounded-full font-bold text-xs transition-all text-center border ${
+                  className={`w-full sm:w-auto px-6 py-3.5 rounded-full font-bold text-xs transition-all text-center border my-1.5 ${
                     isLight
-                      ? "bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-200"
-                      : "bg-slate-800 hover:bg-slate-700 text-amber-200 border-amber-500/20"
+                      ? "bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-200 shadow-sm"
+                      : "bg-slate-800 hover:bg-slate-700 text-amber-200 border-amber-500/20 shadow-sm"
                   }`}
                 >
                   View Quick Syllabus

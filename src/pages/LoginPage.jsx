@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import TuringWingsLogo from "../components/TuringWingsLogo";
 import LoginBackgroundImg from "../assets/loginbackground.png";
 import { useTheme } from "../context/ThemeContext";
+import LayeredMetallicGoldButton from "../components/LayeredMetallicGoldButton";
 import {
   ArrowLeft, Mail, Lock, User, Eye, EyeOff, CheckCircle2,
   ShieldCheck, RefreshCw, Check, AlertCircle, Sun, Moon
@@ -399,24 +400,27 @@ export default function LoginPage() {
           </div>
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 text-slate-950 font-extrabold text-xs shadow-md hover:opacity-95 transition-all flex items-center justify-center gap-2 mt-2"
-          >
-            {isLoading ? (
-              <span className="flex items-center gap-2">
-                <span className="w-4 h-4 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin" />
-                <span>Processing...</span>
-              </span>
-            ) : (
-              <span>
-                {mode === "login" && "Sign In To Hub"}
-                {mode === "signup" && "Create Account"}
-                {mode === "reset" && "Send Reset Link"}
-              </span>
-            )}
-          </button>
+          <div className="pt-2 flex justify-center w-full">
+            <LayeredMetallicGoldButton
+              type="submit"
+              disabled={isLoading}
+              size="md"
+              className="w-full text-center"
+            >
+              {isLoading ? (
+                <span className="flex items-center gap-2 text-amber-300">
+                  <span className="w-3.5 h-3.5 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
+                  <span>Processing...</span>
+                </span>
+              ) : (
+                <span className="bg-gradient-to-b from-[#ffffff] via-[#f7d774] to-[#e2b740] bg-clip-text text-transparent font-serif italic">
+                  {mode === "login" && "Sign In To Hub"}
+                  {mode === "signup" && "Create Account"}
+                  {mode === "reset" && "Send Reset Link"}
+                </span>
+              )}
+            </LayeredMetallicGoldButton>
+          </div>
 
         </form>
 
