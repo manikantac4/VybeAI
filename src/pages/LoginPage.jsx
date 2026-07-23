@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import UpdatedLogo from "../assets/updatedlogo.png";
+import TuringWingsLogo from "../components/TuringWingsLogo";
 import LoginBackgroundImg from "../assets/loginbackground.png";
 import { useTheme } from "../context/ThemeContext";
 import {
@@ -133,11 +133,7 @@ export default function LoginPage() {
               {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
             </button>
 
-            <img
-              src={UpdatedLogo}
-              alt="Turing Wings Logo"
-              className="h-9 sm:h-11 w-auto object-contain rounded-xl shadow-sm"
-            />
+            <TuringWingsLogo size="sm" />
           </div>
         </div>
 

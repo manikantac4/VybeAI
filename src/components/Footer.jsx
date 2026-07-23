@@ -17,7 +17,7 @@ export default function Footer() {
           
           {/* Column 1: Brand Logo & Tagline */}
           <div className="md:col-span-6 space-y-4 text-left">
-            <TuringWingsLogo size="lg" />
+            <TuringWingsLogo size="lg" forceWhiteText={true} />
 
             <p className="text-sm text-slate-400 max-w-md leading-relaxed mt-3">
               An ecosystem of creators, innovators, builders, and future thinkers who believe modern technology, AI, and digital creation should be accessible, inspiring, collaborative, and empowering for everyone.
@@ -32,6 +32,7 @@ export default function Footer() {
               <li><Link to="/portal/system/v1/organization-profile" className="hover:text-amber-400 transition-colors">About & Vision</Link></li>
               <li><Link to="/portal/services/v2/program-catalog" className="hover:text-amber-400 transition-colors">Initial Programs</Link></li>
               <li><Link to="/portal/analytics/v1/feedback-center" className="hover:text-amber-400 transition-colors">Creator Reviews</Link></li>
+              <li><Link to="/portal/support/v1/contact-team" className="hover:text-amber-400 transition-colors">Contact Team</Link></li>
               <li><Link to="/portal/auth/v1/account-access" className="hover:text-amber-400 transition-colors">Login / Portal</Link></li>
             </ul>
           </div>

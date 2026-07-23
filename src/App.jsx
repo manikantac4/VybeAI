@@ -7,6 +7,7 @@ import ProgramsSection from "./components/ProgramsSection";
 import ReviewsSection from "./components/ReviewsSection";
 import Footer from "./components/Footer";
 import LoginPage from "./pages/LoginPage";
+import ContactPage from "./pages/ContactPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import WelcomeIntroScreen from "./components/WelcomeIntroScreen";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
@@ -90,6 +91,8 @@ export default function App() {
           <Route path="/portal/services/v2/program-catalog" element={<HomePage scrollTo="programs" />} />
           <Route path="/portal/analytics/v1/feedback-center" element={<HomePage scrollTo="reviews" />} />
           <Route path="/portal/system/v1/organization-profile" element={<HomePage scrollTo="mission-vision" />} />
+          <Route path="/portal/support/v1/contact-team" element={<ContactPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/portal/auth/v1/account-access" element={<LoginPage />} />
           
           {/* Wildcard 404 Route */}

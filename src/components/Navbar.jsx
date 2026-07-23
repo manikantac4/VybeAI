@@ -33,6 +33,10 @@ export default function Navbar() {
       name: "About",
       href: "/portal/system/v1/organization-profile",
     },
+    {
+      name: "Contact",
+      href: "/portal/support/v1/contact-team",
+    },
   ];
 
   const isLight = theme === "light";
