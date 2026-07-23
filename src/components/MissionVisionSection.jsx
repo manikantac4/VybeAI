@@ -1,8 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
 
 export default function MissionVisionSection() {
-  const visionMissionImageUrl = "https://res.cloudinary.com/dihdjq2u4/image/upload/v1784740534/Gemini_Generated_Image_vp0ik0vp0ik0vp0i_cg1dcl.png";
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
+  // Theme-Specific Cloudinary Images
+  const whiteThemeImageUrl = "https://res.cloudinary.com/dihdjq2u4/image/upload/v1784774301/Gemini_Generated_Image_qgte8zqgte8zqgte_iboacn.png";
+  const darkThemeImageUrl = "https://res.cloudinary.com/dihdjq2u4/image/upload/v1784774214/wmremove-transformed_2_vnrirn.png";
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 25 },
@@ -10,7 +16,21 @@ export default function MissionVisionSection() {
   };
 
   return (
-    <section id="mission-vision" className="py-20 md:py-28 bg-slate-50/50 text-slate-900 relative overflow-hidden scroll-mt-24 select-none">
+    <section
+      id="mission-vision"
+      className={`py-20 md:py-28 relative overflow-hidden scroll-mt-24 select-none transition-colors duration-500 ${
+        isLight ? "bg-[#f8f6f0] text-slate-900" : "bg-[#0b0e17] text-slate-100"
+      }`}
+    >
+      {/* Ambient Gold Glows */}
+      <div className={`absolute top-1/3 left-10 w-96 h-96 rounded-full blur-[140px] pointer-events-none ${
+        isLight ? "bg-amber-200/30" : "bg-amber-500/10"
+      }`} />
+      
+      <div className={`absolute bottom-10 right-10 w-96 h-96 rounded-full blur-[140px] pointer-events-none ${
+        isLight ? "bg-yellow-200/30" : "bg-yellow-500/10"
+      }`} />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Top Grid: Title & Illustration */}
@@ -27,38 +47,52 @@ export default function MissionVisionSection() {
             className="lg:col-span-6 space-y-6 text-left"
           >
             
-            <motion.h2 variants={fadeInUp} className="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif italic text-slate-900 leading-tight">
+            <motion.h2 variants={fadeInUp} className={`text-4xl sm:text-5xl lg:text-6xl font-extrabold font-serif italic leading-tight ${
+              isLight ? "text-slate-900" : "text-white"
+            }`}>
               Mission <br />
-              <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 bg-clip-text text-transparent">& Vision</span>
+              <span className="bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 bg-clip-text text-transparent">& Vision</span>
             </motion.h2>
 
-            <motion.p variants={fadeInUp} className="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
+            <motion.p variants={fadeInUp} className={`text-base sm:text-lg max-w-xl leading-relaxed ${
+              isLight ? "text-slate-600" : "text-slate-300"
+            }`}>
               Our core goal is to provide every student, creator, and innovator a simple and empowering way to grow — using the most innovative AI-powered tools and modern creator workflows available today.
             </motion.p>
 
-            <motion.blockquote variants={fadeInUp} className="text-xl sm:text-2xl font-serif italic text-slate-800 py-3.5 border-l-4 border-cyan-500 pl-4 bg-white shadow-sm rounded-r-2xl">
+            <motion.blockquote variants={fadeInUp} className={`text-xl sm:text-2xl font-serif italic py-3.5 border-l-4 border-amber-500 pl-4 shadow-sm rounded-r-2xl ${
+              isLight
+                ? "bg-[#ede8db]/70 text-slate-800 border-r border-t border-b border-[#d8d0be]"
+                : "bg-slate-900/90 text-amber-200 border-r border-t border-b border-amber-500/20 shadow-md"
+            }`}>
               “Digital creation and modern technology for everyone, at every level.”
             </motion.blockquote>
 
             {/* Stats Row */}
             <motion.div variants={fadeInUp} className="grid grid-cols-3 gap-3 sm:gap-4 pt-2">
-              <motion.div whileHover={{ y: -4 }} className="bg-white border border-slate-200/80 rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all">
-                <p className="text-2xl sm:text-3xl font-bold font-serif italic bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">4+</p>
-                <p className="text-xs text-slate-500 font-semibold mt-1">Launch Programs</p>
+              <motion.div whileHover={{ y: -4 }} className={`rounded-2xl p-4 text-center border shadow-sm transition-all ${
+                isLight ? "bg-[#ede8db]/60 border-[#d8d0be]" : "bg-slate-900 border-amber-500/25"
+              }`}>
+                <p className="text-2xl sm:text-3xl font-bold font-serif italic bg-gradient-to-r from-amber-500 to-yellow-500 bg-clip-text text-transparent">4+</p>
+                <p className={`text-xs font-semibold mt-1 ${isLight ? "text-slate-600" : "text-slate-400"}`}>Launch Programs</p>
               </motion.div>
-              <motion.div whileHover={{ y: -4 }} className="bg-white border border-slate-200/80 rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all">
-                <p className="text-2xl sm:text-3xl font-bold font-serif italic bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">∞</p>
-                <p className="text-xs text-slate-500 font-semibold mt-1">Creator Community</p>
+              <motion.div whileHover={{ y: -4 }} className={`rounded-2xl p-4 text-center border shadow-sm transition-all ${
+                isLight ? "bg-[#ede8db]/60 border-[#d8d0be]" : "bg-slate-900 border-amber-500/25"
+              }`}>
+                <p className="text-2xl sm:text-3xl font-bold font-serif italic bg-gradient-to-r from-amber-500 to-yellow-500 bg-clip-text text-transparent">∞</p>
+                <p className={`text-xs font-semibold mt-1 ${isLight ? "text-slate-600" : "text-slate-400"}`}>Creator Community</p>
               </motion.div>
-              <motion.div whileHover={{ y: -4 }} className="bg-white border border-slate-200/80 rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all">
-                <p className="text-2xl sm:text-3xl font-bold font-serif italic bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">AI</p>
-                <p className="text-xs text-slate-500 font-semibold mt-1">Powered Workflows</p>
+              <motion.div whileHover={{ y: -4 }} className={`rounded-2xl p-4 text-center border shadow-sm transition-all ${
+                isLight ? "bg-[#ede8db]/60 border-[#d8d0be]" : "bg-slate-900 border-amber-500/25"
+              }`}>
+                <p className="text-2xl sm:text-3xl font-bold font-serif italic bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">AI</p>
+                <p className={`text-xs font-semibold mt-1 ${isLight ? "text-slate-600" : "text-slate-400"}`}>Powered Workflows</p>
               </motion.div>
             </motion.div>
 
           </motion.div>
 
-          {/* Right Column: Cloudinary Team Illustration & About Us Card */}
+          {/* Right Column: Theme-Specific Image & About Us Card */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -70,31 +104,37 @@ export default function MissionVisionSection() {
             <motion.div
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.3 }}
-              className="rounded-3xl bg-white border border-slate-200/80 p-3 sm:p-4 shadow-lg overflow-hidden"
+              className={`rounded-3xl border p-3 sm:p-4 shadow-lg overflow-hidden ${
+                isLight ? "bg-[#ede8db]/60 border-[#d8d0be]" : "bg-slate-900 border-amber-500/20"
+              }`}
             >
               <img
-                src={visionMissionImageUrl}
+                src={isLight ? whiteThemeImageUrl : darkThemeImageUrl}
                 alt="Creation Workspace"
                 className="w-full h-auto object-cover rounded-2xl"
               />
             </motion.div>
 
             {/* About Us Card */}
-            <motion.div whileHover={{ y: -3 }} className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm flex items-start gap-4">
+            <motion.div whileHover={{ y: -3 }} className={`rounded-2xl p-6 shadow-sm flex items-start gap-4 border ${
+              isLight ? "bg-[#ede8db]/60 border-[#d8d0be]" : "bg-slate-900 border-amber-500/20"
+            }`}>
               <div className="space-y-2 text-left w-full">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-base font-bold text-slate-900">About Us</h3>
+                  <h3 className={`text-base font-bold ${isLight ? "text-slate-900" : "text-white"}`}>About Us</h3>
                   
                   {/* SVG Neural Badge */}
-                  <span className="px-3 py-1 rounded-full bg-cyan-50 text-cyan-700 text-[10px] font-bold tracking-wider uppercase border border-cyan-200 inline-flex items-center gap-1.5">
-                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <span className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase border inline-flex items-center gap-1.5 ${
+                    isLight ? "bg-amber-100/80 border-amber-300 text-amber-900" : "bg-amber-500/10 border-amber-500/30 text-amber-300"
+                  }`}>
+                    <svg className="w-3.5 h-3.5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="3" />
                       <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
                     </svg>
                     <span>AI FIRST</span>
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                <p className={`text-xs sm:text-sm leading-relaxed ${isLight ? "text-slate-700" : "text-slate-300"}`}>
                   Turing Wings / VybeAI was built by young, creative, and passionate individuals who believe technology should be accessible to everyone. We combine AI tools, creator mindsets, and practical learning to transform curious beginners into confident builders.
                 </p>
               </div>
@@ -114,22 +154,25 @@ export default function MissionVisionSection() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6 }}
             whileHover={{ y: -6, scale: 1.01 }}
-            className="bg-white border border-slate-200/80 rounded-3xl p-7 sm:p-8 text-left shadow-lg relative overflow-hidden group hover:border-cyan-500/50 hover:shadow-xl transition-all"
+            className={`rounded-3xl p-7 sm:p-8 text-left shadow-lg relative overflow-hidden group border transition-all ${
+              isLight ? "bg-[#ede8db]/60 border-[#d8d0be] hover:border-amber-500/50" : "bg-slate-900 border-amber-500/20 hover:border-amber-400/50"
+            }`}
           >
-            {/* SVG Vision Eye Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-50 text-cyan-700 text-xs font-bold uppercase tracking-wider mb-6 border border-cyan-200">
-              <svg className="w-4 h-4 text-cyan-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6 border ${
+              isLight ? "bg-amber-100/80 border-amber-300 text-amber-900" : "bg-amber-500/10 border-amber-500/30 text-amber-300"
+            }`}>
+              <svg className="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
                 <circle cx="12" cy="12" r="3" />
               </svg>
               <span>OUR VISION</span>
             </div>
             
-            <h3 className="text-2xl font-bold font-serif italic text-slate-900 mb-4">
+            <h3 className={`text-2xl font-bold font-serif italic mb-4 ${isLight ? "text-slate-900" : "text-white"}`}>
               Build a Generation of Confident Creators
             </h3>
             
-            <p className="text-sm text-slate-600 leading-relaxed">
+            <p className={`text-sm leading-relaxed ${isLight ? "text-slate-700" : "text-slate-300"}`}>
               To build a generation of confident creators, innovators, and future-ready individuals by making modern technology, AI, and digital creation accessible, practical, and inspiring for everyone willing to build and grow.
             </p>
           </motion.div>
@@ -141,11 +184,14 @@ export default function MissionVisionSection() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, delay: 0.15 }}
             whileHover={{ y: -6, scale: 1.01 }}
-            className="bg-white border border-slate-200/80 rounded-3xl p-7 sm:p-8 text-left shadow-lg relative overflow-hidden group hover:border-purple-500/50 hover:shadow-xl transition-all"
+            className={`rounded-3xl p-7 sm:p-8 text-left shadow-lg relative overflow-hidden group border transition-all ${
+              isLight ? "bg-[#ede8db]/60 border-[#d8d0be] hover:border-amber-500/50" : "bg-slate-900 border-amber-500/20 hover:border-amber-400/50"
+            }`}
           >
-            {/* SVG Mission Target / Rocket Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 text-purple-700 text-xs font-bold uppercase tracking-wider mb-6 border border-purple-200">
-              <svg className="w-4 h-4 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6 border ${
+              isLight ? "bg-amber-100/80 border-amber-300 text-amber-900" : "bg-amber-500/10 border-amber-500/30 text-amber-300"
+            }`}>
+              <svg className="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="12" r="10" />
                 <circle cx="12" cy="12" r="6" />
                 <circle cx="12" cy="12" r="2" />
@@ -153,11 +199,11 @@ export default function MissionVisionSection() {
               <span>OUR MISSION</span>
             </div>
 
-            <h3 className="text-2xl font-bold font-serif italic text-slate-900 mb-4">
+            <h3 className={`text-2xl font-bold font-serif italic mb-4 ${isLight ? "text-slate-900" : "text-white"}`}>
               Simplify. Empower. Transform.
             </h3>
 
-            <p className="text-sm text-slate-600 leading-relaxed">
+            <p className={`text-sm leading-relaxed ${isLight ? "text-slate-700" : "text-slate-300"}`}>
               To simplify modern technology and AI-assisted creation, introduce modern creator workflows, encourage practical project-based learning, and build innovation-focused ecosystems where learning, building, collaboration, and growth happen together.
             </p>
           </motion.div>

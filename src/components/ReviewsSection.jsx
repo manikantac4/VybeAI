@@ -2,8 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Star, ArrowRight } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 export default function ReviewsSection() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   const reviews = [
     {
       name: "Aarav Sharma",
@@ -12,7 +16,7 @@ export default function ReviewsSection() {
       rating: 5,
       comment: "Turing Wings transformed how I think about building software. Vibe Coding allowed me to build a functional AI SaaS prototype in just 3 days!",
       badge: "Vibe Coding Cohort",
-      badgeColor: "bg-cyan-50 text-cyan-700 border-cyan-200"
+      badgeColor: isLight ? "bg-amber-50 text-amber-800 border-amber-200" : "bg-amber-500/10 text-amber-300 border-amber-500/30"
     },
     {
       name: "Priya Patel",
@@ -21,7 +25,7 @@ export default function ReviewsSection() {
       rating: 5,
       comment: "I had zero backend coding experience. The AI Web Creation bootcamp made modern development so simple, practical, and inspiring.",
       badge: "Web Creation Bootcamp",
-      badgeColor: "bg-purple-50 text-purple-700 border-purple-200"
+      badgeColor: isLight ? "bg-yellow-50 text-yellow-800 border-yellow-200" : "bg-yellow-500/10 text-yellow-300 border-yellow-500/30"
     },
     {
       name: "Rohan Verma",
@@ -30,7 +34,7 @@ export default function ReviewsSection() {
       rating: 5,
       comment: "The buildathons are high-energy and hands-on. I met amazing collaborators and launched our first MVP live in front of mentors!",
       badge: "Buildathon Sprint",
-      badgeColor: "bg-blue-50 text-blue-700 border-blue-200"
+      badgeColor: isLight ? "bg-amber-50 text-amber-800 border-amber-200" : "bg-amber-500/15 text-amber-200 border-amber-500/35"
     },
     {
       name: "Ananya Gupta",
@@ -39,15 +43,25 @@ export default function ReviewsSection() {
       rating: 5,
       comment: "Learning by creating is 100% real here. No endless boring theory — just pure building with modern AI workflows and tools.",
       badge: "AI Tools & Workflows",
-      badgeColor: "bg-pink-50 text-pink-700 border-pink-200"
+      badgeColor: isLight ? "bg-yellow-50 text-yellow-800 border-yellow-200" : "bg-yellow-500/15 text-yellow-200 border-yellow-500/35"
     }
   ];
 
   return (
-    <section id="reviews" className="py-20 md:py-28 bg-[#f8fffe] text-slate-800 relative overflow-hidden scroll-mt-24 select-none">
-      {/* Background Soft Mesh Ambient Blobs */}
-      <div className="absolute top-1/3 left-10 w-96 h-96 bg-cyan-200/30 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-purple-200/30 rounded-full blur-[140px] pointer-events-none" />
+    <section
+      id="reviews"
+      className={`py-20 md:py-28 relative overflow-hidden scroll-mt-24 select-none transition-colors duration-500 ${
+        isLight ? "bg-[#f8fffe] text-slate-800" : "bg-[#0b0e17] text-slate-100"
+      }`}
+    >
+      {/* Ambient Gold Glows */}
+      <div className={`absolute top-1/3 left-10 w-96 h-96 rounded-full blur-[140px] pointer-events-none ${
+        isLight ? "bg-amber-200/30" : "bg-amber-500/10"
+      }`} />
+      
+      <div className={`absolute bottom-10 right-10 w-96 h-96 rounded-full blur-[140px] pointer-events-none ${
+        isLight ? "bg-yellow-200/30" : "bg-yellow-500/10"
+      }`} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -59,13 +73,19 @@ export default function ReviewsSection() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="px-4 py-1.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold uppercase tracking-wider border border-slate-200 inline-block mb-4 shadow-sm">
+          <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border inline-block mb-4 shadow-sm ${
+            isLight ? "bg-amber-50 border-amber-200 text-amber-800" : "bg-amber-500/10 border-amber-500/30 text-amber-300"
+          }`}>
             CREATOR TESTIMONIALS
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-serif italic text-slate-900 leading-tight">
-            What <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 bg-clip-text text-transparent">Creators & Students</span> Say
+          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-extrabold font-serif italic leading-tight ${
+            isLight ? "text-slate-900" : "text-white"
+          }`}>
+            What <span className="bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 bg-clip-text text-transparent">Creators & Students</span> Say
           </h2>
-          <p className="text-slate-600 text-base sm:text-lg mt-4 leading-relaxed">
+          <p className={`text-base sm:text-lg mt-4 leading-relaxed ${
+            isLight ? "text-slate-600" : "text-slate-300"
+          }`}>
             Hear from beginners, students, and innovators who built their first digital products using Turing Wings AI workflows.
           </p>
         </motion.div>
@@ -80,7 +100,9 @@ export default function ReviewsSection() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               whileHover={{ y: -6, scale: 1.01 }}
-              className="bg-white border border-slate-200/80 rounded-3xl p-7 sm:p-8 shadow-lg hover:shadow-xl hover:border-cyan-500/50 transition-all flex flex-col justify-between relative group text-left"
+              className={`rounded-3xl p-7 sm:p-8 shadow-lg hover:shadow-xl transition-all flex flex-col justify-between relative group text-left border ${
+                isLight ? "bg-white border-slate-200 hover:border-amber-500/50" : "bg-slate-900 border-amber-500/20 hover:border-amber-400/50"
+              }`}
             >
               <div>
                 {/* Top Rating & Badge */}
@@ -96,23 +118,25 @@ export default function ReviewsSection() {
                 </div>
 
                 {/* Comment Quote */}
-                <p className="text-sm sm:text-base text-slate-700 leading-relaxed italic mb-6">
+                <p className={`text-sm sm:text-base leading-relaxed italic mb-6 ${
+                  isLight ? "text-slate-700" : "text-slate-200"
+                }`}>
                   "{review.comment}"
                 </p>
               </div>
 
               {/* Author Footer */}
-              <div className="pt-4 border-t border-slate-100 flex items-center gap-3">
+              <div className={`pt-4 border-t flex items-center gap-3 ${isLight ? "border-slate-100" : "border-slate-800"}`}>
                 <img
                   src={review.avatar}
                   alt={review.name}
-                  className="w-11 h-11 rounded-full object-cover border-2 border-cyan-400 shadow-sm"
+                  className="w-11 h-11 rounded-full object-cover border-2 border-amber-400 shadow-sm"
                 />
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900 font-serif italic">
+                  <h4 className={`text-sm font-bold font-serif italic ${isLight ? "text-slate-900" : "text-white"}`}>
                     {review.name}
                   </h4>
-                  <p className="text-xs text-slate-500 font-medium">{review.role}</p>
+                  <p className={`text-xs font-medium ${isLight ? "text-slate-500" : "text-slate-400"}`}>{review.role}</p>
                 </div>
               </div>
             </motion.div>
@@ -125,22 +149,22 @@ export default function ReviewsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
-          className="rounded-3xl bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 p-8 sm:p-12 text-center text-white relative overflow-hidden shadow-xl"
+          className="rounded-3xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 p-8 sm:p-12 text-center text-slate-950 relative overflow-hidden shadow-xl"
         >
           <div className="max-w-2xl mx-auto space-y-4 relative z-10">
-            <h3 className="text-2xl sm:text-3xl font-extrabold font-serif italic">
+            <h3 className="text-2xl sm:text-3xl font-extrabold font-serif italic text-slate-950">
               Join 500+ Confident Creators Building Today
             </h3>
-            <p className="text-white/90 text-sm sm:text-base">
+            <p className="text-slate-950/90 font-medium text-sm sm:text-base">
               Start your journey from learning to creating. Master AI-powered workflows, vibe coding, and launch real digital projects.
             </p>
             <div className="pt-2 flex justify-center">
               <Link
                 to="/portal/auth/v1/account-access"
-                className="px-8 py-3.5 rounded-full bg-white text-slate-900 font-bold text-sm shadow-lg hover:bg-slate-100 hover:scale-105 transition-all flex items-center gap-2"
+                className="px-8 py-3.5 rounded-full bg-slate-950 text-amber-300 font-extrabold text-sm shadow-lg hover:bg-slate-900 hover:scale-105 transition-all flex items-center gap-2"
               >
                 <span>Start Building Now</span>
-                <ArrowRight className="w-4 h-4 text-cyan-600" />
+                <ArrowRight className="w-4 h-4 text-amber-400" />
               </Link>
             </div>
           </div>

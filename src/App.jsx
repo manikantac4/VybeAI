@@ -9,8 +9,11 @@ import Footer from "./components/Footer";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import WelcomeIntroScreen from "./components/WelcomeIntroScreen";
+import { ThemeProvider, useTheme } from "./context/ThemeContext";
 
 function HomePage({ scrollTo }) {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const [showIntro, setShowIntro] = useState(() => {
     const hasSeenIntro = sessionStorage.getItem("turing_wings_intro");
     return !hasSeenIntro;
@@ -35,7 +38,9 @@ function HomePage({ scrollTo }) {
   }, [scrollTo]);
 
   return (
-    <div className="w-full min-h-screen bg-[#f8fffe] text-slate-800 relative selection:bg-[#0d9488] selection:text-white">
+    <div className={`w-full min-h-screen relative selection:bg-amber-500 selection:text-slate-950 transition-colors duration-500 ${
+      isLight ? "bg-[#f8fffe] text-slate-800" : "bg-[#07090f] text-slate-100"
+    }`}>
       {/* Welcome Logo Animation */}
       {showIntro && <WelcomeIntroScreen onComplete={handleIntroComplete} />}
 
@@ -75,20 +80,22 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage scrollTo="hero" />} />
-        
-        {/* Enterprise Route Mappings */}
-        <Route path="/portal/core/v1/dashboard-overview" element={<HomePage scrollTo="hero" />} />
-        <Route path="/portal/services/v2/program-catalog" element={<HomePage scrollTo="programs" />} />
-        <Route path="/portal/analytics/v1/feedback-center" element={<HomePage scrollTo="reviews" />} />
-        <Route path="/portal/system/v1/organization-profile" element={<HomePage scrollTo="mission-vision" />} />
-        <Route path="/portal/auth/v1/account-access" element={<LoginPage />} />
-        
-        {/* Wildcard 404 Route */}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage scrollTo="hero" />} />
+          
+          {/* Enterprise Route Mappings */}
+          <Route path="/portal/core/v1/dashboard-overview" element={<HomePage scrollTo="hero" />} />
+          <Route path="/portal/services/v2/program-catalog" element={<HomePage scrollTo="programs" />} />
+          <Route path="/portal/analytics/v1/feedback-center" element={<HomePage scrollTo="reviews" />} />
+          <Route path="/portal/system/v1/organization-profile" element={<HomePage scrollTo="mission-vision" />} />
+          <Route path="/portal/auth/v1/account-access" element={<LoginPage />} />
+          
+          {/* Wildcard 404 Route */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
