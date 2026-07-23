@@ -5,6 +5,7 @@ import TuringWingsLogo from "../components/TuringWingsLogo";
 import LoginBackgroundImg from "../assets/loginbackground.png";
 import { useTheme } from "../context/ThemeContext";
 import LayeredMetallicGoldButton from "../components/LayeredMetallicGoldButton";
+import Global3DBackground from "../components/Global3DBackground";
 import {
   ArrowLeft, Mail, Lock, User, Eye, EyeOff, CheckCircle2,
   ShieldCheck, RefreshCw, Check, AlertCircle, Sun, Moon
@@ -80,8 +81,9 @@ export default function LoginPage() {
 
   return (
     <div className={`min-h-screen flex items-center justify-center p-3.5 sm:p-6 relative overflow-hidden select-none transition-colors duration-500 ${
-      isLight ? "bg-[#f8fffe] text-slate-800" : "bg-[#07090f] text-slate-100"
+      isLight ? "bg-transparent text-slate-800" : "bg-transparent text-slate-100"
     }`}>
+      <Global3DBackground />
       
       {/* Background Image Overlay */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-15 overflow-hidden">

@@ -8,6 +8,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useTheme } from "../context/ThemeContext";
 import LayeredMetallicGoldButton from "../components/LayeredMetallicGoldButton";
+import Global3DBackground from "../components/Global3DBackground";
 
 export default function ContactPage() {
   const { theme } = useTheme();
@@ -122,8 +123,9 @@ export default function ContactPage() {
 
   return (
     <div className={`w-full min-h-screen relative selection:bg-amber-500 selection:text-slate-950 transition-colors duration-500 ${
-      isLight ? "bg-[#f8f6f0] text-slate-900" : "bg-[#07090f] text-slate-100"
+      isLight ? "bg-transparent text-slate-900" : "bg-transparent text-slate-100"
     }`}>
+      <Global3DBackground />
       <Navbar />
 
       <main className="pt-28 pb-20 sm:pt-36 sm:pb-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 select-none">

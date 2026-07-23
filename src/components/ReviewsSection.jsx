@@ -52,7 +52,7 @@ export default function ReviewsSection() {
     <section
       id="reviews"
       className={`py-20 md:py-28 relative overflow-hidden scroll-mt-24 select-none transition-colors duration-500 ${
-        isLight ? "bg-[#f8fffe] text-slate-800" : "bg-[#0b0e17] text-slate-100"
+        isLight ? "bg-transparent text-slate-800" : "bg-transparent text-slate-100"
       }`}
     >
       {/* Static Ambient Gold Glows */}

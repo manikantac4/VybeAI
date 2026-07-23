@@ -19,7 +19,7 @@ export default function MissionVisionSection() {
     <section
       id="mission-vision"
       className={`py-20 md:py-28 relative overflow-hidden scroll-mt-24 select-none transition-colors duration-500 ${
-        isLight ? "bg-[#f8f6f0] text-slate-900" : "bg-[#0b0e17] text-slate-100"
+        isLight ? "bg-transparent text-slate-900" : "bg-transparent text-slate-100"
       }`}
     >
       {/* Static Ambient Gold Glows */}

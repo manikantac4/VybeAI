@@ -12,7 +12,7 @@ export default function HeroSection() {
     <section
       id="hero"
       className={`relative pt-28 pb-20 sm:pt-36 sm:pb-28 min-h-[85vh] flex flex-col justify-center scroll-mt-20 select-none overflow-hidden transition-colors duration-500 ${
-        isLight ? "bg-[#f8f6f0] text-slate-900" : "bg-[#090b10] text-slate-100"
+        isLight ? "bg-transparent text-slate-900" : "bg-transparent text-slate-100"
       }`}
     >
       {/* Static Side Ambient Glowing Light Orbs */}

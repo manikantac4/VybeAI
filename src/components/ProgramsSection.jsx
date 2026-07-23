@@ -101,7 +101,7 @@ export default function ProgramsSection() {
     <section
       id="programs"
       className={`py-16 sm:py-24 relative overflow-hidden scroll-mt-20 select-none transition-colors duration-500 ${
-        isLight ? "bg-[#f8fffe] text-slate-900" : "bg-[#0a0d14] text-slate-100"
+        isLight ? "bg-transparent text-slate-900" : "bg-transparent text-slate-100"
       }`}
     >
       {/* Static Ambient Gold Mesh Glow */}

@@ -10,6 +10,7 @@ import LoginPage from "./pages/LoginPage";
 import ContactPage from "./pages/ContactPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import WelcomeIntroScreen from "./components/WelcomeIntroScreen";
+import Global3DBackground from "./components/Global3DBackground";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 
 function HomePage({ scrollTo }) {
@@ -40,8 +41,11 @@ function HomePage({ scrollTo }) {
 
   return (
     <div className={`w-full min-h-screen relative selection:bg-amber-500 selection:text-slate-950 transition-colors duration-500 ${
-      isLight ? "bg-[#f8fffe] text-slate-800" : "bg-[#07090f] text-slate-100"
+      isLight ? "bg-transparent text-slate-800" : "bg-transparent text-slate-100"
     }`}>
+      {/* Global 3D Animated Particle & Liquid Gold Ribbon Background */}
+      <Global3DBackground />
+
       {/* Welcome Logo Animation */}
       {showIntro && <WelcomeIntroScreen onComplete={handleIntroComplete} />}
 
