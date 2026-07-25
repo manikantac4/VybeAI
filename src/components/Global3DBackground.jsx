@@ -69,7 +69,7 @@ export default function Global3DBackground() {
     }, 2800);
 
     // White Theme Floating Champagne Particles
-    const whiteParticles = Array.from({ length: 30 }).map(() => ({
+    const whiteParticles = Array.from({ length: 32 }).map(() => ({
       x: Math.random() * width,
       y: Math.random() * height,
       z: Math.random() * 1.5 + 0.5,
@@ -80,37 +80,41 @@ export default function Global3DBackground() {
       pulseSpeed: 0.015 + Math.random() * 0.015
     }));
 
-    // Dark Theme Sparkling Cross Stars
-    const sparkleStars = Array.from({ length: 18 }).map(() => ({
+    // Dark Theme Floating Stardust & Cross Stars
+    const darkStardust = Array.from({ length: 45 }).map(() => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 5 + 3,
+      z: Math.random() * 1.8 + 0.4,
+      radius: Math.random() * 2.5 + 0.8,
+      isStar: Math.random() > 0.7,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25 - 0.1,
       pulse: Math.random() * Math.PI * 2,
-      pulseSpeed: 0.02 + Math.random() * 0.03
+      pulseSpeed: 0.02 + Math.random() * 0.025
     }));
 
-    // Helper: Draw 4-Point Gold Cross Sparkle Star
+    // Helper: Draw 4-Point Gold Cross Lens Flare Star
     const drawSparkleStar = (cx, cy, radius, alpha) => {
       ctx.save();
       ctx.globalAlpha = alpha;
       ctx.beginPath();
-      // Horizontal & Vertical Lens Flare Rays
-      ctx.moveTo(cx - radius * 2.2, cy);
-      ctx.lineTo(cx + radius * 2.2, cy);
-      ctx.moveTo(cx, cy - radius * 2.2);
-      ctx.lineTo(cx, cy + radius * 2.2);
-      ctx.strokeStyle = "rgba(254, 240, 138, 0.9)";
+      // Rays
+      ctx.moveTo(cx - radius * 2.5, cy);
+      ctx.lineTo(cx + radius * 2.5, cy);
+      ctx.moveTo(cx, cy - radius * 2.5);
+      ctx.lineTo(cx, cy + radius * 2.5);
+      ctx.strokeStyle = "rgba(254, 240, 138, 0.95)";
       ctx.lineWidth = 1.2;
       ctx.shadowColor = "#fde047";
-      ctx.shadowBlur = 10;
+      ctx.shadowBlur = 12;
       ctx.stroke();
 
-      // Center Core Sparkle Diamond
+      // Center Core Diamond
       ctx.beginPath();
-      ctx.moveTo(cx, cy - radius);
-      ctx.lineTo(cx + radius * 0.4, cy);
-      ctx.lineTo(cx, cy + radius);
-      ctx.lineTo(cx - radius * 0.4, cy);
+      ctx.moveTo(cx, cy - radius * 0.9);
+      ctx.lineTo(cx + radius * 0.45, cy);
+      ctx.lineTo(cx, cy + radius * 0.9);
+      ctx.lineTo(cx - radius * 0.45, cy);
       ctx.closePath();
       ctx.fillStyle = "#ffffff";
       ctx.fill();
@@ -124,110 +128,109 @@ export default function Global3DBackground() {
       wavePhase += 0.007;
 
       if (!isLight) {
-        // ================= DARK THEME (DENSE 3D GOLDEN SAND PARTICLE WAVE MESH + SPARKLE STARS) =================
-        ctx.fillStyle = "#050608";
+        // ================= DARK THEME (CINEMATIC OBSIDIAN + DYNAMIC GOLD AURORA SILK WAVE + STARDUST) =================
+        ctx.fillStyle = "#040508";
         ctx.fillRect(0, 0, width, height);
 
-        const strandCount = 28;
-        const mainWaveY = height * 0.52;
+        // 1. Primary Flowing Gold Aurora Ribbon Wave
+        ctx.save();
+        const mainWaveY = height * 0.48;
+        const mainGrad = ctx.createLinearGradient(0, mainWaveY - 160, width, mainWaveY + 160);
+        mainGrad.addColorStop(0, "rgba(184, 134, 11, 0.03)");
+        mainGrad.addColorStop(0.3, "rgba(245, 203, 92, 0.18)");
+        mainGrad.addColorStop(0.65, "rgba(255, 224, 71, 0.35)");
+        mainGrad.addColorStop(1, "rgba(120, 53, 15, 0.04)");
 
-        // 1. Draw Dense Golden Sand Wave Strands & Particle Points (Reference Image)
+        ctx.beginPath();
+        ctx.moveTo(0, mainWaveY);
+        for (let x = 0; x <= width; x += 15) {
+          const y = mainWaveY + Math.sin(x * 0.0024 + wavePhase) * 85 + Math.cos(x * 0.0012 - wavePhase * 0.75) * 55;
+          ctx.lineTo(x, y);
+        }
+        ctx.lineTo(width, height);
+        ctx.lineTo(0, height);
+        ctx.closePath();
+        ctx.fillStyle = mainGrad;
+        ctx.fill();
+
+        // Multi-Threaded Gold Silk Wave Contour Lines
+        const strandCount = 24;
         for (let strand = 0; strand < strandCount; strand++) {
-          const strandOffset = (strand - strandCount / 2) * 9;
-          const phaseOffset = strand * 0.11;
-
+          const offset = (strand - strandCount / 2) * 8;
           ctx.beginPath();
           let isFirst = true;
 
-          const pointsPerStrand = Math.floor(width / 18);
-          const points = [];
-
-          for (let i = 0; i <= pointsPerStrand; i++) {
-            const x = (i / pointsPerStrand) * width;
-            const waveY =
-              mainWaveY +
-              strandOffset +
-              Math.sin(x * 0.0026 + wavePhase + phaseOffset) * (75 + strand * 1.2) +
-              Math.cos(x * 0.0013 - wavePhase * 0.7) * 40;
-
-            points.push({ x, y: waveY });
-
+          for (let x = 0; x <= width; x += 12) {
+            const y = mainWaveY + offset + Math.sin(x * 0.0024 + wavePhase + strand * 0.09) * (75 + strand * 0.8) + Math.cos(x * 0.0012 - wavePhase * 0.75) * 45;
             if (isFirst) {
-              ctx.moveTo(x, waveY);
+              ctx.moveTo(x, y);
               isFirst = false;
             } else {
-              ctx.lineTo(x, waveY);
+              ctx.lineTo(x, y);
             }
           }
 
-          // Contour Thread Line connecting sand particles
-          const strandAlpha = 0.15 + (1 - Math.abs(strand - strandCount / 2) / (strandCount / 2)) * 0.35;
-          ctx.strokeStyle = `rgba(245, 203, 92, ${strandAlpha * 0.6})`;
-          ctx.lineWidth = 0.9;
+          const alpha = 0.1 + (1 - Math.abs(strand - strandCount / 2) / (strandCount / 2)) * 0.35;
+          ctx.strokeStyle = `rgba(254, 240, 138, ${alpha})`;
+          ctx.lineWidth = 1.0;
           ctx.stroke();
-
-          // Render Dense Golden Sand Dots along each Strand
-          points.forEach((pt, pIdx) => {
-            if (pIdx % 2 === 0) { // Render fine sand dots
-              const sandSize = 0.8 + (Math.sin(pt.x * 0.01 + wavePhase) + 1) * 0.7;
-              ctx.save();
-              ctx.globalAlpha = strandAlpha * 0.85;
-              ctx.beginPath();
-              ctx.arc(pt.x, pt.y, sandSize, 0, Math.PI * 2);
-              ctx.fillStyle = strand % 2 === 0 ? "#fde047" : "#e2b740";
-              ctx.shadowColor = "#fde047";
-              ctx.shadowBlur = 4;
-              ctx.fill();
-              ctx.restore();
-            }
-          });
         }
+        ctx.restore();
 
-        // 2. Secondary Upper Flowing Golden Sand Ribbon
-        const upperWaveY = height * 0.22;
-        for (let strand = 0; strand < 14; strand++) {
-          const strandOffset = (strand - 7) * 8;
-          ctx.beginPath();
-          let isFirst = true;
+        // 2. Secondary Top Swirling Champagne Silk Wave
+        ctx.save();
+        const topWaveY = height * 0.20;
+        const topGrad = ctx.createLinearGradient(0, topWaveY - 100, width, topWaveY + 100);
+        topGrad.addColorStop(0, "rgba(245, 203, 92, 0.02)");
+        topGrad.addColorStop(0.5, "rgba(254, 240, 138, 0.16)");
+        topGrad.addColorStop(1, "rgba(212, 175, 55, 0.02)");
 
-          const pointsPerStrand = Math.floor(width / 22);
+        ctx.beginPath();
+        ctx.moveTo(0, topWaveY);
+        for (let x = 0; x <= width; x += 20) {
+          const y = topWaveY + Math.cos(x * 0.0028 - wavePhase * 1.1) * 65 + Math.sin(x * 0.0015 + wavePhase) * 40;
+          ctx.lineTo(x, y);
+        }
+        ctx.lineTo(width, 0);
+        ctx.lineTo(0, 0);
+        ctx.closePath();
+        ctx.fillStyle = topGrad;
+        ctx.fill();
+        ctx.restore();
 
-          for (let i = 0; i <= pointsPerStrand; i++) {
-            const x = (i / pointsPerStrand) * width;
-            const waveY =
-              upperWaveY +
-              strandOffset +
-              Math.cos(x * 0.003 - wavePhase * 1.1 + strand * 0.1) * 55 +
-              Math.sin(x * 0.0016 + wavePhase) * 30;
+        // 3. Floating Gold Stardust & Cross Stars Stream
+        darkStardust.forEach((p) => {
+          p.x += p.vx * p.z;
+          p.y += p.vy * p.z;
+          p.pulse += p.pulseSpeed;
 
-            if (isFirst) {
-              ctx.moveTo(x, waveY);
-              isFirst = false;
-            } else {
-              ctx.lineTo(x, waveY);
-            }
+          if (p.x < 0) p.x = width;
+          if (p.x > width) p.x = 0;
+          if (p.y < 0) p.y = height;
+          if (p.y > height) p.y = 0;
 
-            if (i % 3 === 0) {
-              ctx.save();
-              ctx.globalAlpha = 0.25;
-              ctx.beginPath();
-              ctx.arc(x, waveY, 1.2, 0, Math.PI * 2);
-              ctx.fillStyle = "#fef08a";
-              ctx.fill();
-              ctx.restore();
-            }
+          const alpha = 0.25 + Math.sin(p.pulse) * 0.25;
+          const scale = p.z * (1 + Math.sin(p.pulse) * 0.18);
+
+          if (p.isStar) {
+            drawSparkleStar(p.x, p.y, (p.radius + 3) * scale, alpha);
+          } else {
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius * scale, 0, Math.PI * 2);
+
+            const stardustGrad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * scale);
+            stardustGrad.addColorStop(0, "#ffffff");
+            stardustGrad.addColorStop(0.5, "#fde047");
+            stardustGrad.addColorStop(1, "#d97706");
+
+            ctx.fillStyle = stardustGrad;
+            ctx.shadowColor = "#fde047";
+            ctx.shadowBlur = 6 * scale;
+            ctx.fill();
+            ctx.restore();
           }
-
-          ctx.strokeStyle = `rgba(254, 240, 138, ${0.1 + (1 - Math.abs(strand - 7) / 7) * 0.2})`;
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-        }
-
-        // 3. Render 4-Point Gold Cross Stars matching reference image
-        sparkleStars.forEach((star) => {
-          star.pulse += star.pulseSpeed;
-          const alpha = 0.4 + Math.sin(star.pulse) * 0.35;
-          drawSparkleStar(star.x, star.y, star.radius, alpha);
         });
 
       } else {

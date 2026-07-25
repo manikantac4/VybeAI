@@ -30,55 +30,54 @@ export default function ContactPage() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Founders & Coaching Mentors Data
+  // Founders & Mentors Data
   const teamMembers = [
     {
       id: "sahith-akula",
       name: "Sahith Akula",
-      role: "Co-Founder & Backend Lead Mentor",
+      role: "Backend Lead Mentor",
       shortRole: "Backend Lead Mentor",
       icon: Cpu,
       phone: "+91 98765 43211",
       email: "sahith.akula@turingwings.org",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
-      bio: "Co-Founder & Backend Architecture Mentor specializing in high-performance serverless backends, real-time WebSocket pipelines, database optimization, and cloud microservices.",
+      bio: "Backend Architecture Lead specializing in high-performance serverless backends, real-time WebSocket pipelines, database optimization, and cloud microservices.",
       skills: ["Node.js & Go", "PostgreSQL & Redis", "GraphQL & REST APIs", "Docker & K8s"]
     },
     {
       id: "ratnakar",
       name: "Ratnakar",
-      role: "Co-Founder & Cybersecurity Lead Mentor",
+      role: "Cybersecurity Lead Mentor",
       shortRole: "Cybersecurity Lead Mentor",
       icon: Lock,
       phone: "+91 98765 43210",
       email: "ratnakar.cyber@turingwings.org",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
-      bio: "Co-Founder and Head Cybersecurity Mentor at Turing Wings. Leads cloud security architecture, penetration testing mentorship, and zero-trust protocol training for student builders.",
+      bio: "Head Cybersecurity Mentor at Turing Wings. Leads cloud security architecture, penetration testing mentorship, and zero-trust protocol training for student builders.",
       skills: ["Zero-Trust Security", "Penetration Testing", "Cloud Compliance", "OAuth 2.0 / SAML"]
     },
-    
     {
       id: "manoj-kumar",
       name: "Manoj Kumar",
-      role: "Co-Founder & Backend / Marketing Lead",
+      role: "Backend & Marketing Lead",
       shortRole: "Backend & Marketing Lead",
       icon: Code2,
       phone: "+91 98765 43212",
       email: "manoj.kumar@turingwings.org",
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
-      bio: "Co-Founder leading backend engineering and ecosystem growth. Connects scalable technology infrastructure with developer relations, technical product marketing, and student community mentorship.",
+      bio: "Leading backend engineering and ecosystem growth. Connects scalable technology infrastructure with developer relations, technical product marketing, and student community mentorship.",
       skills: ["Backend Architecture", "Growth Marketing", "DevRel & Community", "SEO & Analytics"]
     },
     {
       id: "pandu-ranga",
       name: "Pandu Ranga",
-      role: "Co-Founder & Frontend / UI Design Lead",
+      role: "Frontend & UI Design Lead",
       shortRole: "Frontend & UI Design Lead",
       icon: Layout,
       phone: "+91 98765 43213",
       email: "pandu.ranga@turingwings.org",
       avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&auto=format&fit=crop&q=80",
-      bio: "Co-Founder and UI/UX Design Lead mentoring students in building modern, fluid React applications, responsive Tailwind interfaces, and interactive design systems.",
+      bio: "UI/UX Design Lead mentoring students in building modern, fluid React applications, responsive Tailwind interfaces, and interactive design systems.",
       skills: ["React 19 & Next.js", "TailwindCSS & CSS3", "Framer Motion", "Figma UI/UX Design"]
     }
   ];

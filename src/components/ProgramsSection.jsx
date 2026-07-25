@@ -115,21 +115,23 @@ export default function ProgramsSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Concise Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-          <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border inline-block mb-3 shadow-sm ${
-            isLight ? "bg-amber-50 border-amber-200 text-amber-800" : "bg-amber-500/10 border-amber-500/30 text-amber-300"
-          }`}>
-            INTERACTIVE PRACTICAL COURSES
-          </span>
-          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-extrabold font-serif italic leading-tight ${
-            isLight ? "text-slate-900" : "text-white"
-          }`}>
-            Learn By Building. <br />
-            <span className="bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
-              Launch With Confidence.
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto space-y-4 mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/10 border border-amber-500/30 text-amber-500">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>CREATIVE GUILDS & TRACKS</span>
+          </div>
+
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+            INNOVATION{" "}
+            <span className="bg-gradient-to-r from-[#fef08a] via-[#f7d774] to-[#d97706] bg-clip-text text-transparent font-serif italic">
+              GUILDS.
             </span>
           </h2>
+
+          <p className={`text-base sm:text-lg ${isLight ? "text-slate-700" : "text-slate-300"}`}>
+            Join specialized creator guilds inside the Turing Wings headquarters. Master full-stack vibe coding, cybersecurity shields, and AI agent architectures.
+          </p>
         </div>
 
         {/* Interactive Course Selection Tabs */}

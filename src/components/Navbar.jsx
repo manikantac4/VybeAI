@@ -18,26 +18,13 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    {
-      name: "Home",
-      href: "/portal/core/v1/dashboard-overview",
-    },
-    {
-      name: "Programs",
-      href: "/portal/services/v2/program-catalog",
-    },
-    {
-      name: "Reviews",
-      href: "/portal/analytics/v1/feedback-center",
-    },
-    {
-      name: "About",
-      href: "/portal/system/v1/organization-profile",
-    },
-    {
-      name: "Contact",
-      href: "/portal/support/v1/contact-team",
-    },
+    { name: "Home", href: "/" },
+    { name: "Manifesto", href: "/about" },
+    { name: "Journey", href: "/#journey" },
+    { name: "Symbiosis", href: "/#symbiosis" },
+    { name: "Guilds", href: "/programs" },
+    { name: "Buildathons", href: "/#events" },
+    { name: "Contact", href: "/contact" },
   ];
 
   const isLight = theme === "light";
@@ -55,108 +42,105 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        
         {/* Brand Logo Link */}
         <Link to="/" className="group flex items-center gap-2">
           <TuringWingsLogo size="md" />
         </Link>
 
         {/* Desktop Navigation Links — Spacious & Centered */}
-        <nav className="hidden md:flex items-center gap-10 lg:gap-12">
+        <nav className="hidden lg:flex items-center gap-8 lg:gap-10">
           {navLinks.map((link) => {
-            const isActive = location.pathname === link.href;
-            return (
+            const isAnchor = link.href.includes("#");
+            return isAnchor ? (
+              <a
+                key={link.name}
+                href={link.href}
+                className={`text-xs sm:text-sm font-semibold py-1 transition-colors ${
+                  isLight
+                    ? "text-slate-700 hover:text-amber-600"
+                    : "text-slate-300 hover:text-amber-400"
+                }`}
+              >
+                {link.name}
+              </a>
+            ) : (
               <Link
                 key={link.name}
                 to={link.href}
-                className="relative text-sm sm:text-base font-semibold py-1 transition-colors group"
-              >
-                <span className={
-                  isActive
+                className={`text-xs sm:text-sm font-semibold py-1 transition-colors ${
+                  location.pathname === link.href
                     ? "text-amber-500 font-extrabold"
                     : isLight
                     ? "text-slate-700 hover:text-amber-600"
                     : "text-slate-300 hover:text-amber-400"
-                }>
-                  {link.name}
-                </span>
-
-                {/* Active Indicator Underline */}
-                {isActive && (
-                  <motion.div
-                    layoutId="activeNavUnderline"
-                    className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 rounded-full"
-                  />
-                )}
+                }`}
+              >
+                {link.name}
               </Link>
             );
           })}
         </nav>
 
         {/* Right Theme Toggle Button */}
-        <div className="hidden md:flex items-center">
+        <div className="hidden lg:flex items-center">
+
           <motion.button
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
             onClick={toggleTheme}
-            className={`p-2.5 rounded-full transition-all flex items-center justify-center ${
-              isLight
-                ? "bg-slate-100 text-amber-600 hover:bg-amber-50 border border-slate-200 shadow-sm"
-                : "bg-slate-900 text-amber-400 hover:bg-slate-800 border border-amber-500/30 shadow-md"
-            }`}
-            title={`Switch to ${isLight ? "Dark" : "Light"} Theme`}
             aria-label="Toggle Theme"
+            className={`p-2.5 rounded-full border transition-all shadow-md ${
+              isLight
+                ? "bg-slate-100 border-slate-300 text-amber-600 hover:bg-slate-200"
+                : "bg-slate-900 border-amber-500/30 text-amber-300 hover:bg-slate-800"
+            }`}
           >
-            {isLight ? <Moon className="w-4.5 h-4.5 fill-amber-500/20" /> : <Sun className="w-4.5 h-4.5 text-amber-400" />}
+            {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
           </motion.button>
         </div>
 
-        {/* Mobile Right Controls: Toggle + Menu Hamburger */}
-        <div className="flex items-center gap-2 md:hidden">
+        {/* Mobile Hamburger Toggle Button */}
+        <div className="flex lg:hidden items-center gap-3">
           <button
+            type="button"
             onClick={toggleTheme}
-            className={`p-2 rounded-xl text-xs font-bold transition-all ${
-              isLight
-                ? "bg-slate-100 text-amber-600 border border-slate-200"
-                : "bg-slate-900 text-amber-400 border border-amber-500/30"
+            className={`p-2 rounded-full border ${
+              isLight ? "bg-slate-100 text-amber-600 border-slate-300" : "bg-slate-900 text-amber-300 border-amber-500/30"
             }`}
-            aria-label="Toggle Theme"
           >
-            {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5 text-amber-400" />}
+            {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
           </button>
-
           <button
+            type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`p-2 rounded-xl transition-colors ${
-              isLight ? "text-slate-800 bg-slate-100" : "text-amber-400 bg-slate-900 border border-amber-500/30"
+            className={`p-2 rounded-xl border ${
+              isLight ? "bg-slate-100 text-slate-800 border-slate-200" : "bg-slate-900 text-white border-amber-500/20"
             }`}
-            aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className={`md:hidden px-6 py-6 space-y-4 shadow-xl border-b ${
-          isLight ? "bg-white border-slate-200" : "bg-slate-950 border-amber-500/20"
-        }`}>
-          <div className="flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`text-base font-semibold py-1 ${
-                  isLight ? "text-slate-800 hover:text-amber-600" : "text-slate-200 hover:text-amber-400"
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
+        <div
+          className={`lg:hidden px-4 pt-3 pb-6 border-b shadow-xl space-y-3 text-left ${
+            isLight ? "bg-white border-slate-200" : "bg-slate-950 border-amber-500/20"
+          }`}
+        >
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className={`block text-sm font-bold py-2 border-b border-slate-800/10 ${
+                isLight ? "text-slate-800" : "text-slate-200"
+              }`}
+            >
+              {link.name}
+            </a>
+          ))}
         </div>
       )}
     </header>
