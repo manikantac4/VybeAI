@@ -95,7 +95,7 @@ export default function LoginPage() {
         const derivedUsername =
           formData.email.split("@")[0] || formData.name.toLowerCase().replace(/\s+/g, "");
 
-        const res = await fetch("http://localhost:5000/api/auth/signup", {
+        const res = await fetch("https://turingwings-backend.onrender.com/api/auth/signup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -350,7 +350,10 @@ export default function LoginPage() {
             <div className="relative">
               <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
+                id="user-email"
+                name="username"
                 type="email"
+                autoComplete="username"
                 required
                 placeholder="creator@turingwings.org"
                 value={formData.email}
@@ -383,7 +386,10 @@ export default function LoginPage() {
               <div className="relative">
                 <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
+                  id="user-password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
+                  autoComplete={mode === "login" ? "current-password" : "new-password"}
                   required
                   placeholder="••••••••••••"
                   value={formData.password}
