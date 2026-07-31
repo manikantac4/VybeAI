@@ -77,23 +77,25 @@ export default function LoginPage() {
         }
 
         localStorage.setItem("turing_wings_token", data.token);
-        localStorage.setItem("turing_wings_user", JSON.stringify(data));
+        const sessionUser = {
+          ...data,
+          expiresAt: Date.now() + 3 * 60 * 60 * 1000, // 3-Hour Session Persistence
+        };
+
+        localStorage.setItem("turing_wings_token", data.token);
+        localStorage.setItem("turing_wings_user", JSON.stringify(sessionUser));
 
         setIsSuccess(true);
         setSuccessMessage(`Welcome back ${data.name}!`);
 
         setTimeout(() => {
-          if (data.role === "admin") {
-            window.location.href = "https://adminwing.vercel.app/";
-          } else {
-            navigate("/");
-          }
+          navigate("/");
         }, 1200);
       } else if (mode === "signup") {
         const derivedUsername =
           formData.email.split("@")[0] || formData.name.toLowerCase().replace(/\s+/g, "");
 
-        const res = await fetch("https://turingwings-backend.onrender.com/api/auth/signup", {
+        const res = await fetch("http://localhost:5000/api/auth/signup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -110,18 +112,19 @@ export default function LoginPage() {
           throw new Error(data.message || "Registration failed");
         }
 
+        const sessionUser = {
+          ...data,
+          expiresAt: Date.now() + 3 * 60 * 60 * 1000, // 3-Hour Session Persistence
+        };
+
         localStorage.setItem("turing_wings_token", data.token);
-        localStorage.setItem("turing_wings_user", JSON.stringify(data));
+        localStorage.setItem("turing_wings_user", JSON.stringify(sessionUser));
 
         setIsSuccess(true);
         setSuccessMessage("Account created & saved to MongoDB Atlas! Welcome!");
 
         setTimeout(() => {
-          if (data.role === "admin") {
-            window.location.href = "http://localhost:5174";
-          } else {
-            navigate("/");
-          }
+          navigate("/");
         }, 1200);
       } else if (mode === "reset") {
         setIsSuccess(true);
