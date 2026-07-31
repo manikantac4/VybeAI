@@ -1,28 +1,20 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext } from "react";
 
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem("turing_wings_theme");
-    return saved || "light"; // Default to White Theme as requested
-  });
+  // Permanently lock theme to "light" (White Theme)
+  const theme = "light";
 
-  useEffect(() => {
-    localStorage.setItem("turing_wings_theme", theme);
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [theme]);
+  React.useEffect(() => {
+    localStorage.setItem("turing_wings_theme", "light");
+    document.documentElement.classList.remove("dark");
+  }, []);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
+  const toggleTheme = () => {};
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme: "light", toggleTheme, setTheme: () => {} }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -31,7 +23,7 @@ export function ThemeProvider({ children }) {
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
+    return { theme: "light", toggleTheme: () => {}, setTheme: () => {} };
   }
   return context;
 }

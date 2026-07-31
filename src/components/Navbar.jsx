@@ -87,34 +87,8 @@ export default function Navbar() {
         </nav>
 
         {/* Right Theme Toggle Button */}
-        <div className="hidden lg:flex items-center">
-
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={toggleTheme}
-            aria-label="Toggle Theme"
-            className={`p-2.5 rounded-full border transition-all shadow-md ${
-              isLight
-                ? "bg-slate-100 border-slate-300 text-amber-600 hover:bg-slate-200"
-                : "bg-slate-900 border-amber-500/30 text-amber-300 hover:bg-slate-800"
-            }`}
-          >
-            {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-          </motion.button>
-        </div>
-
-        {/* Mobile Hamburger Toggle Button */}
+        {/* Mobile Hamburger Button */}
         <div className="flex lg:hidden items-center gap-3">
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className={`p-2 rounded-full border ${
-              isLight ? "bg-slate-100 text-amber-600 border-slate-300" : "bg-slate-900 text-amber-300 border-amber-500/30"
-            }`}
-          >
-            {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-          </button>
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
