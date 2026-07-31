@@ -12,6 +12,7 @@ import MovementCTASection from "./components/MovementCTASection";
 import Footer from "./components/Footer";
 import ContactPage from "./pages/ContactPage";
 import BuildathonsPage from "./pages/BuildathonsPage";
+import PublicEventPage from "./pages/PublicEventPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Global3DBackground from "./components/Global3DBackground";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -82,6 +83,7 @@ export default function App() {
           <Route path="/programs" element={<HomePage scrollTo="programs" />} />
           <Route path="/community" element={<HomePage scrollTo="community" />} />
           <Route path="/buildathons" element={<BuildathonsPage />} />
+          <Route path="/event/:slug" element={<PublicEventPage />} />
           <Route path="/contact" element={<ContactPage />} />
 
           {/* Legacy Aliases */}
