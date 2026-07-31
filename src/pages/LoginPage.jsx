@@ -84,7 +84,7 @@ export default function LoginPage() {
 
         setTimeout(() => {
           if (data.role === "admin") {
-            window.location.href = "http://localhost:5174";
+            window.location.href = "https://adminwing.vercel.app/";
           } else {
             navigate("/");
           }
@@ -93,7 +93,7 @@ export default function LoginPage() {
         const derivedUsername =
           formData.email.split("@")[0] || formData.name.toLowerCase().replace(/\s+/g, "");
 
-        const res = await fetch("http://localhost:5000/api/auth/signup", {
+        const res = await fetch("https://turingwings-backend.onrender.com/api/auth/signup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
