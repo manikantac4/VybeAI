@@ -71,10 +71,7 @@ export default function CreatorJourneySection() {
         
         {/* Section Title Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/10 border border-amber-500/30 text-amber-500">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>THE ROADMAP TO MASTERY</span>
-          </div>
+
 
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
             THE CREATOR{" "}

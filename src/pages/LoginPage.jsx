@@ -43,7 +43,7 @@ export default function LoginPage() {
     }, 700);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
 
@@ -59,24 +59,83 @@ export default function LoginPage() {
 
     setIsLoading(true);
 
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsSuccess(true);
-
+    try {
       if (mode === "login") {
-        setSuccessMessage("Sign in successful! Welcome back!");
-        setTimeout(() => navigate("/"), 1300);
+        const res = await fetch("https://turingwings-backend.onrender.com/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            usernameOrEmail: formData.email,
+            password: formData.password,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Invalid credentials");
+        }
+
+        localStorage.setItem("turing_wings_token", data.token);
+        localStorage.setItem("turing_wings_user", JSON.stringify(data));
+
+        setIsSuccess(true);
+        setSuccessMessage(`Welcome back ${data.name}!`);
+
+        setTimeout(() => {
+          if (data.role === "admin") {
+            window.location.href = "http://localhost:5174";
+          } else {
+            navigate("/");
+          }
+        }, 1200);
       } else if (mode === "signup") {
-        setSuccessMessage("Account created successfully! Welcome to Turing Wings!");
-        setTimeout(() => navigate("/"), 1300);
+        const derivedUsername =
+          formData.email.split("@")[0] || formData.name.toLowerCase().replace(/\s+/g, "");
+
+        const res = await fetch("http://localhost:5000/api/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: formData.name,
+            username: derivedUsername,
+            email: formData.email,
+            password: formData.password,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Registration failed");
+        }
+
+        localStorage.setItem("turing_wings_token", data.token);
+        localStorage.setItem("turing_wings_user", JSON.stringify(data));
+
+        setIsSuccess(true);
+        setSuccessMessage("Account created & saved to MongoDB Atlas! Welcome!");
+
+        setTimeout(() => {
+          if (data.role === "admin") {
+            window.location.href = "http://localhost:5174";
+          } else {
+            navigate("/");
+          }
+        }, 1200);
       } else if (mode === "reset") {
+        setIsSuccess(true);
         setSuccessMessage("Password reset instructions sent to your email!");
         setTimeout(() => {
           setIsSuccess(false);
           setMode("login");
         }, 1800);
       }
-    }, 1100);
+    } catch (err) {
+      setErrorMessage(err.message || "Failed to connect to backend server");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

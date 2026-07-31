@@ -21,15 +21,6 @@ import { ThemeProvider, useTheme } from "./context/ThemeContext";
 function HomePage({ scrollTo }) {
   const { theme } = useTheme();
   const isLight = theme === "light";
-  const [showIntro, setShowIntro] = useState(() => {
-    const hasSeenIntro = sessionStorage.getItem("turing_wings_intro");
-    return !hasSeenIntro;
-  });
-
-  const handleIntroComplete = () => {
-    sessionStorage.setItem("turing_wings_intro", "true");
-    setShowIntro(false);
-  };
 
   useEffect(() => {
     if (scrollTo) {
@@ -51,9 +42,6 @@ function HomePage({ scrollTo }) {
       {/* Global 3D Animated Particle & Wave Canvas Background */}
       <Global3DBackground />
 
-      {/* Welcome Logo Animation */}
-      {showIntro && <WelcomeIntroScreen onComplete={handleIntroComplete} />}
-
       <Navbar />
       <main>
         <HeroSection />
@@ -61,7 +49,6 @@ function HomePage({ scrollTo }) {
         <CreatorJourneySection />
         <NeuralSymbiosisSection />
         <ProgramsSection />
-        <CommunitySection />
         <BuildathonsSection />
         <FutureVisionSection />
         <MovementCTASection />

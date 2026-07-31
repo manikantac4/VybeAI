@@ -42,7 +42,7 @@ export default function ContactPage() {
       email: "sahith.akula@turingwings.org",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
       bio: "Backend Architecture Lead specializing in high-performance serverless backends, real-time WebSocket pipelines, database optimization, and cloud microservices.",
-      skills: ["Node.js & Go", "PostgreSQL & Redis", "GraphQL & REST APIs", "Docker & K8s"]
+      askills: ["Node.js & Go", "PostgreSQL & Redis", "GraphQL & REST APIs", "Docker & K8s"]
     },
     {
       id: "ratnakar",

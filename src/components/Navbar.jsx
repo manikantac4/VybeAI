@@ -11,6 +11,11 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
+  const [currentUser, setCurrentUser] = useState(() => {
+    const saved = localStorage.getItem("turing_wings_user");
+    return saved ? JSON.parse(saved) : null;
+  });
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);

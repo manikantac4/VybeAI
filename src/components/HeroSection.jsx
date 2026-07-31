@@ -36,20 +36,8 @@ export default function HeroSection() {
           {/* Left Side: Tagline, Headline & Subtitle */}
           <div className="lg:col-span-8 text-left space-y-5">
             
-            {/* Innovation Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border backdrop-blur-md ${
-                isLight
-                  ? "bg-amber-500/10 border-amber-500/30 text-amber-900"
-                  : "bg-amber-500/15 border-amber-500/40 text-amber-300 shadow-lg shadow-amber-500/10"
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
-              <span>THE FUTURE OF CREATION & HUMAN-AI SYMBIOSIS</span>
-            </motion.div>
+
+
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}

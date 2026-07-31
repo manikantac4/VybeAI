@@ -13,13 +13,14 @@ export default function ProgramsSection() {
 
   const programs = [
     {
-      id: "web-creation",
-      title: "AI-Powered Web Creation Bootcamp",
-      subtitle: "Build modern web apps from scratch using natural language prompts & AI pair programming.",
-      duration: "4 Weeks",
-      level: "Beginner Friendly",
+      id: "mern-vibe-coding",
+      title: "Full-Stack MERN & AI Vibe Coding Guild",
+      subtitle: "Master MongoDB, Express.js, React 19 & Node.js amplified with Cursor AI pair programming and vibe coding velocity.",
+      duration: "6 Weeks",
+      level: "Beginner to Advanced",
+      badge: "Launch Guild 01",
       image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&auto=format&fit=crop&q=80",
-      highlights: ["AI Component Design", "Tailwind & React Basics", "Deploy to Vercel"],
+      highlights: ["MERN Stack Architecture", "AI Vibe Coding Velocity", "Production Cloud Deployment"],
       iconSvg: (
         <svg className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <polyline points="16 18 22 12 16 6" />
@@ -27,70 +28,36 @@ export default function ProgramsSection() {
         </svg>
       ),
       syllabus: [
-        "Week 1: Web Fundamentals & AI Prompt Spec Drafting",
-        "Week 2: Responsive UI Design with Tailwind & React",
-        "Week 3: Dynamic State & Interactive User APIs",
-        "Week 4: Production Build & Portfolio Launch"
+        "Week 1: Modern JavaScript ES6+, Node.js & Express API Core",
+        "Week 2: MongoDB Schemas, Mongoose & Vector Database Integration",
+        "Week 3: React 19 Frontend Architecture & Tailwind Styling System",
+        "Week 4: AI Vibe Coding: Rapid Prompt-to-Component Workflows",
+        "Week 5: Full-Stack Authentication, State & Security Best Practices",
+        "Week 6: Production Build, Cloud Deployment & Capstone Launch"
       ]
     },
     {
-      id: "vibe-coding",
-      title: "Vibe Coding for Beginners",
-      subtitle: "Turn raw ideas into software by conversing naturally with AI engines.",
-      duration: "3 Weeks",
-      level: "Zero Code Needed",
-      badge: "Most Popular",
-      image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&auto=format&fit=crop&q=80",
-      highlights: ["Natural Language Specs", "Pair Programming", "Rapid MVP Shipping"],
+      id: "cyber-security",
+      title: "Cyber Security & Threat Defense Guild",
+      subtitle: "Learn zero-trust cloud architecture, vulnerability scanning, penetration testing, and AI endpoint security led by Ratnakar.",
+      duration: "6 Weeks",
+      level: "Beginner to Advanced",
+      badge: "Launch Guild 02",
+      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&auto=format&fit=crop&q=80",
+      highlights: ["Zero-Trust Protocols", "Offensive Penetration Testing", "Cloud Threat Shielding"],
       iconSvg: (
         <svg className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
         </svg>
       ),
       syllabus: [
-        "Week 1: Thinking in Systems & Natural Language Specs",
-        "Week 2: Vibe Coding UI/UX Iterations & Debugging",
-        "Week 3: Shipping Your First Functional Software Tool"
-      ]
-    },
-    {
-      id: "ai-tools",
-      title: "Modern AI Tools & Workflows",
-      subtitle: "Master LLMs, asset generators, and automated developer pipelines.",
-      duration: "2 Weeks",
-      level: "All Skill Levels",
-      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80",
-      highlights: ["Advanced Prompt Engineering", "AI Generative Assets", "Automated Pipelines"],
-      iconSvg: (
-        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="4" y="4" width="16" height="16" rx="2" />
-          <rect x="9" y="9" width="6" height="6" />
-          <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3" />
-        </svg>
-      ),
-      syllabus: [
-        "Week 1: Advanced Prompting & Generative Asset Workflows",
-        "Week 2: Automating Pipelines & Deploying AI Assistants"
-      ]
-    },
-    {
-      id: "buildathons",
-      title: "Buildathons & Innovation Sprints",
-      subtitle: "High-energy weekend sprints to build MVPs with peer collaboration.",
-      duration: "Weekend Sprint",
-      level: "Collaborative Sprints",
-      badge: "Community Event",
-      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80",
-      highlights: ["48-Hour MVP Creation", "Direct Mentorship", "Live Demo Showcase"],
-      iconSvg: (
-        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-          <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z" />
-        </svg>
-      ),
-      syllabus: [
-        "Day 1: Team Formation & Rapid Spec Sprint",
-        "Day 2: 48-Hour Prototype Building & Live Demo Presentation"
+        "Week 1: Fundamentals of Network Security & Packet Auditing",
+        "Week 2: Zero-Trust Security Protocols & IAM Architecture",
+        "Week 3: Offensive Security: Ethical Hacking & Vulnerability Scans",
+        "Week 4: Securing AI Endpoints & Auditing Prompt Injection Risks",
+        "Week 5: Cloud Security, OAuth 2.0 & SAML Compliance",
+        "Week 6: Real-World Penetration Testing & Defense Capstone"
       ]
     }
   ];
@@ -117,10 +84,7 @@ export default function ProgramsSection() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/10 border border-amber-500/30 text-amber-500">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>CREATIVE GUILDS & TRACKS</span>
-          </div>
+
 
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
             INNOVATION{" "}
