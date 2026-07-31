@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
@@ -7,21 +7,16 @@ import CreatorJourneySection from "./components/CreatorJourneySection";
 import NeuralSymbiosisSection from "./components/NeuralSymbiosisSection";
 import ProgramsSection from "./components/ProgramsSection";
 import CommunitySection from "./components/CommunitySection";
-import BuildathonsSection from "./components/BuildathonsSection";
 import FutureVisionSection from "./components/FutureVisionSection";
 import MovementCTASection from "./components/MovementCTASection";
 import Footer from "./components/Footer";
-import LoginPage from "./pages/LoginPage";
 import ContactPage from "./pages/ContactPage";
+import BuildathonsPage from "./pages/BuildathonsPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import WelcomeIntroScreen from "./components/WelcomeIntroScreen";
 import Global3DBackground from "./components/Global3DBackground";
-import { ThemeProvider, useTheme } from "./context/ThemeContext";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function HomePage({ scrollTo }) {
-  const { theme } = useTheme();
-  const isLight = theme === "light";
-
   useEffect(() => {
     if (scrollTo) {
       const el = document.getElementById(scrollTo);
@@ -36,12 +31,8 @@ function HomePage({ scrollTo }) {
   }, [scrollTo]);
 
   return (
-    <div className={`w-full min-h-screen relative selection:bg-amber-500 selection:text-slate-950 transition-colors duration-500 ${
-      isLight ? "bg-transparent text-slate-800" : "bg-transparent text-slate-100"
-    }`}>
-      {/* Global 3D Animated Particle & Wave Canvas Background */}
+    <div className="w-full min-h-screen relative selection:bg-amber-500 selection:text-slate-950 bg-white text-slate-800 font-sans">
       <Global3DBackground />
-
       <Navbar />
       <main>
         <HeroSection />
@@ -49,7 +40,7 @@ function HomePage({ scrollTo }) {
         <CreatorJourneySection />
         <NeuralSymbiosisSection />
         <ProgramsSection />
-        <BuildathonsSection />
+        <CommunitySection />
         <FutureVisionSection />
         <MovementCTASection />
       </main>
@@ -85,22 +76,22 @@ export default function App() {
     <ThemeProvider>
       <BrowserRouter>
         <Routes>
-          {/* Clean Startup Routes */}
+          {/* Clean, Public App Routes */}
           <Route path="/" element={<HomePage scrollTo="hero" />} />
+          <Route path="/about" element={<HomePage scrollTo="manifesto" />} />
           <Route path="/programs" element={<HomePage scrollTo="programs" />} />
           <Route path="/community" element={<HomePage scrollTo="community" />} />
-          <Route path="/about" element={<HomePage scrollTo="manifesto" />} />
+          <Route path="/buildathons" element={<BuildathonsPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/login" element={<LoginPage />} />
 
-          {/* Legacy Aliases for seamless navigation */}
+          {/* Legacy Aliases */}
+          <Route path="/events" element={<BuildathonsPage />} />
           <Route path="/portal/core/v1/dashboard-overview" element={<HomePage scrollTo="hero" />} />
           <Route path="/portal/services/v2/program-catalog" element={<HomePage scrollTo="programs" />} />
           <Route path="/portal/analytics/v1/feedback-center" element={<HomePage scrollTo="community" />} />
           <Route path="/portal/system/v1/organization-profile" element={<HomePage scrollTo="manifesto" />} />
           <Route path="/portal/support/v1/contact-team" element={<ContactPage />} />
-          <Route path="/portal/auth/v1/account-access" element={<LoginPage />} />
-          
+
           {/* Wildcard 404 Route */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
