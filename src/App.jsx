@@ -14,6 +14,7 @@ import ContactPage from "./pages/ContactPage";
 import BuildathonsPage from "./pages/BuildathonsPage";
 import PublicEventPage from "./pages/PublicEventPage";
 import PublicEventPortal from "./pages/PublicEventPortal";
+import HackathonModuleRoutes from "./modules/hackathon/routes/HackathonModuleRoutes";
 import NotFoundPage from "./pages/NotFoundPage";
 import Global3DBackground from "./components/Global3DBackground";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -86,6 +87,7 @@ export default function App() {
           <Route path="/buildathons" element={<BuildathonsPage />} />
           <Route path="/event/:slug" element={<PublicEventPage />} />
           <Route path="/event-engine/:slug" element={<PublicEventPortal />} />
+          <Route path="/hackathon-module/:slug" element={<HackathonModuleRoutes />} />
           <Route path="/contact" element={<ContactPage />} />
 
           {/* Legacy Aliases */}
