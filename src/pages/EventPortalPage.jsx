@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import TemplateLayout from "../modules/hackathon/templates/ai-future/TemplateLayout";
 import { defaultEventData } from "../modules/hackathon/templates/ai-future/config/defaults";
-import { RefreshCw, ArrowLeft, Trophy, Sparkles } from "lucide-react";
+import { RefreshCw } from "lucide-react";
 
 export default function EventPortalPage() {
   const { slug } = useParams();
@@ -73,6 +73,7 @@ export default function EventPortalPage() {
             endDate: data.schedule?.submissionDeadline || new Date().toISOString(),
             venue: data.venue?.name || "Turing Wings Virtual Platform",
             mode: data.venue?.type || "Online Global Portal",
+            slug: data.slug,
           },
           hero: {
             eyebrow: `Turing Wings ${data.type || "Hackathon"}`,
@@ -176,25 +177,14 @@ export default function EventPortalPage() {
     return (
       <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center p-6 space-y-4 font-sans">
         <RefreshCw className="w-8 h-8 animate-spin text-amber-500" />
-        <p className="text-sm font-mono text-slate-400">Loading dedicated Hackathon Portal...</p>
+        <p className="text-sm font-mono text-slate-400">Loading dedicated Hackathon Webpage Portal...</p>
       </div>
     );
   }
 
   return (
     <div className="w-full min-h-screen bg-slate-950 text-white relative font-sans">
-      {/* Top Platform Return Navigation Banner */}
-      <div className="bg-slate-900 border-b border-slate-800 px-4 sm:px-6 py-2.5 flex items-center justify-between text-xs font-bold text-slate-400">
-        <Link to="/buildathons" className="inline-flex items-center gap-1.5 hover:text-amber-400 transition-colors">
-          <ArrowLeft className="w-3.5 h-3.5" /> Return to All Turing Wings Platform Events
-        </Link>
-        <div className="flex items-center gap-2 font-mono">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-amber-400">Official Event Portal</span>
-        </div>
-      </div>
-
-      {/* Render Template Layout with fully mapped props */}
+      {/* 100% Standalone Event Webpage (Uses dedicated hackathon header and footer) */}
       <TemplateLayout eventData={eventData || defaultEventData} />
     </div>
   );
