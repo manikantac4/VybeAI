@@ -1,139 +1,147 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Zap, Clock, CheckCircle2, ArrowRight, RefreshCw, Trophy } from "lucide-react";
+import { Calendar, MapPin, Zap, Clock, CheckCircle2 } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import LayeredMetallicGoldButton from "./LayeredMetallicGoldButton";
 
 export default function BuildathonsSection() {
   const { theme } = useTheme();
   const isLight = theme === "light";
+  const [notifiedEvents, setNotifiedEvents] = useState({});
 
-  const [realEvents, setRealEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchEvents = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch("https://turingwings-backend.onrender.com/api/events");
-      if (res.ok) {
-        const data = await res.json();
-        setRealEvents(data);
-      }
-    } catch {
-      // Fallback
-    } finally {
-      setLoading(false);
-    }
+  const toggleNotify = (idx) => {
+    setNotifiedEvents((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
-
-  const fallbackEvents = [
+  const events = [
     {
-      _id: "1",
-      slug: "vibe-coding-sprint-2026",
       title: "Global 48-Hour Vibe Coding Sprint",
-      startDate: "August 28, 2026",
-      mode: "Online Virtual",
-      prizePool: "$10,000 USD",
-      tagline: "Transform raw concepts into deployed full-stack web applications in 48 hours using Cursor & Claude 3.7.",
-      status: "Registration Open",
-      eventType: "Buildathon",
+      date: "Upcoming Soon — Batch 01",
+      mode: "Global Discord & Campus Lab",
+      lead: "Turing Wings Team",
+      desc: "Transform raw concepts into deployed full-stack web applications in 48 hours using Cursor, Claude 3.7, and agent swarms.",
+      status: "UPCOMING SOON",
     },
     {
-      _id: "2",
-      slug: "cyber-shield-masterclass",
       title: "Offensive Cyber Shield Masterclass",
-      startDate: "September 05, 2026",
-      mode: "Online Virtual",
-      prizePool: "$5,000 USD",
-      tagline: "Deep-dive into penetration testing AI endpoints, auditing prompt injection vectors, and Zero-Trust shields.",
-      status: "Registration Open",
-      eventType: "Hackathon",
+      date: "Upcoming Soon — Batch 01",
+      mode: "Virtual Interactive Lab",
+      lead: "Ratnakar — Cybersecurity Lead",
+      desc: "Deep-dive into penetration testing AI endpoints, auditing prompt injection vectors, and configuring Zero-Trust shields.",
+      status: "UPCOMING SOON",
     },
     {
-      _id: "3",
-      slug: "agent-swarms-hackathon",
+      title: "Spatial UI & Glassmorphism Canvas Workshop",
+      date: "Upcoming Soon — Batch 02",
+      mode: "Live Design Studio Session",
+      lead: "Pandu Ranga — Spatial UI Lead",
+      desc: "Learn how to build 60 FPS HTML5 3D particle canvas overlays, spatial card depth, and ultra-high-end web design systems.",
+      status: "UPCOMING SOON",
+    },
+    {
       title: "Autonomous Agent Swarms Hackathon",
-      startDate: "September 20, 2026",
-      mode: "Hybrid Arena",
-      prizePool: "$15,000 USD",
-      tagline: "Build multi-agent autonomous teams that write code, execute unit tests, and auto-deploy microservices.",
-      status: "Registration Open",
-      eventType: "AI Challenge",
+      date: "Upcoming Soon — Batch 02",
+      mode: "Global Creator Guild Arena",
+      lead: "Sahith Akula & Manoj Kumar",
+      desc: "Build multi-agent autonomous teams that write code, execute unit tests, and auto-deploy microservices without human friction.",
+      status: "UPCOMING SOON",
     },
   ];
-
-  const displayEvents = realEvents.length > 0 ? realEvents : fallbackEvents;
 
   return (
     <section
       id="events"
-      className="py-16 sm:py-24 relative overflow-hidden select-none bg-white text-slate-900"
+      className={`py-24 sm:py-32 relative overflow-hidden scroll-mt-24 select-none transition-colors duration-500 ${
+        isLight ? "bg-transparent text-slate-900" : "bg-transparent text-slate-100"
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-14">
-          <span className="px-3 py-1 rounded-full text-xs font-bold uppercase bg-amber-500/20 text-amber-600 border border-amber-500/30">
-            DYNAMIC BUILDATHONS DIRECTORY
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-poppins text-slate-900">
-            Buildathons, Hackathons & AI Challenges
+        
+        {/* Section Header (No top pill badge) */}
+        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 sm:mb-20">
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+            BUILDATHONS &{" "}
+            <span className="bg-gradient-to-r from-[#fef08a] via-[#f7d774] to-[#d97706] bg-clip-text text-transparent font-serif italic">
+              EVENTS.
+            </span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 font-medium">
-            Explore live events generated by Turing Wings Lead Mentors. Select an event to view full details and register.
+
+          <p className={`text-base sm:text-lg ${isLight ? "text-slate-700" : "text-slate-300"}`}>
+            High-energy 48-hour build sprints, hands-on masterclasses, and global hackathons launching very soon.
           </p>
         </div>
 
-        {/* Dynamic Events Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {displayEvents.map((evt) => (
+        {/* 4 EVENT CARDS GRID WITH UPCOMING SOON BADGES */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left mb-16">
+          {events.map((event, idx) => (
             <motion.div
-              key={evt._id || evt.slug}
-              whileHover={{ y: -4 }}
-              className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-xl flex flex-col justify-between text-left space-y-5"
+              key={idx}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              whileHover={{ y: -6 }}
+              className={`rounded-3xl p-8 border backdrop-blur-md shadow-xl flex flex-col justify-between transition-all ${
+                isLight
+                  ? "bg-white/90 border-[#d8d0be] hover:border-[#e2b740]"
+                  : "bg-[#0e1118]/90 border-[#e2b740]/30 hover:border-[#e2b740]"
+              }`}
             >
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-slate-900 text-white">
-                    {evt.eventType || "Buildathon"}
+                  <span className="px-3 py-1 rounded-full text-[11px] font-black tracking-wider uppercase bg-amber-500/15 border border-amber-500/30 text-[#e2b740] flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>{event.status}</span>
                   </span>
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800">
-                    {evt.status}
-                  </span>
+
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#e2b740]">
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span>{event.date}</span>
+                  </div>
                 </div>
 
-                <h3 className="text-xl font-bold font-poppins text-slate-900 leading-snug">
-                  {evt.title}
-                </h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {evt.tagline || evt.description}
+                <h3 className="text-xl sm:text-2xl font-extrabold">{event.title}</h3>
+                
+                <div className="flex items-center gap-2 text-xs font-semibold text-slate-400">
+                  <MapPin className="w-3.5 h-3.5 text-amber-500" />
+                  <span>{event.mode}</span>
+                </div>
+
+                <p className={`text-xs sm:text-sm leading-relaxed ${isLight ? "text-slate-600" : "text-slate-400"}`}>
+                  {event.desc}
                 </p>
-
-                <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-[11px] font-mono font-semibold text-slate-500">
-                  <span className="flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5 text-amber-600" />
-                    {evt.startDate}
-                  </span>
-                  <span className="flex items-center gap-1 font-bold text-amber-600">
-                    <Trophy className="w-3.5 h-3.5" />
-                    {evt.prizePool}
-                  </span>
-                </div>
               </div>
 
-              <Link
-                to={`/event/${evt.slug}`}
-                className="w-full py-3 rounded-xl bg-slate-900 hover:bg-amber-600 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2"
-              >
-                <span>View Event & Register</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <div className="pt-6 border-t border-slate-800/20 mt-6 flex items-center justify-between">
+                <span className="text-[11px] font-bold text-slate-400">
+                  Lead: {event.lead}
+                </span>
+
+                <button
+                  type="button"
+                  onClick={() => toggleNotify(idx)}
+                  className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all border ${
+                    notifiedEvents[idx]
+                      ? "bg-green-500/20 border-green-500/40 text-green-400"
+                      : isLight
+                      ? "bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300"
+                      : "bg-slate-900 hover:bg-slate-800 text-amber-300 border-amber-500/30"
+                  }`}
+                >
+                  {notifiedEvents[idx] ? (
+                    <span className="flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
+                      <span>Notified</span>
+                    </span>
+                  ) : (
+                    <span>Notify Me On Launch</span>
+                  )}
+                </button>
+              </div>
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );
