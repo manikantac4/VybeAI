@@ -7,6 +7,7 @@ import { defaultEventData } from './config/defaults';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingButton from './components/FloatingButton';
+import { Menu, X } from 'lucide-react';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -27,12 +28,25 @@ import Certificates from './pages/Certificates';
 export default function TemplateLayout({ eventData = defaultEventData, themeOverrides = {}, onRegister }) {
   const theme = mergeTheme(themeOverrides);
   const [activeTab, setActiveTab] = useState("home");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (eventData?.meta?.name) {
       document.title = `${eventData.meta.name} — Powered by Turing Wings`;
     }
   }, [eventData]);
+
+  const navTabs = [
+    { id: "home", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "timeline", label: "Timeline" },
+    { id: "tracks", label: "Tracks" },
+    { id: "judges", label: "Judges" },
+    { id: "mentors", label: "Mentors" },
+    { id: "sponsors", label: "Sponsors" },
+    { id: "faq", label: "FAQ" },
+    { id: "contact", label: "Contact" },
+  ];
 
   const renderActiveSection = () => {
     switch (activeTab) {
@@ -76,27 +90,21 @@ export default function TemplateLayout({ eventData = defaultEventData, themeOver
         <div className="min-h-screen flex flex-col bg-slate-950 text-white font-sans selection:bg-amber-500 selection:text-slate-950">
           
           {/* Custom Dedicated Sub-Header Navigation for Hackathon Portal */}
-          <header className="sticky top-0 z-40 backdrop-blur-md bg-slate-950/90 border-b border-slate-800/80">
+          <header className="sticky top-0 z-40 backdrop-blur-md bg-slate-950/95 border-b border-slate-800/80">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
               <button
-                onClick={() => setActiveTab("home")}
-                className="font-bold text-base tracking-tight text-white hover:text-amber-400 transition-colors truncate"
+                onClick={() => {
+                  setActiveTab("home");
+                  setMobileMenuOpen(false);
+                }}
+                className="font-bold text-base tracking-tight text-white hover:text-amber-400 transition-colors truncate max-w-[200px] sm:max-w-xs"
               >
                 {eventData?.meta?.name || "Hackathon Portal"}
               </button>
 
+              {/* Desktop Nav Links */}
               <div className="hidden lg:flex items-center gap-5 overflow-x-auto scrollbar-none">
-                {[
-                  { id: "home", label: "Home" },
-                  { id: "about", label: "About" },
-                  { id: "timeline", label: "Timeline" },
-                  { id: "tracks", label: "Tracks" },
-                  { id: "judges", label: "Judges" },
-                  { id: "mentors", label: "Mentors" },
-                  { id: "sponsors", label: "Sponsors" },
-                  { id: "faq", label: "FAQ" },
-                  { id: "contact", label: "Contact" },
-                ].map((tab) => (
+                {navTabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
@@ -111,16 +119,51 @@ export default function TemplateLayout({ eventData = defaultEventData, themeOver
                 ))}
               </div>
 
-              <button
-                onClick={() => {
-                  if (onRegister) onRegister();
-                  else setActiveTab("register");
-                }}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-extrabold text-xs shadow-md shadow-amber-500/20 hover:scale-105 transition-all"
-              >
-                Register Team
-              </button>
+              {/* Header Action Buttons & Mobile Hamburger */}
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => {
+                    if (onRegister) onRegister();
+                    else setActiveTab("register");
+                    setMobileMenuOpen(false);
+                  }}
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-extrabold text-xs shadow-md shadow-amber-500/20 hover:scale-105 transition-all"
+                >
+                  Register Team
+                </button>
+
+                <button
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="lg:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-amber-400"
+                >
+                  {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                </button>
+              </div>
             </div>
+
+            {/* Mobile Dropdown Navigation Menu */}
+            {mobileMenuOpen && (
+              <div className="lg:hidden border-t border-slate-800 bg-slate-950 p-4 space-y-2 animate-in fade-in slide-in-from-top-2">
+                <div className="grid grid-cols-2 gap-2">
+                  {navTabs.map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => {
+                        setActiveTab(tab.id);
+                        setMobileMenuOpen(false);
+                      }}
+                      className={`px-3 py-2 rounded-xl text-left text-xs font-bold transition-all ${
+                        activeTab === tab.id
+                          ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
+                          : "bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800"
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </header>
 
           <main className="flex-1">
