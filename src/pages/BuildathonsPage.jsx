@@ -5,9 +5,6 @@ import MovementCTASection from "../components/MovementCTASection";
 import Footer from "../components/Footer";
 import Global3DBackground from "../components/Global3DBackground";
 
-// Import Hackathon Template Sections from extracted template
-import TemplateLayout from "../hackathon/TemplateLayout";
-
 export default function BuildathonsPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -20,14 +17,6 @@ export default function BuildathonsPage() {
 
       <main className="pt-24 sm:pt-32">
         <BuildathonsSection />
-        
-        {/* Turing Wings Hackathon Portal Hub */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="border border-slate-200 rounded-3xl shadow-xl overflow-hidden bg-white">
-            <TemplateLayout />
-          </div>
-        </div>
-
         <MovementCTASection />
       </main>
 
