@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import TemplateLayout from "../modules/hackathon/templates/ai-future/TemplateLayout";
+import TemplateRegistry from "../modules/hackathon/templates/TemplateRegistry";
 import { defaultEventData } from "../modules/hackathon/templates/ai-future/config/defaults";
 import { RefreshCw } from "lucide-react";
 
@@ -184,8 +184,11 @@ export default function EventPortalPage() {
 
   return (
     <div className="w-full min-h-screen bg-slate-950 text-white relative font-sans">
-      {/* 100% Standalone Event Webpage (Uses dedicated hackathon header and footer) */}
-      <TemplateLayout eventData={eventData || defaultEventData} />
+      {/* Dynamic Multi-Template Event Webpage */}
+      <TemplateRegistry
+        templateId={eventData?.templateId || "ai-future"}
+        eventData={eventData || defaultEventData}
+      />
     </div>
   );
 }

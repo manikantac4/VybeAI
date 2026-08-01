@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import EvolutionSection from "./components/EvolutionSection";
-import AIEngineeringStackSection from "./components/AIEngineeringStackSection";
-import LearnToBuildSection from "./components/LearnToBuildSection";
-import CohortsShowcaseSection from "./components/CohortsShowcaseSection";
-import WhyTuringWingsSection from "./components/WhyTuringWingsSection";
+import ManifestoSection from "./components/ManifestoSection";
+import CreatorJourneySection from "./components/CreatorJourneySection";
+import NeuralSymbiosisSection from "./components/NeuralSymbiosisSection";
+import ProgramsSection from "./components/ProgramsSection";
+import CommunitySection from "./components/CommunitySection";
+import FutureVisionSection from "./components/FutureVisionSection";
+import MovementCTASection from "./components/MovementCTASection";
 import Footer from "./components/Footer";
 import ContactPage from "./pages/ContactPage";
 import BuildathonsPage from "./pages/BuildathonsPage";
@@ -34,23 +36,14 @@ function HomePage({ scrollTo }) {
       <Global3DBackground />
       <Navbar />
       <main>
-        {/* Section 1 - Hero */}
         <HeroSection />
-
-        {/* Section 2 - The Evolution of Engineering */}
-        <EvolutionSection />
-
-        {/* Section 3 - The Modern AI Engineering Stack */}
-        <AIEngineeringStackSection />
-
-        {/* Section 4 - Learn to Build with AI */}
-        <LearnToBuildSection />
-
-        {/* Section 5 - Explore Our Cohorts */}
-        <CohortsShowcaseSection />
-
-        {/* Section 6 - Why Turing Wings? */}
-        <WhyTuringWingsSection />
+        <ManifestoSection />
+        <CreatorJourneySection />
+        <NeuralSymbiosisSection />
+        <ProgramsSection />
+        <CommunitySection />
+        <FutureVisionSection />
+        <MovementCTASection />
       </main>
       <Footer />
     </div>

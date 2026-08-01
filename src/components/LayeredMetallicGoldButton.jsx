@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 // Exact Overlapping Angled 3D Metallic Gold Button matching reference design screenshot
 export default function LayeredMetallicGoldButton({ text, onClick, to, href, size = "md", type = "button", disabled = false, className = "", children }) {
   const sizeClasses = {
-    sm: "px-4 py-1.5 text-xs font-extrabold min-w-[80px]",
-    md: "px-6 py-2.5 text-xs sm:text-sm font-extrabold min-w-[140px]",
-    lg: "px-10 py-4 text-xl sm:text-2xl font-extrabold min-w-[220px]"
-  }[size] || "px-6 py-2.5 text-xs sm:text-sm font-extrabold";
+    sm: "px-3.5 py-1 text-[11px] font-extrabold min-w-[75px]",
+    md: "px-5 py-2 text-xs font-extrabold min-w-[125px]",
+    lg: "px-8 py-3 text-lg font-extrabold min-w-[190px]"
+  }[size] || "px-5 py-2 text-xs font-extrabold";
 
   const content = (
     <div className={`relative inline-block group cursor-pointer select-none my-1.5 ${disabled ? "opacity-60 cursor-not-allowed" : ""} ${className}`}>

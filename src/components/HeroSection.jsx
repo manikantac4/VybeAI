@@ -1,119 +1,155 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Sparkles, Terminal } from "lucide-react";
 import LayeredMetallicGoldButton from "./LayeredMetallicGoldButton";
+import { useTheme } from "../context/ThemeContext";
 
 export default function HeroSection() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e) => {
-    const { clientX, clientY } = e;
-    const { innerWidth, innerHeight } = window;
-    const x = (clientX / innerWidth - 0.5) * 30;
-    const y = (clientY / innerHeight - 0.5) * 30;
-    setMousePos({ x, y });
-  };
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   return (
     <section
       id="hero"
-      onMouseMove={handleMouseMove}
-      className="relative min-h-screen bg-gradient-to-b from-slate-100 via-slate-50 to-white text-slate-900 pt-28 pb-20 overflow-hidden flex flex-col justify-center items-center selection:bg-amber-500 selection:text-white"
+      className={`relative min-h-screen pt-28 pb-20 flex flex-col justify-center items-center selection:bg-amber-500 selection:text-slate-950 ${
+        isLight
+          ? "bg-[#FAF8F5] text-slate-900"
+          : "bg-slate-950 text-slate-100"
+      }`}
     >
-      {/* Abstract Background Grid & Ambient Soft Tones */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-500/10 via-slate-100/50 to-white pointer-events-none" />
-      
-      <div 
-        className="absolute inset-0 opacity-15 pointer-events-none"
-        style={{
-          backgroundImage: `radial-gradient(rgba(217, 119, 6, 0.25) 1px, transparent 1px)`,
-          backgroundSize: '32px 32px'
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center text-left">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 space-y-16 text-center">
         
-        {/* Left Column: Vision Headline & Classic Gold CTAs */}
-        <div className="lg:col-span-7 space-y-6">
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-700 text-xs font-mono font-bold uppercase tracking-wider"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-            <span>AI-Native Engineering Ecosystem</span>
-          </motion.div>
-
+        {/* Main Vision Banner Title */}
+        <div className="max-w-4xl mx-auto space-y-6">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.08] font-sans"
+            transition={{ duration: 0.6 }}
+            className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-sans"
           >
-            Designed to build <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-slate-800 to-amber-600">
-              AI-Native Software.
+            Launch Your Future in <br />
+            <span className="bg-gradient-to-r from-[#f5cb5c] via-[#e2b740] to-[#b8860b] bg-clip-text text-transparent italic font-serif">
+              AI & Software Engineering.
             </span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed"
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className={`text-sm sm:text-lg max-w-2xl mx-auto leading-relaxed ${
+              isLight ? "text-slate-600" : "text-slate-300"
+            }`}
           >
-            Not another coding course. Turing Wings trains engineers to think, collaborate, and ship production-ready applications using modern AI workflows.
+            Turing Wings is an AI-native engineering ecosystem designed to build, empower, and scale next-generation creators and developers.
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap items-center gap-6 pt-4"
-          >
-            <LayeredMetallicGoldButton
-              text="Explore Experience"
-              href="#experience"
-              size="md"
-            />
-
-            <LayeredMetallicGoldButton
-              text="Join Cohort"
-              href="#cohorts"
-              size="md"
-            />
-          </motion.div>
-
         </div>
 
-        {/* Right Column: Interactive 3D Brand Emblem Visual */}
-        <div className="lg:col-span-5 flex justify-center items-center relative">
+        {/* CORE PILLARS GRID: 3 GOLD-RIMMED CARDS (LEARN. / BUILD. / INNOVATE.) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          
+          {/* Card 1: LEARN. */}
           <motion.div
-            style={{
-              transform: `rotateX(${-mousePos.y}deg) rotateY(${mousePos.x}deg)`,
-              transition: "transform 0.15s ease-out"
-            }}
-            className="w-72 h-72 sm:w-96 sm:h-96 relative flex items-center justify-center cursor-pointer group"
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ y: -6 }}
+            className={`rounded-2xl p-7 sm:p-8 border shadow-xl flex flex-col justify-between text-left relative overflow-hidden transition-all ${
+              isLight
+                ? "bg-white/90 border-[#d8d0be] hover:border-[#e2b740] shadow-amber-500/5"
+                : "bg-[#0e1118]/90 border-[#e2b740]/40 hover:border-[#e2b740] shadow-amber-500/10"
+            }`}
           >
-            {/* Outer Glowing Wireframe Rings */}
-            <div className="absolute inset-0 rounded-full border border-amber-500/30 animate-spin-slow group-hover:border-amber-500/60 transition-colors" />
-            <div className="absolute inset-4 rounded-full border border-dashed border-slate-300 group-hover:border-amber-500/40 transition-colors" />
-            
-            {/* Center 3D Isometric Logo Prism */}
-            <div className="w-48 h-48 sm:w-60 sm:h-60 rounded-3xl bg-white border border-slate-200 backdrop-blur-xl shadow-2xl flex flex-col items-center justify-center p-6 text-center space-y-3 group-hover:shadow-amber-500/20 transition-all">
-              <div className="w-16 h-16 rounded-2xl bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/30">
-                <Terminal className="w-9 h-9 text-slate-950" />
-              </div>
-              <span className="font-extrabold text-lg text-slate-900 font-mono tracking-wider">
-                TW::AI_ENGINE
-              </span>
-              <span className="text-[10px] text-amber-700 font-mono uppercase tracking-widest">
-                Interactive 3D Core
-              </span>
+            <div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold font-serif italic text-[#e2b740] mb-3">
+                LEARN.
+              </h3>
+              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
+                isLight ? "text-slate-700" : "text-slate-300"
+              }`}>
+                Discover the next era of technology. Learn with purpose, build with precision, and scale with real-world impact.
+              </p>
+            </div>
+
+            <div className="pt-2 flex justify-center">
+              <LayeredMetallicGoldButton
+                text="View Cohorts"
+                to="/programs"
+                size="md"
+                className="w-full text-center"
+              />
             </div>
           </motion.div>
+
+          {/* Card 2: BUILD. */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            whileHover={{ y: -6 }}
+            className={`rounded-2xl p-7 sm:p-8 border shadow-xl flex flex-col justify-between text-left relative overflow-hidden transition-all ${
+              isLight
+                ? "bg-white/90 border-[#d8d0be] hover:border-[#e2b740] shadow-amber-500/5"
+                : "bg-[#0e1118]/90 border-[#e2b740]/40 hover:border-[#e2b740] shadow-amber-500/10"
+            }`}
+          >
+            <div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold font-serif italic text-[#e2b740] mb-3">
+                BUILD.
+              </h3>
+              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
+                isLight ? "text-slate-700" : "text-slate-300"
+              }`}>
+                Participate in live buildathons, build production-grade web apps, and ship live projects with 1-on-1 mentor guidance.
+              </p>
+            </div>
+
+            <div className="pt-2 flex justify-center">
+              <LayeredMetallicGoldButton
+                text="Explore Buildathons"
+                to="/buildathons"
+                size="md"
+                className="w-full text-center"
+              />
+            </div>
+          </motion.div>
+
+          {/* Card 3: INNOVATE. */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            whileHover={{ y: -6 }}
+            className={`rounded-2xl p-7 sm:p-8 border shadow-xl flex flex-col justify-between text-left relative overflow-hidden transition-all ${
+              isLight
+                ? "bg-white/90 border-[#d8d0be] hover:border-[#e2b740] shadow-amber-500/5"
+                : "bg-[#0e1118]/90 border-[#e2b740]/40 hover:border-[#e2b740] shadow-amber-500/10"
+            }`}
+          >
+            <div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold font-serif italic text-[#e2b740] mb-3">
+                INNOVATE.
+              </h3>
+              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
+                isLight ? "text-slate-700" : "text-slate-300"
+              }`}>
+                Deploy AI agents, zero-trust cloud architectures, and scalable microservices that transform ideas into real products.
+              </p>
+            </div>
+
+            <div className="pt-2 flex justify-center">
+              <LayeredMetallicGoldButton
+                text="Get Started"
+                to="/contact"
+                size="md"
+                className="w-full text-center"
+              />
+            </div>
+          </motion.div>
+
         </div>
 
       </div>
