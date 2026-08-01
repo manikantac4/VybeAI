@@ -86,7 +86,7 @@ export default function App() {
           <Route path="/contact" element={<ContactPage />} />
 
           {/* Standalone Event Template Route (With dedicated Navbar & Footer) */}
-          <Route path="/events/:slug/*" element={<EventPortalPage />} />
+          <Route path="/events/:slug" element={<EventPortalPage />} />
 
           {/* Legacy Aliases */}
           <Route path="/portal/core/v1/dashboard-overview" element={<HomePage scrollTo="hero" />} />

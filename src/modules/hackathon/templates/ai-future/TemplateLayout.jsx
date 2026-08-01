@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeContext } from './hooks/useTheme';
 import { EventDataContext } from './hooks/useEventData';
 import { mergeTheme } from './config/theme';
@@ -25,76 +24,122 @@ import Winners from './pages/Winners';
 import Gallery from './pages/Gallery';
 import Certificates from './pages/Certificates';
 
-/**
- * TemplateLayout
- * -----------------------------------------------------------------------
- * This is the single integration point for the Turing Wings platform.
- *
- *   <TemplateLayout eventData={adminEvent} themeOverrides={adminTheme} />
- *
- * - eventData: matches the shape in config/defaults.js. Falls back to
- *   sample data when omitted, so this template also works standalone
- *   as a live preview inside the template picker.
- * - themeOverrides: partial theme object merged over config/theme.js.
- *
- * No auth, no data-fetching, no persistence lives here — the platform
- * is responsible for supplying eventData as a prop.
- * -----------------------------------------------------------------------
- */
-export default function TemplateLayout({ eventData = defaultEventData, themeOverrides = {} }) {
+export default function TemplateLayout({ eventData = defaultEventData, themeOverrides = {}, onRegister }) {
   const theme = mergeTheme(themeOverrides);
+  const [activeTab, setActiveTab] = useState("home");
 
-  // index.html ships with {{EVENT_NAME}} / {{EVENT_TAGLINE}} placeholders
-  // for SSR/build-time templating platforms. For a purely client-rendered
-  // embed, sync the real values here too.
   useEffect(() => {
-    document.title = `${eventData.meta.name} — Powered by Turing Wings`;
-    const desc = document.querySelector('meta[name="description"]');
-    if (desc) desc.setAttribute('content', eventData.hero.subheadline);
+    if (eventData?.meta?.name) {
+      document.title = `${eventData.meta.name} — Powered by Turing Wings`;
+    }
   }, [eventData]);
+
+  const renderActiveSection = () => {
+    switch (activeTab) {
+      case "about":
+        return <About />;
+      case "timeline":
+        return <Timeline />;
+      case "tracks":
+        return <Tracks />;
+      case "judges":
+        return <Judges />;
+      case "mentors":
+        return <Mentors />;
+      case "sponsors":
+        return <Sponsors />;
+      case "faq":
+        return <FAQ />;
+      case "register":
+        return <Registration onSubmit={onRegister} />;
+      case "contact":
+        return <Contact />;
+      case "live":
+        return <LiveEvent />;
+      case "results":
+        return <Results />;
+      case "winners":
+        return <Winners />;
+      case "gallery":
+        return <Gallery />;
+      case "certificates":
+        return <Certificates />;
+      case "home":
+      default:
+        return <Home />;
+    }
+  };
 
   return (
     <ThemeContext.Provider value={theme}>
       <EventDataContext.Provider value={eventData}>
-        <BrowserRouter>
-          <div className="min-h-screen flex flex-col bg-base text-text">
-            <Navbar />
-            <main className="flex-1">
-              <AnimatedRoutes />
-            </main>
-            <Footer />
-            <FloatingButton onClick={() => window.location.assign('/register')}>
-              {eventData.meta.status === 'live' ? 'Watch live' : 'Register'}
-            </FloatingButton>
-          </div>
-        </BrowserRouter>
+        <div className="min-h-screen flex flex-col bg-slate-950 text-white font-sans selection:bg-amber-500 selection:text-slate-950">
+          
+          {/* Custom Dedicated Sub-Header Navigation for Hackathon Portal */}
+          <header className="sticky top-0 z-40 backdrop-blur-md bg-slate-950/90 border-b border-slate-800/80">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+              <button
+                onClick={() => setActiveTab("home")}
+                className="font-bold text-base tracking-tight text-white hover:text-amber-400 transition-colors truncate"
+              >
+                {eventData?.meta?.name || "Hackathon Portal"}
+              </button>
+
+              <div className="hidden lg:flex items-center gap-5 overflow-x-auto scrollbar-none">
+                {[
+                  { id: "home", label: "Home" },
+                  { id: "about", label: "About" },
+                  { id: "timeline", label: "Timeline" },
+                  { id: "tracks", label: "Tracks" },
+                  { id: "judges", label: "Judges" },
+                  { id: "mentors", label: "Mentors" },
+                  { id: "sponsors", label: "Sponsors" },
+                  { id: "faq", label: "FAQ" },
+                  { id: "contact", label: "Contact" },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`text-xs font-bold transition-all ${
+                      activeTab === tab.id
+                        ? "text-amber-400 border-b-2 border-amber-400 pb-1"
+                        : "text-slate-400 hover:text-white"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => {
+                  if (onRegister) onRegister();
+                  else setActiveTab("register");
+                }}
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-extrabold text-xs shadow-md shadow-amber-500/20 hover:scale-105 transition-all"
+              >
+                Register Team
+              </button>
+            </div>
+          </header>
+
+          <main className="flex-1">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                {renderActiveSection()}
+              </motion.div>
+            </AnimatePresence>
+          </main>
+
+          <Footer />
+        </div>
       </EventDataContext.Provider>
     </ThemeContext.Provider>
-  );
-}
-
-/** Wraps <Routes> with AnimatePresence so page transitions (see animations/variants.js) apply on route change. */
-function AnimatedRoutes() {
-  const location = useLocation();
-  return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/timeline" element={<Timeline />} />
-        <Route path="/tracks" element={<Tracks />} />
-        <Route path="/judges" element={<Judges />} />
-        <Route path="/mentors" element={<Mentors />} />
-        <Route path="/sponsors" element={<Sponsors />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/register" element={<Registration />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/live" element={<LiveEvent />} />
-        <Route path="/results" element={<Results />} />
-        <Route path="/winners" element={<Winners />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/certificates" element={<Certificates />} />
-      </Routes>
-    </AnimatePresence>
   );
 }
