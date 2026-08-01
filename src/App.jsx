@@ -12,6 +12,7 @@ import MovementCTASection from "./components/MovementCTASection";
 import Footer from "./components/Footer";
 import ContactPage from "./pages/ContactPage";
 import BuildathonsPage from "./pages/BuildathonsPage";
+import EventPortalPage from "./pages/EventPortalPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Global3DBackground from "./components/Global3DBackground";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -76,7 +77,7 @@ export default function App() {
     <ThemeProvider>
       <BrowserRouter>
         <Routes>
-          {/* Clean, Public App Routes */}
+          {/* Main Website Routes */}
           <Route path="/" element={<HomePage scrollTo="hero" />} />
           <Route path="/about" element={<HomePage scrollTo="manifesto" />} />
           <Route path="/programs" element={<HomePage scrollTo="programs" />} />
@@ -84,8 +85,10 @@ export default function App() {
           <Route path="/buildathons" element={<BuildathonsPage />} />
           <Route path="/contact" element={<ContactPage />} />
 
+          {/* Standalone Event Template Route (With dedicated Navbar & Footer) */}
+          <Route path="/events/:slug/*" element={<EventPortalPage />} />
+
           {/* Legacy Aliases */}
-          <Route path="/events" element={<BuildathonsPage />} />
           <Route path="/portal/core/v1/dashboard-overview" element={<HomePage scrollTo="hero" />} />
           <Route path="/portal/services/v2/program-catalog" element={<HomePage scrollTo="programs" />} />
           <Route path="/portal/analytics/v1/feedback-center" element={<HomePage scrollTo="community" />} />
