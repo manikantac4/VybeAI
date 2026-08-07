@@ -43,7 +43,7 @@ export default function WhyTuringWings() {
   const [activeIdx, setActiveIdx] = useState(0)
 
   return (
-    <section id="community" className="bg-white text-[#111] border-t border-black/10 px-4 py-16 sm:px-8 sm:py-24 md:px-12 md:py-32 font-sans overflow-hidden">
+    <section id="community" className="bg-[#fafafa] text-[#111] px-4 py-16 sm:px-8 sm:py-24 md:px-12 md:py-32 font-sans overflow-hidden">
       <div className="mx-auto max-w-[1400px]">
         
         {/* Section Header */}

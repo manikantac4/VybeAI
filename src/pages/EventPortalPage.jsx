@@ -64,6 +64,8 @@ export default function EventPortalPage() {
 
         // Transform full MongoDB event data shape into template contract
         const transformedData = {
+          templateId: data.templateId || "ai-future",
+          backgroundStyle: data.backgroundStyle || "particles",
           meta: {
             name: data.name || "Turing Wings Event",
             shortName: data.shortName || data.name,

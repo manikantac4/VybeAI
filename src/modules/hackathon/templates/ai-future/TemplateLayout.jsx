@@ -84,13 +84,28 @@ export default function TemplateLayout({ eventData = defaultEventData, themeOver
     }
   };
 
+  const bgClass =
+    theme.mode === "cyberpunk"
+      ? "bg-[#050014] text-white selection:bg-[#00FF9D] selection:text-black"
+      : theme.mode === "space"
+      ? "bg-[#030712] text-white selection:bg-[#6366F1] selection:text-white"
+      : theme.mode === "corporate"
+      ? "bg-[#0f172a] text-white selection:bg-[#2563EB] selection:text-white"
+      : theme.mode === "3d"
+      ? "bg-[#0a0a0a] text-white selection:bg-[#10B981] selection:text-black"
+      : theme.mode === "minimal"
+      ? "bg-[#FAFAFA] text-[#090909] selection:bg-[#22C55E] selection:text-black"
+      : "bg-[#090d16] text-white selection:bg-[#22C55E] selection:text-black";
+
   return (
     <ThemeContext.Provider value={theme}>
       <EventDataContext.Provider value={eventData}>
-        <div className="min-h-screen flex flex-col bg-slate-950 text-white font-sans selection:bg-amber-500 selection:text-slate-950">
+        <div className={`min-h-screen flex flex-col font-mono transition-colors duration-500 ${bgClass}`}>
           
           {/* Custom Dedicated Sub-Header Navigation for Hackathon Portal */}
-          <header className="sticky top-0 z-40 backdrop-blur-md bg-slate-950/95 border-b border-slate-800/80">
+          <header className={`sticky top-0 z-40 backdrop-blur-md border-b transition-colors ${
+            theme.mode === "minimal" ? "bg-[#FAFAFA]/95 border-black/10" : "bg-slate-950/95 border-slate-800/80"
+          }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
               <button
                 onClick={() => {

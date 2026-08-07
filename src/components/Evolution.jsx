@@ -149,7 +149,7 @@ export default function Evolution() {
   }
 
   return (
-    <section id="experience" className="comparison-section bg-white" ref={sectionRef} style={{ position: 'relative', overflow: 'hidden' }}>
+    <section id="experience" className="comparison-section bg-[#fafafa]" ref={sectionRef} style={{ position: 'relative', overflow: 'hidden' }}>
 
       {/* Dynamic Keyframes for Flow Line Animation */}
       <style>{`

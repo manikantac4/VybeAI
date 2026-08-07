@@ -125,7 +125,7 @@ function LogoCarousel({ title, data, initialIndex = 0 }) {
 
 export default function Stack() {
   return (
-    <section className="relative overflow-hidden border-t border-neutral-200 bg-white px-6 py-20 text-neutral-900 md:px-12 md:py-32">
+    <section className="relative overflow-hidden bg-[#fafafa] px-6 py-20 text-neutral-900 md:px-12 md:py-32">
       <div className="mx-auto max-w-7xl">
         {/* Section Header */}
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">

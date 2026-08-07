@@ -66,7 +66,7 @@ export default function BuildWithAI() {
   }, [])
 
   return (
-    <section className="bg-white text-[#111] py-12 md:py-24 px-4 sm:px-6 md:px-12 font-sans selection:bg-black selection:text-white overflow-hidden">
+    <section className="bg-[#fafafa] text-[#111] py-12 md:py-24 px-4 sm:px-6 md:px-12 font-sans selection:bg-black selection:text-white overflow-hidden">
       <style>{`
         .diagram-container {
           perspective: 1000px;
@@ -245,7 +245,7 @@ export default function BuildWithAI() {
         </div>
 
         {/* Outcomes & Social Proof Section */}
-        <div ref={outcomesRef} className="mt-16 md:mt-24 border-t border-black/10 pt-12 md:pt-16">
+        <div ref={outcomesRef} className="mt-16 md:mt-24 bg-[#fafafa]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
             
             {/* Left Quote Card */}

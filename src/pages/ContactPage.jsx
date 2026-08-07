@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Phone, Mail, Send, ShieldCheck, RefreshCw, Check,
@@ -9,6 +9,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function ContactPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [selectedMember, setSelectedMember] = useState(null);
   const [openFaq, setOpenFaq] = useState(null);
 
