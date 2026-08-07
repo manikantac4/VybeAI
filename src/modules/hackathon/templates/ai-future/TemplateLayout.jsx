@@ -11,6 +11,7 @@ import { Menu, X } from 'lucide-react';
 
 import Home from './pages/Home';
 import About from './pages/About';
+import ThemeBackgroundSwitcher from './backgrounds/ThemeBackgroundSwitcher';
 import Timeline from './pages/Timeline';
 import Tracks from './pages/Tracks';
 import Judges from './pages/Judges';
@@ -102,8 +103,10 @@ export default function TemplateLayout({ eventData = defaultEventData, themeOver
       <EventDataContext.Provider value={eventData}>
         <div
           style={{ backgroundColor: theme.colors.base, color: theme.colors.text }}
-          className={`min-h-screen flex flex-col font-mono transition-colors duration-500 ${bgClass}`}
+          className={`min-h-screen flex flex-col font-mono transition-colors duration-500 relative ${bgClass}`}
         >
+          {/* Dynamic 6-Theme Global Canvas Animated Background */}
+          <ThemeBackgroundSwitcher />
           
           {/* Custom Dedicated Sub-Header Navigation for Hackathon Portal */}
           <header className={`sticky top-0 z-40 backdrop-blur-md border-b transition-colors ${
