@@ -214,171 +214,198 @@ export default function Cohorts() {
     const track = trackRef.current
     if (!section || !track) return
 
-    // All scroll-derived geometry lives here so it can be recomputed
-    // on every ScrollTrigger refresh (resize, font-load, etc.) instead
-    // of being frozen at mount time.
-    const metrics = {}
+    // gsap.matchMedia scopes the pin/scroll-jack animation to desktop only.
+    // Below 641px it tears the whole thing down (and reverts any inline
+    // styles GSAP had applied) instead of running a mobile-shaped version
+    // of the same pin — a pinned 100vh takeover is what was fighting the
+    // rest of the page on phones, so mobile simply doesn't get one.
+    const mm = gsap.matchMedia()
 
-    const measure = () => {
-      const cardEls = track.querySelectorAll('.cohort-showcase-card')
-      if (cardEls.length === 0) return false
+    mm.add('(min-width: 641px)', () => {
+      // All scroll-derived geometry lives here so it can be recomputed
+      // on every ScrollTrigger refresh (resize, font-load, etc.) instead
+      // of being frozen at mount time.
+      const metrics = {}
 
-      const viewportWidth = window.innerWidth
-      const isCompact = viewportWidth <= 640
-      const cardWidth = cardEls[0].offsetWidth
-      const gap = parseFloat(getComputedStyle(track).gap) || 40
-      const leftPanelWidth = isCompact ? 0 : Math.min(Math.max(viewportWidth * 0.28, 330), 500)
-      const trackPadding = parseFloat(getComputedStyle(track).paddingLeft) || 0
-      const contentStart = isCompact ? 20 : leftPanelWidth + 56
-      const contentWidth = viewportWidth - contentStart - (isCompact ? 20 : 56)
-      const firstCardOffset = contentStart + Math.max(0, (contentWidth - cardWidth) / 2) - trackPadding
-      const maxTranslate = (cardEls.length - 1) * (cardWidth + gap)
+      const measure = () => {
+        const cardEls = track.querySelectorAll('.cohort-showcase-card')
+        if (cardEls.length === 0) return false
 
-      Object.assign(metrics, {
-        isCompact,
-        cardWidth,
-        gap,
-        contentStart,
-        contentWidth,
-        firstCardOffset,
-        maxTranslate,
-      })
-      return true
-    }
+        const viewportWidth = window.innerWidth
+        const cardWidth = cardEls[0].offsetWidth
+        const gap = parseFloat(getComputedStyle(track).gap) || 40
+        const leftPanelWidth = Math.min(Math.max(viewportWidth * 0.28, 330), 500)
+        const trackPadding = parseFloat(getComputedStyle(track).paddingLeft) || 0
+        const contentStart = leftPanelWidth + 56
+        const contentWidth = viewportWidth - contentStart - 56
+        const firstCardOffset = contentStart + Math.max(0, (contentWidth - cardWidth) / 2) - trackPadding
+        const maxTranslate = (cardEls.length - 1) * (cardWidth + gap)
 
-    // quickTo generators — GSAP reuses a single tween per property instead
-    // of spinning up a new one on every scroll tick, so each value glides
-    // (eases) toward its target rather than snapping to it. This is what
-    // actually produces the smoothing that `scrub` alone can't provide
-    // when there's no linked timeline/animation.
-    let quickX = null
-    let quickHeaderX = null
-    let quickHeaderAlpha = null
-    let quickProgress = null
-    let cardQuick = []
-
-    const setupTimer = setTimeout(() => {
-      if (!measure()) return
-
-      gsap.set(track, { x: metrics.firstCardOffset, force3D: true })
-
-      quickX = gsap.quickTo(track, 'x', { duration: 0.55, ease: 'power3' })
-
-      if (headerRef.current) {
-        quickHeaderX = gsap.quickTo(headerRef.current, 'x', { duration: 0.5, ease: 'power3' })
-        quickHeaderAlpha = gsap.quickTo(headerRef.current, 'autoAlpha', { duration: 0.4, ease: 'power2.out' })
-      }
-
-      if (progressFillRef.current) {
-        quickProgress = gsap.quickTo(progressFillRef.current, 'scaleX', {
-          duration: 0.35,
-          ease: 'power2.out',
+        Object.assign(metrics, {
+          cardWidth,
+          gap,
+          contentStart,
+          contentWidth,
+          firstCardOffset,
+          maxTranslate,
         })
+        return true
       }
 
-      cardQuick = cardWrapperRefs.current.map((el) =>
-        el
-          ? {
-              scale: gsap.quickTo(el, 'scale', { duration: 0.45, ease: 'power2.out' }),
-              opacity: gsap.quickTo(el, 'opacity', { duration: 0.45, ease: 'power2.out' }),
-            }
-          : null
-      )
+      // quickTo generators — GSAP reuses a single tween per property instead
+      // of spinning up a new one on every scroll tick, so each value glides
+      // (eases) toward its target rather than snapping to it. This is what
+      // actually produces the smoothing that `scrub` alone can't provide
+      // when there's no linked timeline/animation.
+      let quickX = null
+      let quickHeaderX = null
+      let quickHeaderAlpha = null
+      let quickProgress = null
+      let cardQuick = []
 
-      const st = ScrollTrigger.create({
-        trigger: pinRef.current,
-        start: 'top top',
-        end: () => `+=${window.innerHeight * (showcaseItems.length - 0.25)}`,
-        pin: true,
-        scrub: 0.6,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onRefresh: () => measure(),
-        onUpdate: (self) => {
-          const progress = self.progress
-          const { isCompact, cardWidth, gap, contentStart, contentWidth, firstCardOffset, maxTranslate } = metrics
+      const setupTimer = setTimeout(() => {
+        if (!measure()) return
 
-          // Progress bar fill
-          if (quickProgress) quickProgress(progress)
+        gsap.set(track, { x: metrics.firstCardOffset, force3D: true })
+        gsap.set(cardWrapperRefs.current, { scale: 0.94, opacity: 0.45 })
 
-          // The intro panel exits with the scroll instead of sitting over the content.
-          if (quickHeaderX && quickHeaderAlpha && !isCompact) {
-            const exitProgress = Math.min(progress / 0.2, 1)
-            quickHeaderX(-180 * exitProgress)
-            quickHeaderAlpha(1 - exitProgress)
-          }
+        quickX = gsap.quickTo(track, 'x', { duration: 0.55, ease: 'power3' })
 
-          // Card track position
-          const scrollStart = 0.06
-          const scrollEnd = 0.96
-          const normalizedProgress = Math.max(
-            0,
-            Math.min(1, (progress - scrollStart) / (scrollEnd - scrollStart))
-          )
+        if (headerRef.current) {
+          quickHeaderX = gsap.quickTo(headerRef.current, 'x', { duration: 0.5, ease: 'power3' })
+          quickHeaderAlpha = gsap.quickTo(headerRef.current, 'autoAlpha', { duration: 0.4, ease: 'power2.out' })
+        }
 
-          const translateX = firstCardOffset - normalizedProgress * maxTranslate
-          if (quickX) quickX(translateX)
+        if (progressFillRef.current) {
+          quickProgress = gsap.quickTo(progressFillRef.current, 'scaleX', {
+            duration: 0.35,
+            ease: 'power2.out',
+          })
+        }
 
-          // Find nearest card + drive scale/opacity
-          const viewportCenter = contentStart + contentWidth / 2
-          let nearestIndex = 0
-          let nearestDistance = Infinity
+        cardQuick = cardWrapperRefs.current.map((el) =>
+          el
+            ? {
+                scale: gsap.quickTo(el, 'scale', { duration: 0.45, ease: 'power2.out' }),
+                opacity: gsap.quickTo(el, 'opacity', { duration: 0.45, ease: 'power2.out' }),
+              }
+            : null
+        )
 
-          for (let i = 0; i < showcaseItems.length; i++) {
-            const cardLeft = translateX + i * (cardWidth + gap)
-            const cardCenter = cardLeft + cardWidth / 2
-            const distance = Math.abs(cardCenter - viewportCenter)
+        const st = ScrollTrigger.create({
+          trigger: pinRef.current,
+          start: 'top top',
+          end: () => `+=${window.innerHeight * (showcaseItems.length - 0.25)}`,
+          pin: true,
+          scrub: 0.6,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onRefresh: () => measure(),
+          onUpdate: (self) => {
+            const progress = self.progress
+            const { cardWidth, gap, contentStart, contentWidth, firstCardOffset, maxTranslate } = metrics
 
-            if (distance < nearestDistance) {
-              nearestDistance = distance
-              nearestIndex = i
-            }
+            // Progress bar fill
+            if (quickProgress) quickProgress(progress)
 
-            const quick = cardQuick[i]
-            if (quick) {
-              const normalizedDist = Math.min(distance / (cardWidth * 1.2), 1)
-              const scale = Math.max(0.94, 1.04 - normalizedDist * 0.1)
-              const opacity = Math.max(0.45, 1 - normalizedDist * 0.55)
-              quick.scale(scale)
-              quick.opacity(opacity)
-            }
-          }
-
-          // Update active card state
-          if (nearestIndex !== prevActiveRef.current) {
-            if (prevActiveRef.current >= 0) {
-              const oldCard = cardWrapperRefs.current[prevActiveRef.current]?.querySelector('.cohort-showcase-card')
-              if (oldCard) oldCard.classList.remove('is-active')
-              const oldDot = indicatorRefs.current[prevActiveRef.current]
-              if (oldDot) oldDot.classList.remove('is-active')
+            // The intro panel exits with the scroll instead of sitting over the content.
+            if (quickHeaderX && quickHeaderAlpha) {
+              const exitProgress = Math.min(progress / 0.2, 1)
+              quickHeaderX(-180 * exitProgress)
+              quickHeaderAlpha(1 - exitProgress)
             }
 
-            const newCard = cardWrapperRefs.current[nearestIndex]?.querySelector('.cohort-showcase-card')
-            if (newCard) newCard.classList.add('is-active')
-            const newDot = indicatorRefs.current[nearestIndex]
-            if (newDot) newDot.classList.add('is-active')
+            // Card track position
+            const scrollStart = 0.06
+            const scrollEnd = 0.96
+            const normalizedProgress = Math.max(
+              0,
+              Math.min(1, (progress - scrollStart) / (scrollEnd - scrollStart))
+            )
 
-            prevActiveRef.current = nearestIndex
-          }
-        },
-      })
+            const translateX = firstCardOffset - normalizedProgress * maxTranslate
+            if (quickX) quickX(translateX)
 
-      stRef.current = st
-    }, 150)
+            // Find nearest card + drive scale/opacity
+            const viewportCenter = contentStart + contentWidth / 2
+            let nearestIndex = 0
+            let nearestDistance = Infinity
 
-    return () => {
-      clearTimeout(setupTimer)
-      if (stRef.current) {
-        stRef.current.kill()
-        stRef.current = null
+            for (let i = 0; i < showcaseItems.length; i++) {
+              const cardLeft = translateX + i * (cardWidth + gap)
+              const cardCenter = cardLeft + cardWidth / 2
+              const distance = Math.abs(cardCenter - viewportCenter)
+
+              if (distance < nearestDistance) {
+                nearestDistance = distance
+                nearestIndex = i
+              }
+
+              const quick = cardQuick[i]
+              if (quick) {
+                const normalizedDist = Math.min(distance / (cardWidth * 1.2), 1)
+                const scale = Math.max(0.94, 1.04 - normalizedDist * 0.1)
+                const opacity = Math.max(0.45, 1 - normalizedDist * 0.55)
+                quick.scale(scale)
+                quick.opacity(opacity)
+              }
+            }
+
+            // Update active card state
+            if (nearestIndex !== prevActiveRef.current) {
+              if (prevActiveRef.current >= 0) {
+                const oldCard = cardWrapperRefs.current[prevActiveRef.current]?.querySelector('.cohort-showcase-card')
+                if (oldCard) oldCard.classList.remove('is-active')
+                const oldDot = indicatorRefs.current[prevActiveRef.current]
+                if (oldDot) oldDot.classList.remove('is-active')
+              }
+
+              const newCard = cardWrapperRefs.current[nearestIndex]?.querySelector('.cohort-showcase-card')
+              if (newCard) newCard.classList.add('is-active')
+              const newDot = indicatorRefs.current[nearestIndex]
+              if (newDot) newDot.classList.add('is-active')
+
+              prevActiveRef.current = nearestIndex
+            }
+          },
+        })
+
+        stRef.current = st
+      }, 150)
+
+      // Runs when this breakpoint stops matching (or on unmount) —
+      // gsap.matchMedia auto-reverts any gsap.set/quickTo values it made,
+      // so we only need to clear our own timer/refs here.
+      return () => {
+        clearTimeout(setupTimer)
+        if (stRef.current) {
+          stRef.current.kill()
+          stRef.current = null
+        }
+        prevActiveRef.current = -1
       }
-    }
+    })
+
+    mm.add('(max-width: 640px)', () => {
+      // Mobile: no pin, no scroll-jacking. The track is a plain native
+      // horizontal swipe carousel (see cohorts.css), so cards just need
+      // to be fully visible and untransformed — CSS handles the rest.
+      gsap.set(cardWrapperRefs.current, { clearProps: 'all' })
+      if (headerRef.current) gsap.set(headerRef.current, { clearProps: 'all' })
+      if (progressFillRef.current) gsap.set(progressFillRef.current, { clearProps: 'all' })
+
+      return () => {}
+    })
+
+    return () => mm.revert()
   }, [])
 
   useEffect(() => {
     let resizeTimer
     const handleResize = () => {
       // Debounce so a drag-resize doesn't thrash refresh()/measure() on every pixel.
+      // Crossing the 640px breakpoint is handled by gsap.matchMedia itself;
+      // this just keeps the desktop pin's geometry correct on in-breakpoint resizes.
       clearTimeout(resizeTimer)
       resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 150)
     }
@@ -415,10 +442,6 @@ export default function Cohorts() {
               key={item.id}
               ref={(el) => (cardWrapperRefs.current[i] = el)}
               className="cohort-showcase-card-wrapper"
-              style={{
-                transform: 'scale(0.94)',
-                opacity: 0.45,
-              }}
             >
               {item.id === 'explore' ? <ExploreCard /> : <CohortCard cohort={item} />}
             </div>

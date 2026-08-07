@@ -14,8 +14,8 @@ const socials = [
 export default function Footer() {
   return (
     <footer
-      className="text-white pt-8 sm:pt-12 pb-0 font-sans overflow-hidden"
-      style={{ backgroundColor: '#000000', borderTop: '1px solid rgba(255,255,255,0.1)' }}
+      className="pt-8 sm:pt-12 pb-0 font-sans overflow-hidden"
+      style={{ backgroundColor: '#000000', color: '#9ca3af', borderTop: '1px solid rgba(255,255,255,0.1)' }}
     >
       <div className="mx-auto max-w-[1400px] px-4 sm:px-8 md:px-12">
 
@@ -54,9 +54,9 @@ export default function Footer() {
                     <a
                       href={item.href}
                       className="text-xs sm:text-sm font-medium transition-colors duration-200 underline underline-offset-4 truncate"
-                      style={{ color: '#ffffff', textDecorationColor: 'rgba(255,255,255,0.25)' }}
+                      style={{ color: '#d1d5db', textDecorationColor: 'rgba(255,255,255,0.25)' }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = '#34d399')}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = '#ffffff')}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = '#d1d5db')}
                     >
                       {item.value}
                     </a>
@@ -92,7 +92,7 @@ export default function Footer() {
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.08)',
                     border: '1px solid rgba(255,255,255,0.08)',
-                    color: '#ffffff',
+                    color: '#d1d5db',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = '#ffffff'
@@ -100,7 +100,7 @@ export default function Footer() {
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'
-                    e.currentTarget.style.color = '#ffffff'
+                    e.currentTarget.style.color = '#d1d5db'
                   }}
                 >
                   <span>{social.label}</span>
@@ -121,8 +121,8 @@ export default function Footer() {
           <p
             className="font-serif italic text-base xs:text-lg sm:text-2xl md:text-3xl leading-snug text-center whitespace-nowrap"
             style={{
-              color: '#ffffff',
-              textShadow: '0 0 14px rgba(255,255,255,0.3), 0 0 32px rgba(255,255,255,0.1)',
+              color: '#d1d5db',
+              textShadow: '0 0 14px rgba(255,255,255,0.15), 0 0 32px rgba(255,255,255,0.06)',
             }}
           >
             "Built by engineers, for engineers."
