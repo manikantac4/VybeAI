@@ -15,7 +15,7 @@ export default function Footer() {
   return (
     <footer
       className="pt-8 sm:pt-12 pb-0 font-sans overflow-hidden"
-      style={{ backgroundColor: '#000000', color: '#9ca3af', borderTop: '1px solid rgba(255,255,255,0.1)' }}
+      style={{ backgroundColor: '#000000', color: '#737373', borderTop: '1px solid rgba(255,255,255,0.1)' }}
     >
       <div className="mx-auto max-w-[1400px] px-4 sm:px-8 md:px-12">
 
@@ -31,7 +31,7 @@ export default function Footer() {
               <div className="flex items-start gap-3">
                 {/* Custom icon from /public/Logos/WhiteFill.png — no box, transparent, full size */}
                 <img
-                  src="/public/Logos/WhiteFill.png"
+                  src="/Logos/WhiteFill.png"
                   alt="Turing Wings"
                   className="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 object-contain shrink-0"
                 />
@@ -54,9 +54,9 @@ export default function Footer() {
                     <a
                       href={item.href}
                       className="text-xs sm:text-sm font-medium transition-colors duration-200 underline underline-offset-4 truncate"
-                      style={{ color: '#d1d5db', textDecorationColor: 'rgba(255,255,255,0.25)' }}
+                      style={{ color: '#737373', textDecorationColor: 'rgba(255,255,255,0.25)' }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = '#34d399')}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = '#d1d5db')}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = '#737373')}
                     >
                       {item.value}
                     </a>
@@ -92,7 +92,7 @@ export default function Footer() {
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.08)',
                     border: '1px solid rgba(255,255,255,0.08)',
-                    color: '#d1d5db',
+                    color: '#737373',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = '#ffffff'
@@ -100,7 +100,7 @@ export default function Footer() {
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'
-                    e.currentTarget.style.color = '#d1d5db'
+                    e.currentTarget.style.color = '#737373'
                   }}
                 >
                   <span>{social.label}</span>
@@ -121,7 +121,7 @@ export default function Footer() {
           <p
             className="font-serif italic text-base xs:text-lg sm:text-2xl md:text-3xl leading-snug text-center whitespace-nowrap"
             style={{
-              color: '#d1d5db',
+              color: '#737373',
               textShadow: '0 0 14px rgba(255,255,255,0.15), 0 0 32px rgba(255,255,255,0.06)',
             }}
           >
@@ -169,7 +169,7 @@ export default function Footer() {
         <h1
           className="text-[15vw] xs:text-[13vw] sm:text-[12.5vw] md:text-[13.5vw] font-black tracking-tighter leading-none uppercase whitespace-nowrap text-center translate-y-[26%] sm:translate-y-[28%]"
           style={{
-            color: '#d1d5db',
+            color: '#737373',
             filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.4))',
           }}
         >
