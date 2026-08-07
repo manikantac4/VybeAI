@@ -19,20 +19,17 @@ export default function Footer() {
       <div className="mx-auto max-w-[1500px] px-6 md:px-12">
 
         {/* Top Info, Contact & Social Chips Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 items-start border-b border-white/10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 items-center border-b border-white/10">
 
-          {/* Brand Logo & Vision Statement */}
-          <div className="lg:col-span-4 flex flex-col justify-between space-y-4">
+          {/* Large Prominent Brand Logo (Text matter removed as requested) */}
+          <div className="lg:col-span-4 flex items-center">
             <Link to="/" aria-label="Turing Wings home">
               <img
                 src="/Logos/WhiteFill.png"
                 alt="Turing Wings"
-                className="h-16 w-auto object-contain shrink-0"
+                className="h-28 sm:h-32 md:h-36 w-auto object-contain shrink-0 hover:scale-105 transition-transform duration-300"
               />
             </Link>
-            <p className="text-xs text-white/60 leading-relaxed max-w-sm font-medium">
-              Engineering Reimagined — An AI-native learning ecosystem for builders to direct intent, ship production software, and own the future.
-            </p>
           </div>
 
           {/* Contact Details Row */}
@@ -69,7 +66,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-white/10 hover:bg-[#22C55E] text-white hover:text-black transition-all border border-white/10"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold bg-white/10 hover:bg-[#22C55E] text-white hover:text-black transition-all border border-white/10"
                 >
                   <span>{social.label}</span>
                   <span className="text-[10px] opacity-70">↗</span>
