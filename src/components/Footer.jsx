@@ -1,85 +1,66 @@
 import { Link } from 'react-router-dom'
 
 const contactDetails = [
-  { label: 'EMAIL', value: 'hello@turingwings.com', href: 'mailto:hello@turingwings.com' },
-  { label: 'PHONE', value: '+1 (555) 019-2834', href: 'tel:+15550192834' },
+  { label: 'EMAIL', value: 'contact@turingwings.org', href: 'mailto:contact@turingwings.org' },
+  { label: 'PHONE', value: '+91 98765 43211', href: 'tel:+919876543211' },
 ]
 
 const socials = [
-  { label: 'LinkedIn', href: '#' },
-  { label: 'Instagram', href: '#' },
-  { label: 'YouTube', href: '#' },
+  { label: 'LinkedIn', href: 'https://linkedin.com' },
+  { label: 'Instagram', href: 'https://instagram.com' },
+  { label: 'YouTube', href: 'https://youtube.com' },
 ]
 
 export default function Footer() {
   return (
     <footer
-      className="pt-8 sm:pt-12 pb-0 font-sans overflow-hidden"
-      style={{ backgroundColor: '#000000', color: '#737373', borderTop: '1px solid rgba(255,255,255,0.1)' }}
+      className="pt-12 pb-0 font-mono bg-[#090909] text-white border-t border-white/10 overflow-hidden"
     >
-      <div className="mx-auto max-w-[1400px] px-4 sm:px-8 md:px-12">
+      <div className="mx-auto max-w-[1500px] px-6 md:px-12">
 
         {/* Top Info, Contact & Social Chips Section */}
-        <div
-          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 pb-6 sm:pb-8 items-start"
-          style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 items-start border-b border-white/10">
 
-          {/* Brand Vision Statement with Custom Icon */}
-          <div className="lg:col-span-4 flex flex-col justify-between">
-            <div>
-              <div className="flex items-start gap-3">
-                {/* Custom icon from /public/Logos/WhiteFill.png — no box, transparent, full size */}
-                <img
-                  src="/Logos/WhiteFill.png"
-                  alt="Turing Wings"
-                  className="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 object-contain shrink-0"
-                />
-              </div>
-            </div>
+          {/* Brand Logo & Vision Statement */}
+          <div className="lg:col-span-4 flex flex-col justify-between space-y-4">
+            <Link to="/" aria-label="Turing Wings home">
+              <img
+                src="/Logos/WhiteFill.png"
+                alt="Turing Wings"
+                className="h-16 w-auto object-contain shrink-0"
+              />
+            </Link>
+            <p className="text-xs text-white/60 leading-relaxed max-w-sm font-medium">
+              Engineering Reimagined — An AI-native learning ecosystem for builders to direct intent, ship production software, and own the future.
+            </p>
           </div>
 
           {/* Contact Details Row */}
-          <div className="lg:col-span-5 flex flex-col gap-4 sm:gap-5">
-            <div className="grid grid-cols-2 gap-6 sm:gap-8">
+          <div className="lg:col-span-5 flex flex-col gap-4">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+              DIRECT COMMAND CONTACT
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {contactDetails.map((item) => (
-                <div key={item.label} className="flex flex-col gap-1.5 min-w-0">
-                  <span
-                    className="text-[10px] font-mono font-bold uppercase tracking-widest"
-                    style={{ color: 'rgba(255,255,255,0.4)' }}
-                  >
+                <div key={item.label} className="flex flex-col gap-1 min-w-0">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
                     {item.label}
                   </span>
-                  {item.href ? (
-                    <a
-                      href={item.href}
-                      className="text-xs sm:text-sm font-medium transition-colors duration-200 underline underline-offset-4 truncate"
-                      style={{ color: '#737373', textDecorationColor: 'rgba(255,255,255,0.25)' }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = '#34d399')}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = '#737373')}
-                    >
-                      {item.value}
-                    </a>
-                  ) : (
-                    <span
-                      className="text-xs sm:text-sm font-medium truncate"
-                      style={{ color: 'rgba(255,255,255,0.8)' }}
-                    >
-                      {item.value}
-                    </span>
-                  )}
+                  <a
+                    href={item.href}
+                    className="text-xs sm:text-sm font-bold text-white hover:text-[#22C55E] transition-colors truncate underline underline-offset-4 decoration-white/20 hover:decoration-[#22C55E]"
+                  >
+                    {item.value}
+                  </a>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Social Connect Chips / Pills */}
-          <div className="lg:col-span-3 flex flex-col gap-2.5">
-            <span
-              className="text-[10px] font-mono font-bold uppercase tracking-widest"
-              style={{ color: 'rgba(255,255,255,0.4)' }}
-            >
-              CONNECT WITH US
+          <div className="lg:col-span-3 flex flex-col gap-3">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+              COMMUNITY CONNECT
             </span>
             <div className="flex flex-wrap gap-2">
               {socials.map((social) => (
@@ -88,27 +69,10 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-colors duration-200"
-                  style={{
-                    backgroundColor: 'rgba(255,255,255,0.08)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    color: '#737373',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#ffffff'
-                    e.currentTarget.style.color = '#000000'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'
-                    e.currentTarget.style.color = '#737373'
-                  }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-white/10 hover:bg-[#22C55E] text-white hover:text-black transition-all border border-white/10"
                 >
                   <span>{social.label}</span>
-                  <span
-                    className="text-[10px] font-mono opacity-40 transition-[transform,opacity] duration-200 ease-out group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
-                  >
-                    ↗
-                  </span>
+                  <span className="text-[10px] opacity-70">↗</span>
                 </a>
               ))}
             </div>
@@ -117,40 +81,25 @@ export default function Footer() {
         </div>
 
         {/* Quote Row */}
-        <div className="py-6 sm:py-8 flex justify-center px-2">
-          <p
-            className="font-serif italic text-base xs:text-lg sm:text-2xl md:text-3xl leading-snug text-center whitespace-nowrap"
-            style={{
-              color: '#737373',
-              textShadow: '0 0 14px rgba(255,255,255,0.15), 0 0 32px rgba(255,255,255,0.06)',
-            }}
-          >
+        <div className="py-8 flex justify-center text-center">
+          <p className="font-serif italic text-xl sm:text-3xl text-white/90 font-bold tracking-tight">
             "Built by engineers, for engineers."
           </p>
         </div>
 
         {/* Legal & Copyright Row */}
-        <div
-          className="pt-4 pb-1 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] sm:text-xs font-mono"
-          style={{ color: 'rgba(255,255,255,0.4)' }}
-        >
+        <div className="pt-4 pb-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/60 border-t border-white/10">
           <p>© {new Date().getFullYear()} Turing Wings. All rights reserved.</p>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-6 font-bold">
             <Link
               to="/privacy"
-              className="transition-colors duration-200"
-              style={{ color: 'inherit' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.8)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'inherit')}
+              className="text-white/80 hover:text-[#22C55E] transition-colors"
             >
               Privacy Policy
             </Link>
             <Link
               to="/terms"
-              className="transition-colors duration-200"
-              style={{ color: 'inherit' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.8)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'inherit')}
+              className="text-white/80 hover:text-[#22C55E] transition-colors"
             >
               Terms of Service
             </Link>
@@ -159,20 +108,9 @@ export default function Footer() {
 
       </div>
 
-      {/* Half-Cut "TURING WINGS" Text at Very Bottom, dimmed against black */}
-      <div
-        className="w-full overflow-hidden pointer-events-none select-none flex justify-center -mb-2 sm:-mb-4 mt-0 pt-1"
-        style={{
-          background: 'linear-gradient(to top, rgba(255,255,255,0.03), transparent)',
-        }}
-      >
-        <h1
-          className="text-[15vw] xs:text-[13vw] sm:text-[12.5vw] md:text-[13.5vw] font-black tracking-tighter leading-none uppercase whitespace-nowrap text-center translate-y-[26%] sm:translate-y-[28%]"
-          style={{
-            color: '#737373',
-            filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.4))',
-          }}
-        >
+      {/* Half-Cut "TURING WINGS" Watermark Banner */}
+      <div className="w-full overflow-hidden pointer-events-none select-none flex justify-center -mb-4 pt-2 bg-gradient-to-t from-white/5 to-transparent">
+        <h1 className="text-[14vw] font-black tracking-tighter leading-none uppercase whitespace-nowrap text-center text-white/10 translate-y-[28%]">
           TURING WINGS
         </h1>
       </div>

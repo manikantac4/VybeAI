@@ -11,6 +11,8 @@ import Footer from "./components/Footer";
 import ContactPage from "./pages/ContactPage";
 import BuildathonsPage from "./pages/BuildathonsPage";
 import EventPortalPage from "./pages/EventPortalPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 function HomePage() {
@@ -61,6 +63,8 @@ export default function App() {
         <Route path="/community" element={<HomePage />} />
         <Route path="/buildathons" element={<BuildathonsPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms" element={<TermsOfServicePage />} />
 
         {/* Standalone Event Template Route */}
         <Route path="/events/:slug" element={<EventPortalPage />} />
