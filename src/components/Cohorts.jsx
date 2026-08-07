@@ -6,6 +6,22 @@ import './cohorts.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// This runs once, at module load. The real cause of the mobile "gap after
+// the section" / jumpy feel: mobile browsers resize the viewport (address
+// bar hiding/showing) WHILE the user scrolls a pinned element, which
+// desyncs GSAP's pin-spacer height from the actual content height and
+// leaves dead space behind. `normalizeScroll` locks the page against that
+// viewport resizing during scroll (drives scrolling via transforms instead
+// of native scroll position), and `ignoreMobileResize` stops those same
+// address-bar resizes from triggering needless ScrollTrigger refreshes.
+// Together they're the standard fix for pinned sections on mobile and
+// apply page-wide, so this also stops the section from disturbing
+// whatever sits above/below it.
+if (typeof window !== 'undefined') {
+  ScrollTrigger.config({ ignoreMobileResize: true })
+  ScrollTrigger.normalizeScroll(true)
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    COHORT DATA
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -214,198 +230,182 @@ export default function Cohorts() {
     const track = trackRef.current
     if (!section || !track) return
 
-    // gsap.matchMedia scopes the pin/scroll-jack animation to desktop only.
-    // Below 641px it tears the whole thing down (and reverts any inline
-    // styles GSAP had applied) instead of running a mobile-shaped version
-    // of the same pin — a pinned 100vh takeover is what was fighting the
-    // rest of the page on phones, so mobile simply doesn't get one.
-    const mm = gsap.matchMedia()
+    // All scroll-derived geometry lives here so it can be recomputed
+    // on every ScrollTrigger refresh (resize, font-load, etc.) instead
+    // of being frozen at mount time.
+    const metrics = {}
 
-    mm.add('(min-width: 641px)', () => {
-      // All scroll-derived geometry lives here so it can be recomputed
-      // on every ScrollTrigger refresh (resize, font-load, etc.) instead
-      // of being frozen at mount time.
-      const metrics = {}
+    // With normalizeScroll(true) active, document.documentElement.clientHeight
+    // stays stable across the pinned scroll (unlike window.innerHeight, which
+    // mobile browsers still change as the address bar hides/shows). Using the
+    // stable value for the pin's `end` distance is what keeps the pin-spacer
+    // height in sync with the actual scroll distance — no more leftover gap.
+    const getViewportHeight = () =>
+      document.documentElement.clientHeight || window.innerHeight
 
-      const measure = () => {
-        const cardEls = track.querySelectorAll('.cohort-showcase-card')
-        if (cardEls.length === 0) return false
+    const measure = () => {
+      const cardEls = track.querySelectorAll('.cohort-showcase-card')
+      if (cardEls.length === 0) return false
 
-        const viewportWidth = window.innerWidth
-        const cardWidth = cardEls[0].offsetWidth
-        const gap = parseFloat(getComputedStyle(track).gap) || 40
-        const leftPanelWidth = Math.min(Math.max(viewportWidth * 0.28, 330), 500)
-        const trackPadding = parseFloat(getComputedStyle(track).paddingLeft) || 0
-        const contentStart = leftPanelWidth + 56
-        const contentWidth = viewportWidth - contentStart - 56
-        const firstCardOffset = contentStart + Math.max(0, (contentWidth - cardWidth) / 2) - trackPadding
-        const maxTranslate = (cardEls.length - 1) * (cardWidth + gap)
+      const viewportWidth = window.innerWidth
+      const isCompact = viewportWidth <= 640
+      const cardWidth = cardEls[0].offsetWidth
+      const gap = parseFloat(getComputedStyle(track).gap) || 40
+      const leftPanelWidth = isCompact ? 0 : Math.min(Math.max(viewportWidth * 0.28, 330), 500)
+      const trackPadding = parseFloat(getComputedStyle(track).paddingLeft) || 0
+      const contentStart = isCompact ? 20 : leftPanelWidth + 56
+      const contentWidth = viewportWidth - contentStart - (isCompact ? 20 : 56)
+      const firstCardOffset = contentStart + Math.max(0, (contentWidth - cardWidth) / 2) - trackPadding
+      const maxTranslate = (cardEls.length - 1) * (cardWidth + gap)
 
-        Object.assign(metrics, {
-          cardWidth,
-          gap,
-          contentStart,
-          contentWidth,
-          firstCardOffset,
-          maxTranslate,
-        })
-        return true
+      Object.assign(metrics, {
+        isCompact,
+        cardWidth,
+        gap,
+        contentStart,
+        contentWidth,
+        firstCardOffset,
+        maxTranslate,
+      })
+      return true
+    }
+
+    // quickTo generators — GSAP reuses a single tween per property instead
+    // of spinning up a new one on every scroll tick, so each value glides
+    // (eases) toward its target rather than snapping to it. This is what
+    // actually produces the smoothing that `scrub` alone can't provide
+    // when there's no linked timeline/animation.
+    let quickX = null
+    let quickHeaderX = null
+    let quickHeaderAlpha = null
+    let quickProgress = null
+    let cardQuick = []
+
+    const setupTimer = setTimeout(() => {
+      if (!measure()) return
+
+      gsap.set(track, { x: metrics.firstCardOffset, force3D: true })
+      gsap.set(cardWrapperRefs.current, { scale: 0.94, opacity: 0.45 })
+
+      quickX = gsap.quickTo(track, 'x', { duration: 0.55, ease: 'power3' })
+
+      if (headerRef.current) {
+        quickHeaderX = gsap.quickTo(headerRef.current, 'x', { duration: 0.5, ease: 'power3' })
+        quickHeaderAlpha = gsap.quickTo(headerRef.current, 'autoAlpha', { duration: 0.4, ease: 'power2.out' })
       }
 
-      // quickTo generators — GSAP reuses a single tween per property instead
-      // of spinning up a new one on every scroll tick, so each value glides
-      // (eases) toward its target rather than snapping to it. This is what
-      // actually produces the smoothing that `scrub` alone can't provide
-      // when there's no linked timeline/animation.
-      let quickX = null
-      let quickHeaderX = null
-      let quickHeaderAlpha = null
-      let quickProgress = null
-      let cardQuick = []
-
-      const setupTimer = setTimeout(() => {
-        if (!measure()) return
-
-        gsap.set(track, { x: metrics.firstCardOffset, force3D: true })
-        gsap.set(cardWrapperRefs.current, { scale: 0.94, opacity: 0.45 })
-
-        quickX = gsap.quickTo(track, 'x', { duration: 0.55, ease: 'power3' })
-
-        if (headerRef.current) {
-          quickHeaderX = gsap.quickTo(headerRef.current, 'x', { duration: 0.5, ease: 'power3' })
-          quickHeaderAlpha = gsap.quickTo(headerRef.current, 'autoAlpha', { duration: 0.4, ease: 'power2.out' })
-        }
-
-        if (progressFillRef.current) {
-          quickProgress = gsap.quickTo(progressFillRef.current, 'scaleX', {
-            duration: 0.35,
-            ease: 'power2.out',
-          })
-        }
-
-        cardQuick = cardWrapperRefs.current.map((el) =>
-          el
-            ? {
-                scale: gsap.quickTo(el, 'scale', { duration: 0.45, ease: 'power2.out' }),
-                opacity: gsap.quickTo(el, 'opacity', { duration: 0.45, ease: 'power2.out' }),
-              }
-            : null
-        )
-
-        const st = ScrollTrigger.create({
-          trigger: pinRef.current,
-          start: 'top top',
-          end: () => `+=${window.innerHeight * (showcaseItems.length - 0.25)}`,
-          pin: true,
-          scrub: 0.6,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onRefresh: () => measure(),
-          onUpdate: (self) => {
-            const progress = self.progress
-            const { cardWidth, gap, contentStart, contentWidth, firstCardOffset, maxTranslate } = metrics
-
-            // Progress bar fill
-            if (quickProgress) quickProgress(progress)
-
-            // The intro panel exits with the scroll instead of sitting over the content.
-            if (quickHeaderX && quickHeaderAlpha) {
-              const exitProgress = Math.min(progress / 0.2, 1)
-              quickHeaderX(-180 * exitProgress)
-              quickHeaderAlpha(1 - exitProgress)
-            }
-
-            // Card track position
-            const scrollStart = 0.06
-            const scrollEnd = 0.96
-            const normalizedProgress = Math.max(
-              0,
-              Math.min(1, (progress - scrollStart) / (scrollEnd - scrollStart))
-            )
-
-            const translateX = firstCardOffset - normalizedProgress * maxTranslate
-            if (quickX) quickX(translateX)
-
-            // Find nearest card + drive scale/opacity
-            const viewportCenter = contentStart + contentWidth / 2
-            let nearestIndex = 0
-            let nearestDistance = Infinity
-
-            for (let i = 0; i < showcaseItems.length; i++) {
-              const cardLeft = translateX + i * (cardWidth + gap)
-              const cardCenter = cardLeft + cardWidth / 2
-              const distance = Math.abs(cardCenter - viewportCenter)
-
-              if (distance < nearestDistance) {
-                nearestDistance = distance
-                nearestIndex = i
-              }
-
-              const quick = cardQuick[i]
-              if (quick) {
-                const normalizedDist = Math.min(distance / (cardWidth * 1.2), 1)
-                const scale = Math.max(0.94, 1.04 - normalizedDist * 0.1)
-                const opacity = Math.max(0.45, 1 - normalizedDist * 0.55)
-                quick.scale(scale)
-                quick.opacity(opacity)
-              }
-            }
-
-            // Update active card state
-            if (nearestIndex !== prevActiveRef.current) {
-              if (prevActiveRef.current >= 0) {
-                const oldCard = cardWrapperRefs.current[prevActiveRef.current]?.querySelector('.cohort-showcase-card')
-                if (oldCard) oldCard.classList.remove('is-active')
-                const oldDot = indicatorRefs.current[prevActiveRef.current]
-                if (oldDot) oldDot.classList.remove('is-active')
-              }
-
-              const newCard = cardWrapperRefs.current[nearestIndex]?.querySelector('.cohort-showcase-card')
-              if (newCard) newCard.classList.add('is-active')
-              const newDot = indicatorRefs.current[nearestIndex]
-              if (newDot) newDot.classList.add('is-active')
-
-              prevActiveRef.current = nearestIndex
-            }
-          },
+      if (progressFillRef.current) {
+        quickProgress = gsap.quickTo(progressFillRef.current, 'scaleX', {
+          duration: 0.35,
+          ease: 'power2.out',
         })
-
-        stRef.current = st
-      }, 150)
-
-      // Runs when this breakpoint stops matching (or on unmount) —
-      // gsap.matchMedia auto-reverts any gsap.set/quickTo values it made,
-      // so we only need to clear our own timer/refs here.
-      return () => {
-        clearTimeout(setupTimer)
-        if (stRef.current) {
-          stRef.current.kill()
-          stRef.current = null
-        }
-        prevActiveRef.current = -1
       }
-    })
 
-    mm.add('(max-width: 640px)', () => {
-      // Mobile: no pin, no scroll-jacking. The track is a plain native
-      // horizontal swipe carousel (see cohorts.css), so cards just need
-      // to be fully visible and untransformed — CSS handles the rest.
-      gsap.set(cardWrapperRefs.current, { clearProps: 'all' })
-      if (headerRef.current) gsap.set(headerRef.current, { clearProps: 'all' })
-      if (progressFillRef.current) gsap.set(progressFillRef.current, { clearProps: 'all' })
+      cardQuick = cardWrapperRefs.current.map((el) =>
+        el
+          ? {
+              scale: gsap.quickTo(el, 'scale', { duration: 0.45, ease: 'power2.out' }),
+              opacity: gsap.quickTo(el, 'opacity', { duration: 0.45, ease: 'power2.out' }),
+            }
+          : null
+      )
 
-      return () => {}
-    })
+      const st = ScrollTrigger.create({
+        trigger: pinRef.current,
+        start: 'top top',
+        end: () => `+=${getViewportHeight() * (showcaseItems.length - 0.25)}`,
+        pin: true,
+        scrub: 0.6,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onRefresh: () => measure(),
+        onUpdate: (self) => {
+          const progress = self.progress
+          const { isCompact, cardWidth, gap, contentStart, contentWidth, firstCardOffset, maxTranslate } = metrics
 
-    return () => mm.revert()
+          // Progress bar fill
+          if (quickProgress) quickProgress(progress)
+
+          // The intro panel exits with the scroll instead of sitting over the content.
+          if (quickHeaderX && quickHeaderAlpha && !isCompact) {
+            const exitProgress = Math.min(progress / 0.2, 1)
+            quickHeaderX(-180 * exitProgress)
+            quickHeaderAlpha(1 - exitProgress)
+          }
+
+          // Card track position
+          const scrollStart = 0.06
+          const scrollEnd = 0.96
+          const normalizedProgress = Math.max(
+            0,
+            Math.min(1, (progress - scrollStart) / (scrollEnd - scrollStart))
+          )
+
+          const translateX = firstCardOffset - normalizedProgress * maxTranslate
+          if (quickX) quickX(translateX)
+
+          // Find nearest card + drive scale/opacity
+          const viewportCenter = contentStart + contentWidth / 2
+          let nearestIndex = 0
+          let nearestDistance = Infinity
+
+          for (let i = 0; i < showcaseItems.length; i++) {
+            const cardLeft = translateX + i * (cardWidth + gap)
+            const cardCenter = cardLeft + cardWidth / 2
+            const distance = Math.abs(cardCenter - viewportCenter)
+
+            if (distance < nearestDistance) {
+              nearestDistance = distance
+              nearestIndex = i
+            }
+
+            const quick = cardQuick[i]
+            if (quick) {
+              const normalizedDist = Math.min(distance / (cardWidth * 1.2), 1)
+              const scale = Math.max(0.94, 1.04 - normalizedDist * 0.1)
+              const opacity = Math.max(0.45, 1 - normalizedDist * 0.55)
+              quick.scale(scale)
+              quick.opacity(opacity)
+            }
+          }
+
+          // Update active card state
+          if (nearestIndex !== prevActiveRef.current) {
+            if (prevActiveRef.current >= 0) {
+              const oldCard = cardWrapperRefs.current[prevActiveRef.current]?.querySelector('.cohort-showcase-card')
+              if (oldCard) oldCard.classList.remove('is-active')
+              const oldDot = indicatorRefs.current[prevActiveRef.current]
+              if (oldDot) oldDot.classList.remove('is-active')
+            }
+
+            const newCard = cardWrapperRefs.current[nearestIndex]?.querySelector('.cohort-showcase-card')
+            if (newCard) newCard.classList.add('is-active')
+            const newDot = indicatorRefs.current[nearestIndex]
+            if (newDot) newDot.classList.add('is-active')
+
+            prevActiveRef.current = nearestIndex
+          }
+        },
+      })
+
+      stRef.current = st
+    }, 150)
+
+    return () => {
+      clearTimeout(setupTimer)
+      if (stRef.current) {
+        stRef.current.kill()
+        stRef.current = null
+      }
+    }
   }, [])
 
   useEffect(() => {
     let resizeTimer
     const handleResize = () => {
       // Debounce so a drag-resize doesn't thrash refresh()/measure() on every pixel.
-      // Crossing the 640px breakpoint is handled by gsap.matchMedia itself;
-      // this just keeps the desktop pin's geometry correct on in-breakpoint resizes.
+      // ignoreMobileResize (set above) already filters out mobile address-bar
+      // resizes, so this just handles genuine width/orientation changes.
       clearTimeout(resizeTimer)
       resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 150)
     }

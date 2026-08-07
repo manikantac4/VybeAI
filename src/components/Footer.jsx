@@ -169,7 +169,7 @@ export default function Footer() {
         <h1
           className="text-[15vw] xs:text-[13vw] sm:text-[12.5vw] md:text-[13.5vw] font-black tracking-tighter leading-none uppercase whitespace-nowrap text-center translate-y-[26%] sm:translate-y-[28%]"
           style={{
-            color: '#ffffff',
+            color: '#d1d5db',
             filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.4))',
           }}
         >

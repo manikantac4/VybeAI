@@ -414,96 +414,48 @@
 }
 
 @media (max-width: 640px) {
-    /* Below this breakpoint the GSAP pin/scroll-jack animation is disabled
-       entirely (see Cohorts.jsx — gsap.matchMedia scopes it to desktop).
-       The section becomes a normal, self-contained block in document flow:
-       no pinning, no 100vh takeover, nothing that can bleed into or shove
-       around the sections above/below it on a phone. */
-    .cohort-showcase-section {
-        overflow: visible;
-    }
-
+    /* height is driven off svh (smallest viewport height, i.e. address-bar
+       visible) rather than 100vh, and normalizeScroll (see Cohorts.jsx)
+       keeps the viewport height stable for the duration of the pinned
+       scroll — together these are what stop the leftover gap after the
+       section that mobile browsers otherwise cause by resizing the
+       viewport mid-scroll. */
     .cohort-showcase-sticky {
-        height: auto;
-        min-height: 0;
-        position: static;
-        display: block;
-        padding: 48px 0 32px;
+        height: 100svh;
+        min-height: 560px;
     }
 
     .cohort-showcase-header {
-        position: static;
-        top: auto;
-        left: auto;
-        right: auto;
-        padding: 0 20px;
-        margin: 0 0 28px;
+        position: absolute;
+        top: 24px;
+        left: 20px;
+        right: 20px;
+        padding: 0;
         max-width: 100%;
         width: auto;
-        opacity: 1;
-        transform: none;
     }
 
     .cohort-showcase-eyebrow { margin-bottom: 10px; font-size: 9px; }
     .cohort-showcase-headline { margin-bottom: 10px; font-size: clamp(2.1rem, 11vw, 3.1rem); }
     .cohort-showcase-subline { max-width: 330px; margin-bottom: 12px; font-size: 13px; line-height: 1.45; }
-
-    /* "Scroll" no longer applies once this is a swipeable row, not a
-       pinned scroll-jack — relabel the hint accordingly. */
     .cohort-showcase-scroll-hint { font-size: 9px; }
-    .cohort-showcase-scroll-hint span { display: none; }
-    .cohort-showcase-scroll-hint::after {
-        content: 'SWIPE TO EXPLORE →';
-    }
 
-    /* Native horizontal swipe carousel with snap, instead of a
-       JS-driven translateX track. Smooth, touch-native, and never
-       fights the page's vertical scroll. */
     .cohort-showcase-track {
-        display: flex;
-        align-items: stretch;
-        gap: 16px;
-        padding: 4px 20px 12px;
-        overflow-x: auto;
-        overflow-y: visible;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        transform: none !important;
-    }
-
-    .cohort-showcase-track::-webkit-scrollbar {
-        display: none;
+        align-items: flex-end;
+        padding: 0 20px 38px;
     }
 
     .cohort-showcase-card-wrapper {
-        scroll-snap-align: center;
-        width: clamp(270px, 82vw, 380px);
-        height: clamp(420px, 66vh, 520px);
-        transform: none !important;
-        opacity: 1 !important;
-    }
-
-    .cohort-explore-card {
-        padding: 1.75rem;
+        width: clamp(300px, 84vw, 420px);
+        height: clamp(390px, 55vh, 470px);
     }
 
     .cohort-card-footer {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
-        padding-top: 14px;
+        gap: 12px;
     }
 
-    .cohort-footer-info {
-        max-width: 100%;
-    }
-
-    /* Progress bar/dots were driven by the pinned scroll progress;
-       with that gone, native snap position is the feedback, so hide
-       the now-inert indicators instead of leaving them frozen. */
-    .cohort-progress-bar,
-    .cohort-showcase-indicator {
-        display: none;
-    }
+    .cohort-progress-bar { height: 2px; }
+    .cohort-showcase-indicator { bottom: 13px; }
 }
