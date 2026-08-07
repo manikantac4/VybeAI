@@ -1,52 +1,30 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import ManifestoSection from "./components/ManifestoSection";
-import CreatorJourneySection from "./components/CreatorJourneySection";
-import NeuralSymbiosisSection from "./components/NeuralSymbiosisSection";
-import ProgramsSection from "./components/ProgramsSection";
-import CommunitySection from "./components/CommunitySection";
-import FutureVisionSection from "./components/FutureVisionSection";
-import MovementCTASection from "./components/MovementCTASection";
+import Hero from "./components/Hero";
+import Evolution from "./components/Evolution";
+import Stack from "./components/Stack";
+import BuildWithAI from "./components/BuildWithAI";
+import Cohorts from "./components/Cohorts";
+import WhyTuringWings from "./components/WhyTuringWings";
 import Footer from "./components/Footer";
 import ContactPage from "./pages/ContactPage";
 import BuildathonsPage from "./pages/BuildathonsPage";
 import EventPortalPage from "./pages/EventPortalPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import Global3DBackground from "./components/Global3DBackground";
-import { ThemeProvider } from "./context/ThemeContext";
 
-function HomePage({ scrollTo }) {
-  useEffect(() => {
-    if (scrollTo) {
-      const el = document.getElementById(scrollTo);
-      if (el) {
-        setTimeout(() => {
-          el.scrollIntoView({ behavior: "smooth" });
-        }, 150);
-      }
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }, [scrollTo]);
-
+function HomePage() {
   return (
-    <div className="w-full min-h-screen relative selection:bg-amber-500 selection:text-white bg-slate-50 text-slate-900 font-sans">
-      <Global3DBackground />
+    <main className="bg-[#050505] text-white overflow-x-hidden selection:bg-[#22C55E] selection:text-black">
       <Navbar />
-      <main>
-        <HeroSection />
-        <ManifestoSection />
-        <CreatorJourneySection />
-        <NeuralSymbiosisSection />
-        <ProgramsSection />
-        <CommunitySection />
-        <FutureVisionSection />
-        <MovementCTASection />
-      </main>
+      <Hero />
+      <Evolution />
+      <Stack />
+      <BuildWithAI />
+      <Cohorts />
+      <WhyTuringWings />
       <Footer />
-    </div>
+    </main>
   );
 }
 
@@ -74,31 +52,22 @@ export default function App() {
   }, []);
 
   return (
-    <ThemeProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* Main Website Routes */}
-          <Route path="/" element={<HomePage scrollTo="hero" />} />
-          <Route path="/about" element={<HomePage scrollTo="experience" />} />
-          <Route path="/programs" element={<HomePage scrollTo="cohorts" />} />
-          <Route path="/community" element={<HomePage scrollTo="cohorts" />} />
-          <Route path="/buildathons" element={<BuildathonsPage />} />
-          <Route path="/contact" element={<ContactPage />} />
+    <BrowserRouter>
+      <Routes>
+        {/* Main Website Routes */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<HomePage />} />
+        <Route path="/programs" element={<HomePage />} />
+        <Route path="/community" element={<HomePage />} />
+        <Route path="/buildathons" element={<BuildathonsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
 
-          {/* Standalone Event Template Route */}
-          <Route path="/events/:slug" element={<EventPortalPage />} />
+        {/* Standalone Event Template Route */}
+        <Route path="/events/:slug" element={<EventPortalPage />} />
 
-          {/* Legacy Aliases */}
-          <Route path="/portal/core/v1/dashboard-overview" element={<HomePage scrollTo="hero" />} />
-          <Route path="/portal/services/v2/program-catalog" element={<HomePage scrollTo="cohorts" />} />
-          <Route path="/portal/analytics/v1/feedback-center" element={<HomePage scrollTo="cohorts" />} />
-          <Route path="/portal/system/v1/organization-profile" element={<HomePage scrollTo="experience" />} />
-          <Route path="/portal/support/v1/contact-team" element={<ContactPage />} />
-
-          {/* Wildcard 404 Route */}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+        {/* Wildcard 404 Route */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
