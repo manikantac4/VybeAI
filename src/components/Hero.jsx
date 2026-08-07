@@ -187,7 +187,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-0 md:min-h-screen items-start md:items-center justify-start md:justify-center overflow-hidden px-6 md:px-12 pt-24 pb-10 md:pt-0 md:pb-0 bg-[#fafafa]"
+      className="relative flex min-h-[78vh] md:min-h-screen items-center justify-center overflow-hidden px-6 md:px-12 bg-[#fafafa]"
     >
       <motion.div
         className="pointer-events-none fixed inset-0 z-[40] backdrop-blur-3xl bg-[#fafafa]/70"
@@ -232,7 +232,7 @@ export default function Hero() {
         />
       </motion.div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-col items-center text-center md:items-start md:text-left md:mt-12">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-col items-center text-center md:items-start md:text-left mt-6 md:mt-12">
         <motion.div
           variants={container}
           initial="hidden"
