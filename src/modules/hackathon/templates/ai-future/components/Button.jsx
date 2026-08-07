@@ -1,24 +1,50 @@
 import { Link } from 'react-router-dom';
+import { useTheme } from '../hooks/useTheme';
 
-/**
- * Button
- * Base button. Prefer PrimaryButton/SecondaryButton for standard CTAs —
- * this base exists so both can share sizing/focus-ring logic.
- */
 export default function Button({ children, to, href, onClick, type = 'button', variant = 'primary', size = 'md', className = '', ...rest }) {
+  const theme = useTheme();
+
   const sizes = {
-    sm: 'px-4 py-2 text-sm',
+    sm: 'px-4 py-2 text-xs',
     md: 'px-6 py-3 text-sm',
-    lg: 'px-8 py-4 text-base'
+    lg: 'px-8 py-3.5 text-sm md:text-base'
   };
+
+  // Dynamic template primary styles
+  const primaryStyle =
+    theme.mode === "cyberpunk"
+      ? "bg-[#00FF9D] text-black font-black uppercase tracking-widest shadow-[0_0_25px_rgba(0,255,157,0.5)] hover:scale-105"
+      : theme.mode === "space"
+      ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold tracking-wider shadow-lg shadow-indigo-500/30 hover:scale-105"
+      : theme.mode === "corporate"
+      ? "bg-[#2563EB] hover:bg-blue-600 text-white font-bold uppercase tracking-wider shadow-md"
+      : theme.mode === "3d"
+      ? "bg-[#10B981] text-black font-extrabold uppercase tracking-widest shadow-lg shadow-[#10B981]/30 hover:scale-105"
+      : theme.mode === "minimal"
+      ? "bg-[#090909] text-white hover:bg-[#22C55E] hover:text-black font-bold uppercase tracking-wider shadow-md"
+      : "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-extrabold uppercase tracking-wider shadow-md shadow-amber-500/20 hover:scale-105";
+
+  // Dynamic template secondary styles
+  const secondaryStyle =
+    theme.mode === "cyberpunk"
+      ? "bg-transparent border-2 border-[#FF0055] text-[#FF0055] font-bold uppercase shadow-[0_0_15px_rgba(255,0,85,0.3)] hover:bg-[#FF0055] hover:text-white"
+      : theme.mode === "space"
+      ? "bg-transparent border border-indigo-400/40 text-indigo-300 font-bold hover:bg-indigo-500/20"
+      : theme.mode === "corporate"
+      ? "bg-transparent border border-slate-600 text-slate-200 font-bold hover:bg-slate-800"
+      : theme.mode === "3d"
+      ? "bg-transparent border border-[#F59E0B]/50 text-[#F59E0B] font-bold hover:bg-[#F59E0B]/20"
+      : theme.mode === "minimal"
+      ? "bg-white border border-black/20 text-[#111] font-bold hover:border-[#22C55E] hover:text-[#22C55E]"
+      : "bg-transparent border border-slate-700 text-slate-200 font-bold hover:border-amber-500/60 hover:text-amber-400";
 
   const variants = {
-    primary: 'bg-signal-violet text-white hover:shadow-glow',
-    secondary: 'bg-transparent border border-base-line text-text hover:border-signal-cyan hover:text-signal-cyan',
-    ghost: 'bg-transparent text-text-muted hover:text-text'
+    primary: primaryStyle,
+    secondary: secondaryStyle,
+    ghost: 'bg-transparent text-slate-400 hover:text-white'
   };
 
-  const classes = `inline-flex items-center justify-center gap-2 rounded-full font-display font-medium tracking-wide transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-cyan disabled:opacity-40 disabled:pointer-events-none ${sizes[size]} ${variants[variant]} ${className}`;
+  const classes = `inline-flex items-center justify-center gap-2 rounded-full font-mono font-bold tracking-wide transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none ${sizes[size]} ${variants[variant]} ${className}`;
 
   if (to) {
     return (

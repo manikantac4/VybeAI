@@ -185,7 +185,7 @@ export default function EventPortalPage() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-slate-950 text-white relative font-sans">
+    <div className="w-full min-h-screen relative font-sans">
       {/* Dynamic Multi-Template Event Webpage */}
       <TemplateRegistry
         templateId={eventData?.templateId || "ai-future"}

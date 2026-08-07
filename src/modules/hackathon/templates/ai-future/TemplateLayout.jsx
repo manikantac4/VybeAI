@@ -100,7 +100,10 @@ export default function TemplateLayout({ eventData = defaultEventData, themeOver
   return (
     <ThemeContext.Provider value={theme}>
       <EventDataContext.Provider value={eventData}>
-        <div className={`min-h-screen flex flex-col font-mono transition-colors duration-500 ${bgClass}`}>
+        <div
+          style={{ backgroundColor: theme.colors.base, color: theme.colors.text }}
+          className={`min-h-screen flex flex-col font-mono transition-colors duration-500 ${bgClass}`}
+        >
           
           {/* Custom Dedicated Sub-Header Navigation for Hackathon Portal */}
           <header className={`sticky top-0 z-40 backdrop-blur-md border-b transition-colors ${
