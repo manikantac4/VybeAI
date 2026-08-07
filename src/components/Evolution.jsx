@@ -33,7 +33,30 @@ function CompareIcon({ name }) {
 const EASE_OUT = 'cubic-bezier(0.16, 1, 0.3, 1)'
 const EASE_SPRING = 'cubic-bezier(0.34, 1.56, 0.64, 1)'
 
-function Row({ item, modern, visible, index, hovered, activeStage, onHover, onLeave }) {
+// Single source of truth for "are we on a phone-sized screen" — every
+// layout decision below reads from this instead of relying on CSS media
+// queries, because most of this component's layout is inline-styled and
+// inline styles beat any external stylesheet's media query. Doing the
+// responsive branching in JS keeps behavior guaranteed rather than hoping
+// a class-based override wins the specificity fight.
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth <= breakpoint
+  )
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const mq = window.matchMedia(`(max-width: ${breakpoint}px)`)
+    const handleChange = (e) => setIsMobile(e.matches)
+    handleChange(mq)
+    mq.addEventListener('change', handleChange)
+    return () => mq.removeEventListener('change', handleChange)
+  }, [breakpoint])
+
+  return isMobile
+}
+
+function Row({ item, modern, visible, index, hovered, activeStage, onHover, onLeave, isMobile }) {
   const isHovered = hovered === index
   const isStageActive = activeStage === index
 
@@ -42,18 +65,19 @@ function Row({ item, modern, visible, index, hovered, activeStage, onHover, onLe
       className="compare-row"
       onMouseEnter={() => onHover(index)}
       onMouseLeave={onLeave}
+      onClick={() => onHover(index)}
       style={{
         display: 'flex',
         alignItems: 'flex-start',
-        gap: 14,
-        padding: '10px 12px',
+        gap: isMobile ? 10 : 14,
+        padding: isMobile ? '9px 10px' : '10px 12px',
         borderRadius: '12px',
         backgroundColor: isStageActive ? (modern ? '#f0fdf4' : '#f8fafc') : (isHovered ? '#f4f4f5' : 'transparent'),
         border: `1px solid ${isStageActive ? (modern ? '#bbf7d0' : '#e2e8f0') : 'transparent'}`,
         opacity: visible ? 1 : 0,
         transform: visible
           ? (isHovered ? `translate(${modern ? 8 : -8}px, -2px)` : 'translateX(0)')
-          : `translateX(${modern ? 28 : -28}px)`,
+          : `translateX(${isMobile ? 0 : (modern ? 28 : -28)}px)`,
         transition: `all 0.4s ${EASE_OUT}`,
         transitionDelay: visible ? `${index * 90}ms` : '0ms',
         willChange: 'transform, opacity, background-color',
@@ -63,6 +87,7 @@ function Row({ item, modern, visible, index, hovered, activeStage, onHover, onLe
       <div
         className="compare-icon"
         style={{
+          flexShrink: 0,
           transform: isHovered || isStageActive ? 'scale(1.15) rotate(-4deg)' : 'scale(1) rotate(0deg)',
           transition: `transform 0.4s ${EASE_SPRING}`,
           color: modern && (isStageActive || isHovered) ? '#10b981' : '#111827'
@@ -71,8 +96,8 @@ function Row({ item, modern, visible, index, hovered, activeStage, onHover, onLe
         <CompareIcon name={item[0]} />
       </div>
       <div className="compare-content">
-        <h4 style={{ margin: 0, fontWeight: 600, color: '#111827' }}>{item[1]}</h4>
-        <p style={{ margin: '2px 0 0 0', color: '#6b7280', fontSize: '0.875rem' }}>{item[2]}</p>
+        <h4 style={{ margin: 0, fontWeight: 600, color: '#111827', fontSize: isMobile ? '0.9rem' : undefined }}>{item[1]}</h4>
+        <p style={{ margin: '2px 0 0 0', color: '#6b7280', fontSize: isMobile ? '0.8rem' : '0.875rem' }}>{item[2]}</p>
       </div>
     </div>
   )
@@ -86,6 +111,7 @@ export default function Evolution() {
   const [hovered, setHovered] = useState({ trad: null, modern: null })
   const [activeStage, setActiveStage] = useState(-1)
   const [isPaused, setIsPaused] = useState(false)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     const el = sectionRef.current
@@ -124,7 +150,7 @@ export default function Evolution() {
 
   return (
     <section id="experience" className="comparison-section bg-white" ref={sectionRef} style={{ position: 'relative', overflow: 'hidden' }}>
-      
+
       {/* Dynamic Keyframes for Flow Line Animation */}
       <style>{`
         @keyframes flowPulse {
@@ -133,9 +159,18 @@ export default function Evolution() {
           80% { opacity: 1; }
           100% { top: 100%; opacity: 0; }
         }
+        @keyframes flowPulseHorizontal {
+          0% { left: 0%; opacity: 0; }
+          30% { opacity: 1; }
+          80% { opacity: 1; }
+          100% { left: 100%; opacity: 0; }
+        }
       `}</style>
 
-      <div className="comparison-inner">
+      <div
+        className="comparison-inner"
+        style={{ padding: isMobile ? '0 16px' : undefined, boxSizing: 'border-box' }}
+      >
         <div
           className="comparison-head"
           style={{
@@ -144,25 +179,37 @@ export default function Evolution() {
             transition: `opacity 0.8s ${EASE_OUT}, transform 0.8s ${EASE_OUT}`,
           }}
         >
-          <h2 className="text-[#111]">
+          <h2 className="text-[#111]" style={{ fontSize: isMobile ? 'clamp(1.6rem, 7vw, 2.1rem)' : undefined, lineHeight: isMobile ? 1.2 : undefined }}>
             From writing code<br /><span className="text-[#666]">to orchestrating intelligence.</span>
           </h2>
-          <p className="text-[#444]">
+          <p className="text-[#444]" style={{ fontSize: isMobile ? '0.9rem' : undefined, lineHeight: isMobile ? 1.55 : undefined }}>
             The tools have changed.<br />The role has evolved.<br />Welcome to <b className="text-[#111]">AI-Native Engineering.</b>
           </p>
         </div>
 
-        <div className="comparison-layout">
+        <div
+          className="comparison-layout"
+          style={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: isMobile ? 'stretch' : undefined,
+            gap: isMobile ? 28 : undefined,
+            width: '100%',
+            boxSizing: 'border-box',
+          }}
+        >
           {/* Traditional Side */}
           <div
             className="comparison-side"
             style={{
+              width: isMobile ? '100%' : undefined,
+              flex: isMobile ? '1 1 auto' : undefined,
               opacity: inView ? 1 : 0,
-              transform: inView ? 'translateX(0)' : 'translateX(-24px)',
+              transform: inView ? 'translateX(0)' : `translateX(${isMobile ? 0 : -24}px)`,
               transition: `opacity 0.7s ${EASE_OUT}, transform 0.7s ${EASE_OUT}`,
             }}
           >
-            <h3>Traditional Software Engineering</h3>
+            <h3 style={{ fontSize: isMobile ? '1.05rem' : undefined }}>Traditional Software Engineering</h3>
             <div className="compare-list">
               {traditional.map((item, i) => (
                 <Row
@@ -172,6 +219,7 @@ export default function Evolution() {
                   visible={inView}
                   hovered={hovered.trad}
                   activeStage={activeStage}
+                  isMobile={isMobile}
                   onHover={(idx) => {
                     setHovered((h) => ({ ...h, trad: idx }))
                     setActiveStage(idx)
@@ -183,52 +231,106 @@ export default function Evolution() {
           </div>
 
           {/* Central Spine with Flow Lines */}
-          <div 
-            className="comparison-spine" 
+          <div
+            className="comparison-spine"
             aria-label="Compared by building, collaboration, improvement and shipping"
-            style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+            style={{
+              position: 'relative',
+              display: 'flex',
+              flexDirection: isMobile ? 'row' : 'column',
+              alignItems: 'center',
+              justifyContent: isMobile ? 'center' : undefined,
+              width: isMobile ? '100%' : undefined,
+              padding: isMobile ? '8px 0' : undefined,
+              gap: isMobile ? 12 : undefined,
+            }}
           >
-            {/* Connecting Vertical Flow Line */}
-            <div
-              style={{
-                position: 'absolute',
-                top: '50px',
-                bottom: '20px',
-                width: '2px',
-                background: '#e5e7eb',
-                zIndex: 0,
-                borderRadius: '2px',
-                opacity: inView ? 1 : 0,
-                transition: 'opacity 0.8s ease'
-              }}
-            >
-              {/* Active Traveling Pulse Beam */}
+            {!isMobile && (
+              /* Connecting Vertical Flow Line — only makes sense once the two
+                 sides sit next to each other; on mobile everything stacks, so
+                 this is replaced with a horizontal divider line instead. */
               <div
                 style={{
                   position: 'absolute',
-                  width: '100%',
-                  height: '40px',
-                  background: 'linear-gradient(to bottom, transparent, #10b981, transparent)',
-                  animation: 'flowPulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                  top: '50px',
+                  bottom: '20px',
+                  width: '2px',
+                  background: '#e5e7eb',
+                  zIndex: 0,
+                  borderRadius: '2px',
+                  opacity: inView ? 1 : 0,
+                  transition: 'opacity 0.8s ease'
                 }}
-              />
-            </div>
+              >
+                {/* Active Traveling Pulse Beam */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    width: '100%',
+                    height: '40px',
+                    background: 'linear-gradient(to bottom, transparent, #10b981, transparent)',
+                    animation: 'flowPulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                  }}
+                />
+              </div>
+            )}
+
+            {isMobile && (
+              /* Compact horizontal divider standing in for the vertical
+                 spine line, sitting behind the stage pills. */
+              <div
+                style={{
+                  position: 'absolute',
+                  left: '4%',
+                  right: '4%',
+                  height: '2px',
+                  background: '#e5e7eb',
+                  zIndex: 0,
+                  borderRadius: '2px',
+                  opacity: inView ? 1 : 0,
+                  transition: 'opacity 0.8s ease'
+                }}
+              >
+                <div
+                  style={{
+                    position: 'absolute',
+                    height: '100%',
+                    width: '40px',
+                    background: 'linear-gradient(to right, transparent, #10b981, transparent)',
+                    animation: 'flowPulseHorizontal 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                  }}
+                />
+              </div>
+            )}
+
+            {!isMobile && (
+              <div
+                className="comparison-vs"
+                style={{
+                  opacity: inView ? 1 : 0,
+                  transform: inView ? 'scale(1)' : 'scale(0.4)',
+                  transition: `opacity 0.6s ${EASE_SPRING}, transform 0.6s ${EASE_SPRING}`,
+                  transitionDelay: inView ? '250ms' : '0ms',
+                  zIndex: 1,
+                  background: '#fff',
+                }}
+              >
+                <span>V</span>S
+              </div>
+            )}
 
             <div
-              className="comparison-vs"
+              className="comparison-stages"
               style={{
-                opacity: inView ? 1 : 0,
-                transform: inView ? 'scale(1)' : 'scale(0.4)',
-                transition: `opacity 0.6s ${EASE_SPRING}, transform 0.6s ${EASE_SPRING}`,
-                transitionDelay: inView ? '250ms' : '0ms',
                 zIndex: 1,
-                background: '#fff',
+                gap: isMobile ? '8px' : '20px',
+                display: 'flex',
+                flexDirection: isMobile ? 'row' : 'column',
+                flexWrap: isMobile ? 'wrap' : 'nowrap',
+                justifyContent: isMobile ? 'center' : undefined,
+                width: isMobile ? '100%' : undefined,
               }}
             >
-              <span>V</span>S
-            </div>
-
-            <div className="comparison-stages" style={{ zIndex: 1, gap: '20px', display: 'flex', flexDirection: 'column' }}>
               {stages.map(([icon, label], i) => {
                 const isActive = activeStage === i
                 return (
@@ -238,20 +340,20 @@ export default function Evolution() {
                     onClick={() => handleStageClick(i)}
                     style={{
                       cursor: 'pointer',
-                      padding: '8px 12px',
+                      padding: isMobile ? '6px 10px' : '8px 12px',
                       borderRadius: '20px',
                       background: isActive ? '#f0fdf4' : '#ffffff',
                       border: `1px solid ${isActive ? '#86efac' : '#f3f4f6'}`,
                       boxShadow: isActive ? '0 4px 12px rgba(16, 185, 129, 0.15)' : 'none',
                       opacity: inView ? 1 : 0,
                       transform: inView
-                        ? `translateY(0) scale(${isActive ? 1.1 : 1})`
-                        : 'translateY(14px) scale(1)',
+                        ? `translateY(0) scale(${isActive ? (isMobile ? 1.05 : 1.1) : 1})`
+                        : `translateY(${isMobile ? 0 : 14}px) scale(1)`,
                       transition: `all 0.4s ${EASE_SPRING}`,
                       transitionDelay: inView ? `${380 + i * 120}ms` : '0ms',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '8px'
+                      gap: isMobile ? '6px' : '8px'
                     }}
                   >
                     <div
@@ -269,8 +371,9 @@ export default function Evolution() {
                         color: isActive ? '#065f46' : '#9ca3af',
                         opacity: isActive ? 1 : 0.65,
                         transition: 'opacity 0.4s ease, color 0.4s ease',
-                        fontSize: '0.75rem',
-                        letterSpacing: '0.05em'
+                        fontSize: isMobile ? '0.68rem' : '0.75rem',
+                        letterSpacing: '0.05em',
+                        whiteSpace: 'nowrap',
                       }}
                     >
                       {label}
@@ -285,12 +388,14 @@ export default function Evolution() {
           <div
             className="comparison-side comparison-side-new"
             style={{
+              width: isMobile ? '100%' : undefined,
+              flex: isMobile ? '1 1 auto' : undefined,
               opacity: inView ? 1 : 0,
-              transform: inView ? 'translateX(0)' : 'translateX(24px)',
+              transform: inView ? 'translateX(0)' : `translateX(${isMobile ? 0 : 24}px)`,
               transition: `opacity 0.7s ${EASE_OUT}, transform 0.7s ${EASE_OUT}`,
             }}
           >
-            <h3>AI-Native Engineering</h3>
+            <h3 style={{ fontSize: isMobile ? '1.05rem' : undefined }}>AI-Native Engineering</h3>
             <div className="compare-list">
               {native.map((item, i) => (
                 <Row
@@ -301,6 +406,7 @@ export default function Evolution() {
                   visible={inView}
                   hovered={hovered.modern}
                   activeStage={activeStage}
+                  isMobile={isMobile}
                   onHover={(idx) => {
                     setHovered((h) => ({ ...h, modern: idx }))
                     setActiveStage(idx)
