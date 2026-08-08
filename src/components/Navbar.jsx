@@ -37,15 +37,15 @@ export default function Navbar() {
         </Link>
 
         <div className="flex items-center gap-1.5 sm:gap-2 md:gap-4">
-          <button
-            onClick={() => handleNavAnchor('#cohorts')}
+          <Link
+            to="/cohorts"
             className="group hidden sm:inline-flex items-center gap-1.5 rounded-full border border-black/20 px-4 md:px-6 py-2 text-[9px] md:text-[10px] font-bold tracking-[.1em] md:tracking-[.15em] uppercase text-black transition-colors duration-200 hover:border-[#22C55E] hover:text-[#22C55E] bg-white cursor-pointer whitespace-nowrap"
           >
             <span>Explore Cohorts</span>
             <span className="text-[10px] font-mono opacity-40 transition-[transform,opacity] duration-200 ease-out group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
               ↗
             </span>
-          </button>
+          </Link>
 
           <Link
             to="/buildathons"
@@ -93,12 +93,13 @@ export default function Navbar() {
             >
               02 / Evolution & Engineering
             </button>
-            <button
-              onClick={() => handleNavAnchor('#cohorts')}
-              className="text-left text-xs font-mono font-bold uppercase tracking-wider text-black/70 hover:text-[#22C55E]"
+            <Link
+              to="/cohorts"
+              onClick={() => setMenuOpen(false)}
+              className="text-xs font-mono font-bold uppercase tracking-wider text-[#22C55E]"
             >
               03 / Flagship Cohorts
-            </button>
+            </Link>
             <Link
               to="/buildathons"
               onClick={() => setMenuOpen(false)}

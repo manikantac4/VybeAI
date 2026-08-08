@@ -6,6 +6,7 @@ import {
   Cpu, Rocket, Code2, Server, Database, Globe, Layers, ShieldCheck, 
   CheckCircle2, ArrowRight, Sparkles, Terminal, ChevronDown, ChevronUp, Lock, Zap
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AiEngineeringCohortPage() {
   const [activeWeek, setActiveWeek] = useState(1);
@@ -258,44 +259,47 @@ export default function AiEngineeringCohortPage() {
   const activeWeekObj = weeksData.find((w) => w.week === activeWeek);
 
   return (
-    <div className="min-h-screen bg-[#050A0F] text-white selection:bg-[#22C55E] selection:text-black font-mono flex flex-col">
+    <div className="min-h-screen bg-[#FAFAFA] text-[#090909] selection:bg-[#22C55E] selection:text-black font-mono flex flex-col">
       <Navbar />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-12 space-y-16">
 
         {/* HERO SECTION */}
-        <div className="relative bg-[#0B121E] border border-[#22C55E]/30 rounded-3xl p-6 sm:p-12 overflow-hidden shadow-2xl space-y-8">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#22C55E]/10 rounded-full blur-3xl pointer-events-none" />
-
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative bg-white border border-black/10 rounded-3xl p-6 sm:p-12 overflow-hidden shadow-xl space-y-8"
+        >
           <div className="space-y-4 max-w-3xl relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/30 text-[#4ADE80] text-xs font-bold uppercase tracking-wider">
-              <Cpu className="w-4 h-4 text-[#22C55E]" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/30 text-[#15803D] text-xs font-bold uppercase tracking-wider">
+              <Cpu className="w-4 h-4 text-[#15803D]" />
               <span>4-WEEK FLAGSHIP COHORT</span>
             </div>
 
-            <h1 className="text-3xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-6xl font-extrabold text-[#090909] tracking-tight leading-tight font-sans">
               AI Engineering Cohort
             </h1>
 
-            <p className="text-base sm:text-xl text-slate-300 font-medium leading-relaxed">
+            <p className="text-base sm:text-xl text-black/80 font-medium leading-relaxed font-sans">
               From understanding the web to building, deploying, securing and launching modern AI-powered products.
             </p>
 
-            <p className="text-xs text-slate-400 leading-relaxed max-w-2xl">
+            <p className="text-xs text-black/60 leading-relaxed max-w-2xl font-sans">
               Designed for beginners and college students entering software engineering in the AI era. Learn to collaborate with AI tools across GitHub codebases — treating AI as an engineering collaborator, not a blind code generator.
             </p>
 
             <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <Link
                 to="/cohorts/register?cohort=ai-engineering"
-                className="py-4 px-8 rounded-2xl bg-[#22C55E] text-black font-extrabold text-sm uppercase tracking-wider hover:bg-[#4ADE80] transition-all text-center flex items-center justify-center gap-2 shadow-lg shadow-[#22C55E]/30"
+                className="py-4 px-8 rounded-2xl bg-[#090909] text-white font-extrabold text-sm uppercase tracking-wider hover:bg-[#22C55E] hover:text-black transition-all text-center flex items-center justify-center gap-2 shadow-lg"
               >
-                <Zap className="w-5 h-5 fill-black" />
+                <Zap className="w-5 h-5 fill-current" />
                 <span>Register For Cohort • ₹4,999</span>
               </Link>
               <a
                 href="#curriculum-schedule"
-                className="py-4 px-6 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs text-center border border-white/15 transition-all flex items-center justify-center gap-2"
+                className="py-4 px-6 rounded-2xl bg-[#FAF8F5] hover:bg-black/5 text-[#090909] font-bold text-xs text-center border border-black/15 transition-all flex items-center justify-center gap-2 font-sans"
               >
                 <span>Explore 4-Week Schedule</span>
                 <ChevronDown className="w-4 h-4" />
@@ -304,39 +308,39 @@ export default function AiEngineeringCohortPage() {
           </div>
 
           {/* KEY STATS BAR */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-white/10 text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-black/10 text-xs">
             <div>
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Duration</span>
-              <span className="text-sm font-bold text-white">4 Weeks (Live)</span>
+              <span className="text-[10px] text-black/50 uppercase tracking-wider block">Duration</span>
+              <span className="text-sm font-bold text-[#090909]">4 Weeks (Live)</span>
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Projects</span>
-              <span className="text-sm font-bold text-[#4ADE80]">5+ Shipped SaaS</span>
+              <span className="text-[10px] text-black/50 uppercase tracking-wider block">Projects</span>
+              <span className="text-sm font-bold text-[#15803D]">5+ Shipped SaaS</span>
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Methodology</span>
-              <span className="text-sm font-bold text-white">AI Pair-Programming</span>
+              <span className="text-[10px] text-black/50 uppercase tracking-wider block">Methodology</span>
+              <span className="text-sm font-bold text-[#090909]">AI Pair-Programming</span>
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Prerequisites</span>
-              <span className="text-sm font-bold text-amber-400">Zero Prior Knowledge</span>
+              <span className="text-[10px] text-black/50 uppercase tracking-wider block">Prerequisites</span>
+              <span className="text-sm font-bold text-amber-700">Zero Prior Knowledge</span>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* TEACHING FRAMEWORK PATTERN */}
         <div className="space-y-6">
           <div className="text-center space-y-2">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#22C55E]">THE TEACHING PATTERN</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">How You Learn & Build</h2>
+            <span className="text-xs font-bold uppercase tracking-widest text-[#15803D]">THE TEACHING PATTERN</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#090909] font-sans">How You Learn & Build</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3">
             {teachingPattern.map((tp) => (
-              <div key={tp.step} className="p-4 rounded-2xl bg-[#0B121E] border border-white/10 space-y-2 text-center flex flex-col justify-between">
-                <span className="text-xs font-extrabold text-[#22C55E]">{tp.step}</span>
-                <h3 className="text-xs font-bold text-white">{tp.title}</h3>
-                <p className="text-[10px] text-slate-400 leading-tight">{tp.desc}</p>
+              <div key={tp.step} className="p-4 rounded-2xl bg-white border border-black/10 space-y-2 text-center flex flex-col justify-between shadow-xs">
+                <span className="text-xs font-extrabold text-[#15803D]">{tp.step}</span>
+                <h3 className="text-xs font-bold text-[#090909] font-sans">{tp.title}</h3>
+                <p className="text-[10px] text-black/60 leading-tight font-sans">{tp.desc}</p>
               </div>
             ))}
           </div>
@@ -346,12 +350,12 @@ export default function AiEngineeringCohortPage() {
         <div id="curriculum-schedule" className="space-y-8 pt-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#22C55E]">4-WEEK INTENSIVE SCHEDULE</span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-white">Full Cohort Curriculum</h2>
+              <span className="text-xs font-bold uppercase tracking-widest text-[#15803D]">4-WEEK INTENSIVE SCHEDULE</span>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#090909] font-sans">Full Cohort Curriculum</h2>
             </div>
 
             {/* WEEK TABS */}
-            <div className="flex items-center gap-2 bg-[#0B121E] p-1.5 rounded-2xl border border-white/10 overflow-x-auto">
+            <div className="flex items-center gap-2 bg-white p-1.5 rounded-2xl border border-black/10 overflow-x-auto shadow-xs">
               {weeksData.map((w) => (
                 <button
                   key={w.week}
@@ -361,8 +365,8 @@ export default function AiEngineeringCohortPage() {
                   }}
                   className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
                     activeWeek === w.week
-                      ? 'bg-[#22C55E] text-black shadow-md'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-[#090909] text-white shadow-md'
+                      : 'text-black/60 hover:text-black'
                   }`}
                 >
                   Week {w.week}
@@ -373,72 +377,79 @@ export default function AiEngineeringCohortPage() {
 
           {/* ACTIVE WEEK CARD DETAILS */}
           {activeWeekObj && (
-            <div className="bg-[#0B121E] border border-[#22C55E]/40 rounded-3xl p-6 sm:p-10 space-y-8">
-              <div className="space-y-2 border-b border-white/10 pb-6">
-                <span className="text-xs font-bold text-[#22C55E] uppercase tracking-widest">
+            <div className="bg-white border border-black/10 rounded-3xl p-6 sm:p-10 space-y-8 shadow-xl">
+              <div className="space-y-2 border-b border-black/10 pb-6">
+                <span className="text-xs font-bold text-[#15803D] uppercase tracking-widest">
                   WEEK 0{activeWeekObj.week} SUMMARY
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#090909] font-sans">
                   {activeWeekObj.title}
                 </h3>
-                <p className="text-sm font-semibold text-[#4ADE80]">{activeWeekObj.subtitle}</p>
-                <p className="text-xs text-slate-300 pt-2 leading-relaxed">{activeWeekObj.goal}</p>
+                <p className="text-sm font-semibold text-[#15803D] font-sans">{activeWeekObj.subtitle}</p>
+                <p className="text-xs text-black/70 pt-2 leading-relaxed font-sans">{activeWeekObj.goal}</p>
               </div>
 
               {/* CLASSES EXPANDABLE LIST */}
               <div className="space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Class Modules & Build Milestones</h4>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-black/50">Class Modules & Build Milestones</h4>
 
                 {activeWeekObj.classes.map((cls, idx) => {
                   const isOpen = openClass === idx;
                   return (
                     <div
                       key={idx}
-                      className="bg-white/5 border border-white/10 hover:border-[#22C55E]/40 rounded-2xl overflow-hidden transition-all"
+                      className="bg-[#FAF8F5] border border-black/10 hover:border-[#22C55E]/50 rounded-2xl overflow-hidden transition-all"
                     >
                       <button
                         onClick={() => setOpenClass(isOpen ? null : idx)}
                         className="w-full p-4 sm:p-5 flex items-center justify-between text-left gap-4"
                       >
                         <div className="flex items-center gap-3">
-                          <span className="w-8 h-8 rounded-xl bg-[#22C55E]/20 text-[#22C55E] font-bold text-xs flex items-center justify-center shrink-0">
+                          <span className="w-8 h-8 rounded-xl bg-[#22C55E]/15 text-[#15803D] font-bold text-xs flex items-center justify-center shrink-0">
                             {idx + 1}
                           </span>
                           <div>
-                            <h5 className="text-sm sm:text-base font-bold text-white">{cls.title}</h5>
-                            <p className="text-xs text-slate-400">{cls.objective}</p>
+                            <h5 className="text-sm sm:text-base font-bold text-[#090909] font-sans">{cls.title}</h5>
+                            <p className="text-xs text-black/60 font-sans">{cls.objective}</p>
                           </div>
                         </div>
-                        {isOpen ? <ChevronUp className="w-5 h-5 text-[#22C55E]" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+                        {isOpen ? <ChevronUp className="w-5 h-5 text-[#15803D]" /> : <ChevronDown className="w-5 h-5 text-black/40" />}
                       </button>
 
-                      {isOpen && (
-                        <div className="p-5 pt-0 border-t border-white/10 space-y-4 text-xs text-slate-300">
-                          <div>
-                            <span className="font-bold text-[#4ADE80] block mb-1">Topics Covered:</span>
-                            <ul className="list-disc list-inside space-y-1 text-slate-300">
-                              {cls.topics.map((t, i) => (
-                                <li key={i}>{t}</li>
-                              ))}
-                            </ul>
-                          </div>
+                      <AnimatePresence>
+                        {isOpen && (
+                          <motion.div 
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="p-5 pt-0 border-t border-black/10 space-y-4 text-xs text-black/80 font-sans"
+                          >
+                            <div className="pt-3">
+                              <span className="font-bold text-[#15803D] block mb-1">Topics Covered:</span>
+                              <ul className="list-disc list-inside space-y-1 text-black/70">
+                                {cls.topics.map((t, i) => (
+                                  <li key={i}>{t}</li>
+                                ))}
+                              </ul>
+                            </div>
 
-                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                            <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-                              <span className="font-bold text-white block mb-1">🛠️ Hands-on Build:</span>
-                              <p className="text-[11px] text-slate-300">{cls.build}</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                              <div className="p-3 rounded-xl bg-white border border-black/10">
+                                <span className="font-bold text-[#090909] block mb-1">🛠️ Hands-on Build:</span>
+                                <p className="text-[11px] text-black/70">{cls.build}</p>
+                              </div>
+                              <div className="p-3 rounded-xl bg-white border border-black/10">
+                                <span className="font-bold text-[#0284C7] block mb-1">🤖 AI Workflow:</span>
+                                <p className="text-[11px] text-black/70">{cls.aiWorkflow}</p>
+                              </div>
+                              <div className="p-3 rounded-xl bg-white border border-black/10">
+                                <span className="font-bold text-amber-700 block mb-1">🧠 Explain-Back:</span>
+                                <p className="text-[11px] text-black/70">{cls.explainBack}</p>
+                              </div>
                             </div>
-                            <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-                              <span className="font-bold text-[#38BDF8] block mb-1">🤖 AI Workflow:</span>
-                              <p className="text-[11px] text-slate-300">{cls.aiWorkflow}</p>
-                            </div>
-                            <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-                              <span className="font-bold text-amber-400 block mb-1">🧠 Explain-Back:</span>
-                              <p className="text-[11px] text-slate-300">{cls.explainBack}</p>
-                            </div>
-                          </div>
-                        </div>
-                      )}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   );
                 })}
@@ -447,10 +458,10 @@ export default function AiEngineeringCohortPage() {
               {/* WEEKLY CHALLENGE & DELIVERABLE */}
               <div className="p-4 rounded-2xl bg-[#22C55E]/10 border border-[#22C55E]/30 flex items-center justify-between gap-4 text-xs">
                 <div>
-                  <span className="font-bold text-[#4ADE80] block">End-of-Week Deliverable:</span>
-                  <p className="text-slate-300">{activeWeekObj.challenge}</p>
+                  <span className="font-bold text-[#15803D] block font-sans">End-of-Week Deliverable:</span>
+                  <p className="text-black/75 font-sans">{activeWeekObj.challenge}</p>
                 </div>
-                <CheckCircle2 className="w-6 h-6 text-[#22C55E] shrink-0" />
+                <CheckCircle2 className="w-6 h-6 text-[#15803D] shrink-0" />
               </div>
             </div>
           )}
@@ -459,26 +470,26 @@ export default function AiEngineeringCohortPage() {
         {/* TOOLS & STACK COVERED */}
         <div className="space-y-6">
           <div className="text-center space-y-2">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#22C55E]">STACK & TOOLCHAIN</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Production Technologies Mastered</h2>
+            <span className="text-xs font-bold uppercase tracking-widest text-[#15803D]">STACK & TOOLCHAIN</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#090909] font-sans">Production Technologies Mastered</h2>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {toolsList.map((t) => (
-              <div key={t.name} className="p-4 rounded-2xl bg-[#0B121E] border border-white/10 space-y-1">
-                <span className="text-sm font-bold text-white block">{t.name}</span>
-                <span className="text-xs text-slate-400 block">{t.desc}</span>
+              <div key={t.name} className="p-4 rounded-2xl bg-white border border-black/10 space-y-1 shadow-xs">
+                <span className="text-sm font-bold text-[#090909] block font-sans">{t.name}</span>
+                <span className="text-xs text-black/60 block font-sans">{t.desc}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* ENROLLMENT BOTTOM BANNER */}
-        <div className="bg-gradient-to-r from-[#0B121E] via-[#09150E] to-[#0B121E] border border-[#22C55E]/40 rounded-3xl p-8 sm:p-12 text-center space-y-6 relative overflow-hidden">
+        <div className="bg-white border border-black/10 rounded-3xl p-8 sm:p-12 text-center space-y-6 shadow-xl">
           <div className="space-y-3 max-w-2xl mx-auto">
-            <span className="text-xs font-bold text-[#22C55E] uppercase tracking-widest">READY TO BECOME AN AI ENGINEER?</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Join the AI Engineering Cohort</h2>
-            <p className="text-xs sm:text-sm text-slate-300">
+            <span className="text-xs font-bold text-[#15803D] uppercase tracking-widest">READY TO BECOME AN AI ENGINEER?</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#090909] font-sans">Join the AI Engineering Cohort</h2>
+            <p className="text-xs sm:text-sm text-black/70 font-sans">
               4 Weeks of live hands-on engineering, capstone review, 1-on-1 mentor guidance, and production portfolio build.
             </p>
           </div>
@@ -486,7 +497,7 @@ export default function AiEngineeringCohortPage() {
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/cohorts/register?cohort=ai-engineering"
-              className="w-full sm:w-auto py-4 px-10 rounded-2xl bg-[#22C55E] text-black font-extrabold text-sm uppercase tracking-wider hover:bg-[#4ADE80] transition-all flex items-center justify-center gap-2 shadow-xl shadow-[#22C55E]/20"
+              className="w-full sm:w-auto py-4 px-10 rounded-2xl bg-[#090909] text-white font-extrabold text-sm uppercase tracking-wider hover:bg-[#22C55E] hover:text-black transition-all flex items-center justify-center gap-2 shadow-xl"
             >
               <span>Register Now • ₹4,999</span>
               <ArrowRight className="w-5 h-5" />

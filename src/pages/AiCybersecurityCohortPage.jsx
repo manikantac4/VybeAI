@@ -6,6 +6,7 @@ import {
   ShieldCheck, Terminal, Cpu, Lock, AlertTriangle, CheckCircle2, ArrowRight, 
   Sparkles, Key, Radio, ChevronDown, ChevronUp, Zap, FileText
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AiCybersecurityCohortPage() {
   const [activeWeek, setActiveWeek] = useState(1);
@@ -139,7 +140,7 @@ export default function AiCybersecurityCohortPage() {
           theory: 'How AI helps with security scripting, Prompting for code generation, Reviewing AI-generated code, Security & privacy concerns.',
           practical: 'Use AI to draft a Python script, review & improve script manually, test & debug with AI assistance.',
           exercise: 'Ask an AI tool to create a log parser, then verify, test, and improve the output manually.',
-          homework: 'Write a short reflection on how AI helped and what must still be verified manually.',
+          homework: 'Write a short reflection on how AI helped and what must still be checked manually.',
         },
         {
           title: 'Day 5 — Security Automation Mini Workflow',
@@ -215,44 +216,47 @@ export default function AiCybersecurityCohortPage() {
   const activeWeekObj = weeksData.find((w) => w.week === activeWeek);
 
   return (
-    <div className="min-h-screen bg-[#030905] text-white selection:bg-[#22C55E] selection:text-black font-mono flex flex-col">
+    <div className="min-h-screen bg-[#FAFAFA] text-[#090909] selection:bg-[#22C55E] selection:text-black font-mono flex flex-col">
       <Navbar />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-12 space-y-16">
 
         {/* HERO SECTION */}
-        <div className="relative bg-[#050E08] border border-[#06B6D4]/40 rounded-3xl p-6 sm:p-12 overflow-hidden shadow-2xl space-y-8">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#06B6D4]/10 rounded-full blur-3xl pointer-events-none" />
-
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative bg-white border border-black/10 rounded-3xl p-6 sm:p-12 overflow-hidden shadow-xl space-y-8"
+        >
           <div className="space-y-4 max-w-3xl relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#06B6D4]/10 border border-[#06B6D4]/30 text-[#06B6D4] text-xs font-bold uppercase tracking-wider">
-              <ShieldCheck className="w-4 h-4 text-[#06B6D4]" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0284C7]/10 border border-[#0284C7]/30 text-[#0284C7] text-xs font-bold uppercase tracking-wider">
+              <ShieldCheck className="w-4 h-4 text-[#0284C7]" />
               <span>SPECIALIZED 4-WEEK CYBERSECURITY COHORT</span>
             </div>
 
-            <h1 className="text-3xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-6xl font-extrabold text-[#090909] tracking-tight leading-tight font-sans">
               AI & Cybersecurity Cohort
             </h1>
 
-            <p className="text-base sm:text-xl text-[#4ADE80] font-medium leading-relaxed">
+            <p className="text-base sm:text-xl text-[#0284C7] font-medium leading-relaxed font-sans">
               Networking Fundamentals, Web Security, AI-Assisted Scripting, and Autonomous AI Security Agents.
             </p>
 
-            <p className="text-xs text-slate-300 leading-relaxed max-w-2xl">
+            <p className="text-xs text-black/60 leading-relaxed max-w-2xl font-sans">
               Transition from basic networking and Kali Linux setup to intercepting web traffic with Burp Suite, writing Python security scripts, and building autonomous AI Security Agents powered by Model Context Protocol (MCP).
             </p>
 
             <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <Link
                 to="/cohorts/register?cohort=ai-cybersecurity"
-                className="py-4 px-8 rounded-2xl bg-[#06B6D4] text-black font-extrabold text-sm uppercase tracking-wider hover:bg-[#22D3EE] transition-all text-center flex items-center justify-center gap-2 shadow-lg shadow-[#06B6D4]/30"
+                className="py-4 px-8 rounded-2xl bg-[#090909] text-white font-extrabold text-sm uppercase tracking-wider hover:bg-[#0284C7] transition-all text-center flex items-center justify-center gap-2 shadow-lg"
               >
-                <Zap className="w-5 h-5 fill-black" />
+                <Zap className="w-5 h-5 fill-current" />
                 <span>Join Security Ops • ₹4,999</span>
               </Link>
               <a
                 href="#security-schedule"
-                className="py-4 px-6 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs text-center border border-white/15 transition-all flex items-center justify-center gap-2"
+                className="py-4 px-6 rounded-2xl bg-[#FAF8F5] hover:bg-black/5 text-[#090909] font-bold text-xs text-center border border-black/15 transition-all flex items-center justify-center gap-2 font-sans"
               >
                 <span>Inspect Tactical Syllabus</span>
                 <ChevronDown className="w-4 h-4" />
@@ -261,28 +265,28 @@ export default function AiCybersecurityCohortPage() {
           </div>
 
           {/* KEY STATS BAR */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-white/10 text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-black/10 text-xs">
             <div>
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Duration</span>
-              <span className="text-sm font-bold text-white">4 Weeks (Hands-On Lab)</span>
+              <span className="text-[10px] text-black/50 uppercase tracking-wider block">Duration</span>
+              <span className="text-sm font-bold text-[#090909]">4 Weeks (Hands-On Lab)</span>
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Lab Targets</span>
-              <span className="text-sm font-bold text-[#06B6D4]">DVWA, Juice Shop, OWASP</span>
+              <span className="text-[10px] text-black/50 uppercase tracking-wider block">Lab Targets</span>
+              <span className="text-sm font-bold text-[#0284C7]">DVWA, Juice Shop, OWASP</span>
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider block">AI Standard</span>
-              <span className="text-sm font-bold text-[#4ADE80]">MCP Agentic Framework</span>
+              <span className="text-[10px] text-black/50 uppercase tracking-wider block">AI Standard</span>
+              <span className="text-sm font-bold text-[#15803D]">MCP Agentic Framework</span>
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Prerequisites</span>
-              <span className="text-sm font-bold text-amber-400">Zero Prior Knowledge</span>
+              <span className="text-[10px] text-black/50 uppercase tracking-wider block">Prerequisites</span>
+              <span className="text-sm font-bold text-amber-700">Zero Prior Knowledge</span>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* TERMINAL SIMULATION GRAPHIC */}
-        <div className="bg-[#020503] border border-[#22C55E]/40 rounded-3xl p-6 sm:p-8 space-y-4 shadow-2xl relative">
+        <div className="bg-[#090D16] border border-black/10 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl relative">
           <div className="flex items-center justify-between border-b border-white/10 pb-3">
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
@@ -290,37 +294,37 @@ export default function AiCybersecurityCohortPage() {
               <span className="w-3 h-3 rounded-full bg-green-500/80 inline-block" />
               <span className="text-xs text-slate-400 ml-2 font-mono">root@turingwings-sec-lab:~#</span>
             </div>
-            <span className="text-[10px] font-bold text-[#06B6D4] uppercase tracking-widest">LIVE SOC AGENT TERMINAL</span>
+            <span className="text-[10px] font-bold text-[#38BDF8] uppercase tracking-widest">LIVE SOC AGENT TERMINAL</span>
           </div>
 
           <div className="space-y-2 text-xs font-mono text-slate-300 leading-relaxed overflow-x-auto">
-            <p className="text-[#22C55E]">$ nmap -sC -sV -p 80,443 target.turingwings.lab</p>
-            <p className="text-slate-400">Starting Nmap 7.94 ( https://nmap.org ) at 2026-08-08 14:15 UTC</p>
+            <p className="text-[#4ADE80]">$ nmap -sC -sV -p 80,443 target.turingwings.lab</p>
+            <p className="text-slate-400">Starting Nmap 7.94 ( https://nmap.org ) at 2026-08-08 14:35 UTC</p>
             <p className="text-slate-300">Nmap scan report for target.turingwings.lab (192.168.1.105)</p>
             <p className="text-slate-400">PORT    STATE SERVICE VERSION</p>
             <p className="text-amber-400">80/tcp  open  http    Apache httpd 2.4.52 ((Ubuntu))</p>
             <p className="text-amber-400">443/tcp open  ssl/http OpenSSL 3.0.2</p>
-            <p className="text-[#06B6D4]">[+] Burp Suite Intercept Enabled: Intercepted HTTP POST /api/login</p>
+            <p className="text-[#38BDF8]">[+] Burp Suite Intercept Enabled: Intercepted HTTP POST /api/login</p>
             <p className="text-[#4ADE80]">[+] OpenClaw AI Security Agent initialized via MCP protocol...</p>
             <p className="text-slate-300">[AI SOC]: Analyzing authentication log parameters...</p>
             <p className="text-red-400 font-bold">[ALERT]: SQL Injection pattern identified in username parameter 'admin' OR '1'='1'</p>
-            <p className="text-[#22C55E] font-bold">[SUCCESS]: AI Agent generated security mitigation patch & parameterized SQL query!</p>
+            <p className="text-[#4ADE80] font-bold">[SUCCESS]: AI Agent generated security mitigation patch & parameterized SQL query!</p>
           </div>
         </div>
 
         {/* SECURITY OPERATIONS MATRIX */}
         <div className="space-y-6">
           <div className="text-center space-y-2">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#06B6D4]">TACTICAL MATRIX</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">4-Stage Security Operations</h2>
+            <span className="text-xs font-bold uppercase tracking-widest text-[#0284C7]">TACTICAL MATRIX</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#090909] font-sans">4-Stage Security Operations</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {securityMatrix.map((m) => (
-              <div key={m.code} className="p-5 rounded-2xl bg-[#050E08] border border-white/10 space-y-2 text-center flex flex-col justify-between">
-                <span className="text-xs font-extrabold text-[#06B6D4]">{m.code}</span>
-                <h3 className="text-sm font-bold text-white">{m.title}</h3>
-                <p className="text-xs text-slate-400 leading-tight">{m.desc}</p>
+              <div key={m.code} className="p-5 rounded-2xl bg-white border border-black/10 space-y-2 text-center flex flex-col justify-between shadow-xs">
+                <span className="text-xs font-extrabold text-[#0284C7]">{m.code}</span>
+                <h3 className="text-sm font-bold text-[#090909] font-sans">{m.title}</h3>
+                <p className="text-xs text-black/60 leading-tight font-sans">{m.desc}</p>
               </div>
             ))}
           </div>
@@ -330,12 +334,12 @@ export default function AiCybersecurityCohortPage() {
         <div id="security-schedule" className="space-y-8 pt-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#06B6D4]">TACTICAL LAB SYLLABUS</span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-white">4-Week Operations Plan</h2>
+              <span className="text-xs font-bold uppercase tracking-widest text-[#0284C7]">TACTICAL LAB SYLLABUS</span>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#090909] font-sans">4-Week Operations Plan</h2>
             </div>
 
             {/* WEEK TABS */}
-            <div className="flex items-center gap-2 bg-[#050E08] p-1.5 rounded-2xl border border-white/10 overflow-x-auto">
+            <div className="flex items-center gap-2 bg-white p-1.5 rounded-2xl border border-black/10 overflow-x-auto shadow-xs">
               {weeksData.map((w) => (
                 <button
                   key={w.week}
@@ -345,8 +349,8 @@ export default function AiCybersecurityCohortPage() {
                   }}
                   className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
                     activeWeek === w.week
-                      ? 'bg-[#06B6D4] text-black shadow-md'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-[#090909] text-white shadow-md'
+                      : 'text-black/60 hover:text-black'
                   }`}
                 >
                   Week {w.week}
@@ -357,80 +361,87 @@ export default function AiCybersecurityCohortPage() {
 
           {/* ACTIVE WEEK CARD DETAILS */}
           {activeWeekObj && (
-            <div className="bg-[#050E08] border border-[#06B6D4]/40 rounded-3xl p-6 sm:p-10 space-y-8">
-              <div className="space-y-2 border-b border-white/10 pb-6">
-                <span className="text-xs font-bold text-[#06B6D4] uppercase tracking-widest">
+            <div className="bg-white border border-black/10 rounded-3xl p-6 sm:p-10 space-y-8 shadow-xl">
+              <div className="space-y-2 border-b border-black/10 pb-6">
+                <span className="text-xs font-bold text-[#0284C7] uppercase tracking-widest">
                   WEEK 0{activeWeekObj.week} SUMMARY
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#090909] font-sans">
                   {activeWeekObj.title}
                 </h3>
-                <p className="text-sm font-semibold text-[#4ADE80]">{activeWeekObj.subtitle}</p>
-                <p className="text-xs text-slate-300 pt-2 leading-relaxed">{activeWeekObj.goal}</p>
+                <p className="text-sm font-semibold text-[#0284C7] font-sans">{activeWeekObj.subtitle}</p>
+                <p className="text-xs text-black/70 pt-2 leading-relaxed font-sans">{activeWeekObj.goal}</p>
               </div>
 
               {/* DAYS EXPANDABLE LIST */}
               <div className="space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Daily Labs & Tactical Milestones</h4>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-black/50">Daily Labs & Tactical Milestones</h4>
 
                 {activeWeekObj.days.map((day, idx) => {
                   const isOpen = openDay === idx;
                   return (
                     <div
                       key={idx}
-                      className="bg-white/5 border border-white/10 hover:border-[#06B6D4]/40 rounded-2xl overflow-hidden transition-all"
+                      className="bg-[#FAF8F5] border border-black/10 hover:border-[#0284C7]/50 rounded-2xl overflow-hidden transition-all"
                     >
                       <button
                         onClick={() => setOpenDay(isOpen ? null : idx)}
                         className="w-full p-4 sm:p-5 flex items-center justify-between text-left gap-4"
                       >
                         <div className="flex items-center gap-3">
-                          <span className="w-8 h-8 rounded-xl bg-[#06B6D4]/20 text-[#06B6D4] font-bold text-xs flex items-center justify-center shrink-0">
+                          <span className="w-8 h-8 rounded-xl bg-[#0284C7]/15 text-[#0284C7] font-bold text-xs flex items-center justify-center shrink-0">
                             D{idx + 1}
                           </span>
                           <div>
-                            <h5 className="text-sm sm:text-base font-bold text-white">{day.title}</h5>
-                            <p className="text-xs text-slate-400 line-clamp-1">{day.theory}</p>
+                            <h5 className="text-sm sm:text-base font-bold text-[#090909] font-sans">{day.title}</h5>
+                            <p className="text-xs text-black/60 font-sans line-clamp-1">{day.theory}</p>
                           </div>
                         </div>
-                        {isOpen ? <ChevronUp className="w-5 h-5 text-[#06B6D4]" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+                        {isOpen ? <ChevronUp className="w-5 h-5 text-[#0284C7]" /> : <ChevronDown className="w-5 h-5 text-black/40" />}
                       </button>
 
-                      {isOpen && (
-                        <div className="p-5 pt-0 border-t border-white/10 space-y-4 text-xs text-slate-300">
-                          <div>
-                            <span className="font-bold text-[#06B6D4] block mb-1">Theoretical Foundations:</span>
-                            <p className="text-slate-300 leading-relaxed">{day.theory}</p>
-                          </div>
+                      <AnimatePresence>
+                        {isOpen && (
+                          <motion.div 
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="p-5 pt-0 border-t border-black/10 space-y-4 text-xs text-black/80 font-sans"
+                          >
+                            <div className="pt-3">
+                              <span className="font-bold text-[#0284C7] block mb-1">Theoretical Foundations:</span>
+                              <p className="text-black/70 leading-relaxed">{day.theory}</p>
+                            </div>
 
-                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                            <div className="p-3 rounded-xl bg-black/50 border border-white/10">
-                              <span className="font-bold text-white block mb-1">🧪 Practical Lab:</span>
-                              <p className="text-[11px] text-slate-300">{day.practical}</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                              <div className="p-3 rounded-xl bg-white border border-black/10">
+                                <span className="font-bold text-[#090909] block mb-1">🧪 Practical Lab:</span>
+                                <p className="text-[11px] text-black/70">{day.practical}</p>
+                              </div>
+                              <div className="p-3 rounded-xl bg-white border border-black/10">
+                                <span className="font-bold text-[#15803D] block mb-1">⚡ Hands-on Exercise:</span>
+                                <p className="text-[11px] text-black/70">{day.exercise}</p>
+                              </div>
+                              <div className="p-3 rounded-xl bg-white border border-black/10">
+                                <span className="font-bold text-amber-700 block mb-1">📝 Homework / Deliverable:</span>
+                                <p className="text-[11px] text-black/70">{day.homework}</p>
+                              </div>
                             </div>
-                            <div className="p-3 rounded-xl bg-black/50 border border-white/10">
-                              <span className="font-bold text-[#4ADE80] block mb-1">⚡ Hands-on Exercise:</span>
-                              <p className="text-[11px] text-slate-300">{day.exercise}</p>
-                            </div>
-                            <div className="p-3 rounded-xl bg-black/50 border border-white/10">
-                              <span className="font-bold text-amber-400 block mb-1">📝 Homework / Deliverable:</span>
-                              <p className="text-[11px] text-slate-300">{day.homework}</p>
-                            </div>
-                          </div>
-                        </div>
-                      )}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   );
                 })}
               </div>
 
               {/* MINI PROJECT DELIVERABLE */}
-              <div className="p-4 rounded-2xl bg-[#06B6D4]/10 border border-[#06B6D4]/30 flex items-center justify-between gap-4 text-xs">
+              <div className="p-4 rounded-2xl bg-[#0284C7]/10 border border-[#0284C7]/30 flex items-center justify-between gap-4 text-xs">
                 <div>
-                  <span className="font-bold text-[#06B6D4] block">Week Mini Project Deliverable:</span>
-                  <p className="text-slate-300">{activeWeekObj.miniProject}</p>
+                  <span className="font-bold text-[#0284C7] block font-sans">Week Mini Project Deliverable:</span>
+                  <p className="text-black/75 font-sans">{activeWeekObj.miniProject}</p>
                 </div>
-                <CheckCircle2 className="w-6 h-6 text-[#06B6D4] shrink-0" />
+                <CheckCircle2 className="w-6 h-6 text-[#0284C7] shrink-0" />
               </div>
             </div>
           )}
@@ -439,26 +450,26 @@ export default function AiCybersecurityCohortPage() {
         {/* TOOLS & STACK COVERED */}
         <div className="space-y-6">
           <div className="text-center space-y-2">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#06B6D4]">SECURITY TOOLKIT</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Cybersecurity Tools & AI Stack</h2>
+            <span className="text-xs font-bold uppercase tracking-widest text-[#0284C7]">SECURITY TOOLKIT</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#090909] font-sans">Cybersecurity Tools & AI Stack</h2>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {toolsList.map((t) => (
-              <div key={t.name} className="p-4 rounded-2xl bg-[#050E08] border border-white/10 space-y-1">
-                <span className="text-sm font-bold text-white block">{t.name}</span>
-                <span className="text-xs text-slate-400 block">{t.desc}</span>
+              <div key={t.name} className="p-4 rounded-2xl bg-white border border-black/10 space-y-1 shadow-xs">
+                <span className="text-sm font-bold text-[#090909] block font-sans">{t.name}</span>
+                <span className="text-xs text-black/60 block font-sans">{t.desc}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* ENROLLMENT BOTTOM BANNER */}
-        <div className="bg-gradient-to-r from-[#050E08] via-[#05140B] to-[#050E08] border border-[#06B6D4]/40 rounded-3xl p-8 sm:p-12 text-center space-y-6 relative overflow-hidden">
+        <div className="bg-white border border-black/10 rounded-3xl p-8 sm:p-12 text-center space-y-6 shadow-xl">
           <div className="space-y-3 max-w-2xl mx-auto">
-            <span className="text-xs font-bold text-[#06B6D4] uppercase tracking-widest">READY FOR CYBER SECURITY OPERATIONS?</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Join the AI & Cybersecurity Cohort</h2>
-            <p className="text-xs sm:text-sm text-slate-300">
+            <span className="text-xs font-bold text-[#0284C7] uppercase tracking-widest">READY FOR CYBER SECURITY OPERATIONS?</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#090909] font-sans">Join the AI & Cybersecurity Cohort</h2>
+            <p className="text-xs sm:text-sm text-black/70 font-sans">
               4 Weeks of live pentesting labs, Python security automation, Model Context Protocol AI agents, and vulnerability assessment capstone.
             </p>
           </div>
@@ -466,7 +477,7 @@ export default function AiCybersecurityCohortPage() {
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/cohorts/register?cohort=ai-cybersecurity"
-              className="w-full sm:w-auto py-4 px-10 rounded-2xl bg-[#06B6D4] text-black font-extrabold text-sm uppercase tracking-wider hover:bg-[#22D3EE] transition-all flex items-center justify-center gap-2 shadow-xl shadow-[#06B6D4]/20"
+              className="w-full sm:w-auto py-4 px-10 rounded-2xl bg-[#090909] text-white font-extrabold text-sm uppercase tracking-wider hover:bg-[#0284C7] transition-all flex items-center justify-center gap-2 shadow-xl"
             >
               <span>Register Now • ₹4,999</span>
               <ArrowRight className="w-5 h-5" />
