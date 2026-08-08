@@ -27,48 +27,26 @@ if (typeof window !== 'undefined') {
    ═══════════════════════════════════════════════════════════════════════════ */
 const cohorts = [
   {
-    id: 'web-dev',
+    id: 'ai-engineering',
     number: '01',
-    title: 'Web Development',
-    description: 'Master full stack architecture — from pixel-perfect interfaces to scalable APIs.',
-    technologies: ['HTML5', 'CSS3', 'JavaScript', 'React', 'Node.js'],
-    duration: '12 weeks',
+    title: 'AI Engineering Cohort',
+    description: 'From understanding the web to building, deploying, securing and launching modern AI-powered products.',
+    technologies: ['Antigravity', 'Cursor', 'Claude', 'React', 'Node.js', 'Supabase', 'Docker'],
+    duration: '4 weeks',
+    path: '/cohorts/ai-engineering',
   },
   {
-    id: 'ai-eng',
+    id: 'ai-cybersecurity',
     number: '02',
-    title: 'AI Engineering',
-    description: 'Build intelligent neural systems that learn, reason, and ship at production scale.',
-    technologies: ['Python', 'TensorFlow', 'PyTorch', 'LangChain', 'HuggingFace'],
-    duration: '14 weeks',
-  },
-  {
-    id: 'cyber-sec',
-    number: '03',
-    title: 'Cyber Security',
-    description: 'Defend intelligent networks and master the art of securing modern digital infrastructure.',
-    technologies: ['Linux', 'Wireshark', 'Burp Suite', 'Python', 'Nmap'],
-    duration: '10 weeks',
-  },
-  {
-    id: 'flutter',
-    number: '04',
-    title: 'Flutter Development',
-    description: 'Craft high-performance cross-platform applications from a single codebase.',
-    technologies: ['Dart', 'Flutter', 'Firebase', 'REST APIs', 'Riverpod'],
-    duration: '10 weeks',
-  },
-  {
-    id: 'agentic-ai',
-    number: '05',
-    title: 'Agentic AI',
-    description: 'Orchestrate autonomous agent systems that plan, execute, and solve complex tasks.',
-    technologies: ['Python', 'LangGraph', 'CrewAI', 'OpenAI SDK', 'AutoGen'],
-    duration: '8 weeks',
+    title: 'AI & Cybersecurity Cohort',
+    description: 'Networking Fundamentals, Web Security, AI-Assisted Scripting, and Autonomous AI Security Agents.',
+    technologies: ['Kali Linux', 'Burp Suite', 'Nmap', 'Python', 'Ollama', 'OpenClaw', 'MCP'],
+    duration: '4 weeks',
+    path: '/cohorts/ai-cybersecurity',
   },
 ]
 
-const featuredCohorts = cohorts.slice(0, 3)
+const featuredCohorts = cohorts
 const showcaseItems = [...featuredCohorts, { id: 'explore' }]
 const socialLinks = [
   { label: 'LinkedIn', href: '#' },
@@ -171,8 +149,8 @@ function CohortCard({ cohort }) {
           </div>
         </div>
 
-        <Link to="/contact" className="cohort-showcase-cta">
-          Apply For Cohort
+        <Link to={cohort.path || '/cohorts'} className="cohort-showcase-cta">
+          Explore Cohort
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="5" y1="12" x2="19" y2="12" />
             <polyline points="12 5 19 12 12 19" />

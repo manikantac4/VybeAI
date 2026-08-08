@@ -13,6 +13,10 @@ import BuildathonsPage from "./pages/BuildathonsPage";
 import EventPortalPage from "./pages/EventPortalPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
+import CohortsListPage from "./pages/CohortsListPage";
+import AiEngineeringCohortPage from "./pages/AiEngineeringCohortPage";
+import AiCybersecurityCohortPage from "./pages/AiCybersecurityCohortPage";
+import CohortRegistrationPage from "./pages/CohortRegistrationPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 function ScrollToTop() {
@@ -68,12 +72,18 @@ export default function App() {
         {/* Main Website Routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<HomePage />} />
-        <Route path="/programs" element={<HomePage />} />
+        <Route path="/programs" element={<CohortsListPage />} />
         <Route path="/community" element={<HomePage />} />
         <Route path="/buildathons" element={<BuildathonsPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/terms" element={<TermsOfServicePage />} />
+
+        {/* Flagship Cohorts Routes */}
+        <Route path="/cohorts" element={<CohortsListPage />} />
+        <Route path="/cohorts/ai-engineering" element={<AiEngineeringCohortPage />} />
+        <Route path="/cohorts/ai-cybersecurity" element={<AiCybersecurityCohortPage />} />
+        <Route path="/cohorts/register" element={<CohortRegistrationPage />} />
 
         {/* Standalone Event Template Route */}
         <Route path="/events/:slug" element={<EventPortalPage />} />
