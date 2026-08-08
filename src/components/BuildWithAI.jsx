@@ -139,19 +139,19 @@ export default function BuildWithAI() {
         </div>
 
         {/* Stack Architecture Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-4 sm:my-8 md:my-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start my-4 sm:my-8 md:my-12">
           
-          {/* Left Column: Interactive 8 Topic Cards Container (Touch & Scroll Enabled) */}
-          <div className="lg:col-span-5 flex flex-col gap-3 max-h-[420px] sm:max-h-[520px] lg:max-h-[600px] overflow-y-auto pr-2 custom-scrollbar cards-touch-container order-2 lg:order-1">
+          {/* Left Column: Interactive 8 Topic Cards (Natural Fluid Page Scroll) */}
+          <div className="lg:col-span-5 flex flex-col gap-3.5 w-full order-2 lg:order-1">
             {topics.map(([num, title, desc], idx) => {
               const isActive = activeIndex === idx
               return (
                 <div
                   key={num}
                   onClick={() => setActiveIndex(idx)}
-                  className={`p-4 sm:p-5 md:p-6 border rounded-xl cursor-pointer transition-all duration-300 relative transform-gpu ${
+                  className={`p-4 sm:p-5 md:p-6 border rounded-2xl cursor-pointer transition-all duration-300 relative transform-gpu ${
                     isActive
-                      ? 'bg-[#111] text-white border-[#111] shadow-lg translate-x-1'
+                      ? 'bg-[#111] text-white border-[#111] shadow-xl translate-x-1'
                       : 'bg-white text-[#111] border-black/10 hover:border-black/30 hover:bg-black/[0.02]'
                   }`}
                 >
@@ -161,19 +161,19 @@ export default function BuildWithAI() {
                       isActive ? 'border-white' : 'border-black/30'
                     }`}
                   />
-                  <div className="flex items-center gap-3 mb-2">
+                  <div className="flex items-center gap-3 mb-2 font-mono">
                     <span
-                      className={`font-mono text-xs font-semibold px-2 py-0.5 rounded transition-colors ${
+                      className={`text-xs font-semibold px-2 py-0.5 rounded transition-colors ${
                         isActive ? 'bg-white/20 text-white' : 'bg-black/5 text-black/60'
                       }`}
                     >
                       {num}
                     </span>
-                    <span className={`text-[10px] sm:text-xs font-mono uppercase tracking-wider ${isActive ? 'text-white/60' : 'text-black/40'}`}>
+                    <span className={`text-[10px] sm:text-xs uppercase tracking-wider ${isActive ? 'text-white/60' : 'text-black/40'}`}>
                       LAYER {idx + 1}
                     </span>
                   </div>
-                  <h3 className="text-base sm:text-lg font-medium tracking-tight mb-1.5">{title}</h3>
+                  <h3 className="text-base sm:text-lg font-bold tracking-tight mb-1.5">{title}</h3>
                   <p className={`text-xs leading-relaxed ${isActive ? 'text-white/80' : 'text-black/60'}`}>
                     {desc}
                   </p>
@@ -182,8 +182,8 @@ export default function BuildWithAI() {
             })}
           </div>
 
-          {/* Right Column: Isometric Interactive Stack Diagram */}
-          <div className="lg:col-span-7 relative h-[320px] sm:h-[440px] lg:h-[580px] flex items-center justify-center diagram-container overflow-hidden rounded-2xl border border-black/10 bg-[#fafafa] order-1 lg:order-2">
+          {/* Right Column: Isometric Interactive Stack Diagram (Sticky on Desktop) */}
+          <div className="lg:col-span-7 lg:sticky lg:top-28 relative h-[320px] sm:h-[440px] lg:h-[580px] flex items-center justify-center diagram-container overflow-hidden rounded-2xl border border-black/10 bg-[#fafafa] order-1 lg:order-2">
             
             {/* Guide Grid Lines */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-15" xmlns="http://www.w3.org/2000/svg">
