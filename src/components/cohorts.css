@@ -21,79 +21,6 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   HEADER & TYPOGRAPHY (TRIONN Editorial Style)
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.cohort-showcase-header {
-    position: absolute;
-    top: 8vh;
-    left: 6vw;
-    z-index: 10;
-    text-align: left;
-    width: min(28vw, 500px);
-    max-width: 500px;
-    opacity: 1;
-    transform: translateY(0);
-    will-change: transform, opacity;
-    /* No CSS transition here on purpose: the scroll handler drives
-       transform/opacity every frame via GSAP quickTo. A CSS transition
-       on the same properties would fight that per-frame update and
-       produce a rubber-band stutter instead of a smooth exit. */
-}
-
-.cohort-showcase-eyebrow {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #888888;
-    margin: 0 0 16px 0;
-}
-
-.cohort-showcase-headline {
-    font-size: clamp(2.5rem, 4.5vw, 4.2rem);
-    font-weight: 600;
-    line-height: 1.02;
-    margin: 0 0 18px 0;
-    color: #111111;
-    letter-spacing: -0.04em;
-}
-
-.cohort-showcase-headline span {
-    display: block;
-    font-weight: 300;
-    color: #777777;
-    margin-top: 4px;
-}
-
-.cohort-showcase-subline {
-    font-size: 15px;
-    line-height: 1.6;
-    color: #666666;
-    margin: 0 0 24px 0;
-    max-width: 440px;
-    font-weight: 300;
-}
-
-.cohort-showcase-scroll-hint {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #111111;
-    opacity: 0.7;
-    animation: hintBob 2s ease-in-out infinite;
-}
-
-@keyframes hintBob {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(6px); }
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
    CARD TRACK & WRAPPER (Large TRIONN Project Layout)
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -400,12 +327,6 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 1024px) {
-    .cohort-showcase-header {
-        left: 4vw;
-        top: 6vh;
-        width: min(32vw, 360px);
-    }
-
     .cohort-showcase-card-wrapper {
         width: clamp(400px, 60vw, 540px);
         height: clamp(460px, 62vh, 580px);
@@ -428,21 +349,6 @@
         height: 100svh;
         min-height: 560px;
     }
-
-    .cohort-showcase-header {
-        position: absolute;
-        top: 24px;
-        left: 20px;
-        right: 20px;
-        padding: 0;
-        max-width: 100%;
-        width: auto;
-    }
-
-    .cohort-showcase-eyebrow { margin-bottom: 10px; font-size: 9px; }
-    .cohort-showcase-headline { margin-bottom: 10px; font-size: clamp(2.1rem, 11vw, 3.1rem); }
-    .cohort-showcase-subline { max-width: 330px; margin-bottom: 12px; font-size: 13px; line-height: 1.45; }
-    .cohort-showcase-scroll-hint { font-size: 9px; }
 
     .cohort-showcase-track {
         align-items: flex-end;

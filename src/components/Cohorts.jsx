@@ -47,7 +47,10 @@ const cohorts = [
 ]
 
 const featuredCohorts = cohorts
-const showcaseItems = featuredCohorts
+// When there's more than one cohort, append a closing "explore all cohorts"
+// card so people can jump to the full cohorts listing page.
+const showcaseItems =
+  featuredCohorts.length > 1 ? [...featuredCohorts, { id: 'explore' }] : featuredCohorts
 const socialLinks = [
   { label: 'LinkedIn', href: '#' },
   { label: 'Instagram', href: '#' },
@@ -167,7 +170,7 @@ function ExploreCard() {
       <p className="cohort-explore-kicker">KEEP LEARNING</p>
       <h3>Explore every<br />cohort.</h3>
       <p>Find the right path for where you want to build next.</p>
-      <Link to="/contact" className="cohort-explore-link">Explore all cohorts <span>→</span></Link>
+      <Link to="/cohorts" className="cohort-explore-link">Explore all cohorts <span>→</span></Link>
       <div className="cohort-social-block">
         <p>Don&apos;t miss an update.</p>
         <div className="cohort-social-links">
@@ -197,7 +200,6 @@ export default function Cohorts() {
   const trackRef = useRef(null)
   const pinRef = useRef(null)
   const cardWrapperRefs = useRef([])
-  const headerRef = useRef(null)
   const progressFillRef = useRef(null)
   const indicatorRefs = useRef([])
   const stRef = useRef(null)
@@ -225,24 +227,20 @@ export default function Cohorts() {
       const cardEls = track.querySelectorAll('.cohort-showcase-card')
       if (cardEls.length === 0) return false
 
+      // No header panel to dodge anymore, so the track starts flush at the
+      // first card. The track's own CSS padding (6vw desktop / 20px mobile)
+      // already gives it breathing room from the viewport edge.
       const viewportWidth = window.innerWidth
-      const isCompact = viewportWidth <= 640
       const cardWidth = cardEls[0].offsetWidth
       const gap = parseFloat(getComputedStyle(track).gap) || 40
-      const leftPanelWidth = isCompact ? 0 : Math.min(Math.max(viewportWidth * 0.28, 330), 500)
       const trackPadding = parseFloat(getComputedStyle(track).paddingLeft) || 0
-      const contentStart = isCompact ? 20 : leftPanelWidth + 56
-      const contentWidth = viewportWidth - contentStart - (isCompact ? 20 : 56)
-      const firstCardOffset = contentStart + Math.max(0, (contentWidth - cardWidth) / 2) - trackPadding
       const maxTranslate = (cardEls.length - 1) * (cardWidth + gap)
 
       Object.assign(metrics, {
-        isCompact,
+        viewportWidth,
         cardWidth,
         gap,
-        contentStart,
-        contentWidth,
-        firstCardOffset,
+        trackPadding,
         maxTranslate,
       })
       return true
@@ -254,23 +252,16 @@ export default function Cohorts() {
     // actually produces the smoothing that `scrub` alone can't provide
     // when there's no linked timeline/animation.
     let quickX = null
-    let quickHeaderX = null
-    let quickHeaderAlpha = null
     let quickProgress = null
     let cardQuick = []
 
     const setupTimer = setTimeout(() => {
       if (!measure()) return
 
-      gsap.set(track, { x: metrics.firstCardOffset, force3D: true })
+      gsap.set(track, { x: 0, force3D: true })
       gsap.set(cardWrapperRefs.current, { scale: 0.94, opacity: 0.45 })
 
       quickX = gsap.quickTo(track, 'x', { duration: 0.55, ease: 'power3' })
-
-      if (headerRef.current) {
-        quickHeaderX = gsap.quickTo(headerRef.current, 'x', { duration: 0.5, ease: 'power3' })
-        quickHeaderAlpha = gsap.quickTo(headerRef.current, 'autoAlpha', { duration: 0.4, ease: 'power2.out' })
-      }
 
       if (progressFillRef.current) {
         quickProgress = gsap.quickTo(progressFillRef.current, 'scaleX', {
@@ -299,36 +290,30 @@ export default function Cohorts() {
         onRefresh: () => measure(),
         onUpdate: (self) => {
           const progress = self.progress
-          const { isCompact, cardWidth, gap, contentStart, contentWidth, firstCardOffset, maxTranslate } = metrics
+          const { cardWidth, gap, trackPadding, maxTranslate, viewportWidth } = metrics
 
           // Progress bar fill
           if (quickProgress) quickProgress(progress)
 
-          // The intro panel exits with the scroll instead of sitting over the content.
-          if (quickHeaderX && quickHeaderAlpha && !isCompact) {
-            const exitProgress = Math.min(progress / 0.2, 1)
-            quickHeaderX(-180 * exitProgress)
-            quickHeaderAlpha(1 - exitProgress)
-          }
-
-          // Card track position
-          const scrollStart = 0.06
-          const scrollEnd = 0.96
+          // Card track position — starts right at the first cohort card (x: 0)
+          // and scrolls left toward the last card / explore-more card.
+          const scrollStart = 0.02
+          const scrollEnd = 0.98
           const normalizedProgress = Math.max(
             0,
             Math.min(1, (progress - scrollStart) / (scrollEnd - scrollStart))
           )
 
-          const translateX = firstCardOffset - normalizedProgress * maxTranslate
+          const translateX = -normalizedProgress * maxTranslate
           if (quickX) quickX(translateX)
 
           // Find nearest card + drive scale/opacity
-          const viewportCenter = contentStart + contentWidth / 2
+          const viewportCenter = viewportWidth / 2
           let nearestIndex = 0
           let nearestDistance = Infinity
 
           for (let i = 0; i < showcaseItems.length; i++) {
-            const cardLeft = translateX + i * (cardWidth + gap)
+            const cardLeft = trackPadding + translateX + i * (cardWidth + gap)
             const cardCenter = cardLeft + cardWidth / 2
             const distance = Math.abs(cardCenter - viewportCenter)
 
@@ -397,23 +382,7 @@ export default function Cohorts() {
   return (
     <section ref={sectionRef} id="cohorts" className="cohort-showcase-section">
       <div ref={pinRef} className="cohort-showcase-sticky">
-        {/* Header with cinematic fade */}
-        <div ref={headerRef} className="cohort-showcase-header">
-          <p className="cohort-showcase-eyebrow">04 / COHORT COLLECTION</p>
-          <h2 className="cohort-showcase-headline">
-            Selected cohorts<br />
-            <span>&amp; programs</span>
-          </h2>
-          <p className="cohort-showcase-subline">
-            Immersive learning experiences built for people ready to build real
-            products and master AI-powered workflows.
-          </p>
-          <div className="cohort-showcase-scroll-hint">
-            <span>SCROLL TO EXPLORE →</span>
-          </div>
-        </div>
-
-        {/* Horizontal card track with smooth scrolling */}
+        {/* Horizontal card track with smooth scrolling — opens directly on the first cohort */}
         <div ref={trackRef} className="cohort-showcase-track">
           {showcaseItems.map((item, i) => (
             <div
