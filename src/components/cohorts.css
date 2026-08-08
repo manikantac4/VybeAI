@@ -122,6 +122,18 @@
     cursor: pointer;
 }
 
+/* Regular cohort cards need their own solid dark background + inset padding —
+   without this, the white title and grey description sit directly on the
+   page's near-white background and become unreadable. :not() keeps this
+   from clobbering the explore card's own background/padding rules below. */
+.cohort-showcase-card:not(.cohort-explore-card) {
+    box-sizing: border-box;
+    background: #111111;
+    border: 1px solid #111111;
+    border-radius: 16px;
+    padding: clamp(1rem, 2vw, 1.5rem);
+}
+
 /* Keep the closing card dark even though the shared card base is transparent. */
 .cohort-showcase-card.cohort-explore-card {
     background: #111111;
