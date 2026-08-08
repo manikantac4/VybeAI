@@ -141,11 +141,11 @@ export default function CohortRegistrationPage() {
     <div className="min-h-screen bg-[#FAFAFA] text-[#090909] selection:bg-[#22C55E] selection:text-black font-sans flex flex-col">
       <Navbar />
 
-      <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-8 pt-10 pb-8 sm:pt-16 sm:pb-14 lg:pt-24 lg:pb-20">
+      <main className="flex-1 max-w-6xl mx-auto w-full px-5 sm:px-8 pt-14 pb-10 sm:pt-16 sm:pb-14 lg:pt-28 lg:pb-20">
 
         {!paymentSuccess && (
           /* MOBILE-ONLY COMPACT STEP LINE (hidden on desktop, replaced by the split-column header) */
-          <div className="lg:hidden flex items-center justify-center gap-2.5 pb-6 font-mono">
+          <div className="lg:hidden flex items-center justify-center gap-2.5 pb-8 font-mono">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/30 text-[#15803D] text-[10px] font-bold uppercase tracking-wider">
               <Lock className="w-3 h-3" />
               SSL Secured
@@ -215,7 +215,7 @@ export default function CohortRegistrationPage() {
         ) : currentPhase === 1 ? (
 
           /* PHASE 1 — LEFT: HEADING + PROGRESS, RIGHT: FORM (stacks on mobile) */
-          <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-28">
 
             {/* LEFT COLUMN — INTRO */}
             <motion.div
@@ -228,11 +228,11 @@ export default function CohortRegistrationPage() {
                 <span>256-Bit SSL Encrypted Checkout</span>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl lg:text-6xl font-extrabold text-[#090909] leading-tight">
+              <h1 className="text-xl sm:text-3xl lg:text-6xl font-extrabold text-[#090909] leading-tight">
                 Cohort Registration
               </h1>
 
-              <p className="text-sm lg:text-base text-black/70 leading-relaxed lg:max-w-sm">
+              <p className="text-xs sm:text-sm lg:text-base text-black/70 leading-relaxed lg:max-w-sm">
                 A few details before we lock in your seat for <strong className="text-[#090909]">{activeCohortObj.name}</strong>.
               </p>
 
@@ -255,7 +255,7 @@ export default function CohortRegistrationPage() {
               </div>
 
               {/* ENROLLING COHORT STRIP */}
-              <div className="p-5 rounded-2xl bg-white border border-black/10 flex items-center justify-between gap-3 font-mono text-xs lg:mt-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-black/10 flex items-center justify-between gap-3 font-mono text-[11px] sm:text-xs lg:mt-2">
                 <div className="flex items-center gap-2.5 min-w-0">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#22C55E] shrink-0" />
                   <div className="min-w-0">
@@ -428,7 +428,7 @@ export default function CohortRegistrationPage() {
 
                 <button
                   type="submit"
-                  className="cursor-pointer w-full py-4 rounded-2xl bg-[#090909] text-white font-extrabold text-sm uppercase tracking-wider hover:bg-[#22C55E] hover:text-black transition-all flex items-center justify-center gap-2 shadow-xl mt-4 font-mono"
+                  className="cursor-pointer w-full py-4 rounded-2xl bg-[#090909] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#22C55E] hover:text-black transition-all flex items-center justify-center gap-2 shadow-xl mt-4 font-mono"
                 >
                   <span>Continue to Registration Summary</span>
                   <ArrowRight className="w-5 h-5" />
@@ -440,7 +440,7 @@ export default function CohortRegistrationPage() {
         ) : (
 
           /* PHASE 2 — LEFT: HEADING, RIGHT: SUMMARY (no card, invoice-style, stacks on mobile) */
-          <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-28">
 
             {/* LEFT COLUMN — HEADING + EDIT */}
             <motion.div
@@ -453,11 +453,11 @@ export default function CohortRegistrationPage() {
                 <span>256-Bit SSL Encrypted Checkout</span>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl lg:text-6xl font-extrabold text-[#090909] leading-tight">
+              <h1 className="text-xl sm:text-3xl lg:text-6xl font-extrabold text-[#090909] leading-tight">
                 Review Your Registration
               </h1>
 
-              <p className="text-sm lg:text-base text-black/70 leading-relaxed lg:max-w-sm">
+              <p className="text-xs sm:text-sm lg:text-base text-black/70 leading-relaxed lg:max-w-sm">
                 Double-check everything below, then complete payment to secure your spot.
               </p>
 
@@ -540,17 +540,17 @@ export default function CohortRegistrationPage() {
               </div>
 
               {/* TOTAL — the one highlighted moment */}
-              <div className="flex items-center justify-between p-5 rounded-2xl bg-[#22C55E]/15 border border-[#22C55E]/30">
+              <div className="flex items-center justify-between p-6 rounded-2xl bg-[#22C55E]/15 border border-[#22C55E]/30">
                 <span className="text-sm font-bold text-[#090909]">Total Amount</span>
                 <span className="text-2xl font-extrabold text-[#15803D] font-mono">₹{activeCohortObj.price}</span>
               </div>
 
               {/* PAYMENT ACTIONS */}
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <button
                   type="button"
                   onClick={() => setShowRazorpayModal(true)}
-                  className="cursor-pointer w-full py-4 rounded-2xl bg-[#090909] text-white hover:bg-[#22C55E] hover:text-black font-extrabold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl font-mono"
+                  className="cursor-pointer w-full py-4 rounded-2xl bg-[#090909] text-white hover:bg-[#22C55E] hover:text-black font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl font-mono"
                 >
                   <CreditCard className="w-5 h-5" />
                   <span>Proceed to Razorpay Payment • ₹{activeCohortObj.price}</span>
