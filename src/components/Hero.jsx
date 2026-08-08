@@ -187,7 +187,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[78vh] md:min-h-screen items-center justify-center overflow-hidden px-6 md:px-12 bg-[#fafafa]"
+      className="relative flex min-h-[52vh] md:min-h-screen items-center justify-center overflow-hidden px-6 md:px-12 bg-[#fafafa]"
     >
       <motion.div
         className="pointer-events-none fixed inset-0 z-[40] backdrop-blur-3xl bg-[#fafafa]/70"
