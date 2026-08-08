@@ -6,8 +6,8 @@ import './cohorts.css'
 
 // Cohort artwork — adjust the path below if your assets folder lives
 // somewhere other than "../assets" relative to this file.
-import aiEngineeringCohort from '../assets/aiEngineeringCohort.png'
-import aiCybersecurityCohort from '../assets/aiCybersecurityCohort.png'
+import aiEngineeringCohort from '../assets/aiengineercohort.png'
+import aiCybersecurityCohort from '../assets/cybercohort.png'
 
 gsap.registerPlugin(ScrollTrigger)
 
