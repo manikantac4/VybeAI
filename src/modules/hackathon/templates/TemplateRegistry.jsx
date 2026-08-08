@@ -15,17 +15,29 @@ const TEMPLATE_VARIANTS = {
     },
     mode: "dark",
   },
+  "greenspace": {
+    colors: {
+      base: "transparent",
+      baseRaised: "rgba(0, 0, 0, 0.4)",
+      card: "rgba(0, 0, 0, 0.45)",
+      line: "#22C55E",
+      text: "#FFFFFF",
+      primary: "#22C55E",
+      accent: "#A3E635",
+    },
+    mode: "greenspace",
+  },
   "cyberpunk": {
     colors: {
-      base: "#050014",
-      baseRaised: "#0F002B",
-      card: "#18003C",
-      line: "#00FF9D",
+      base: "transparent",
+      baseRaised: "rgba(0, 0, 0, 0.4)",
+      card: "rgba(0, 0, 0, 0.45)",
+      line: "#22C55E",
       text: "#FFFFFF",
-      primary: "#00FF9D",
-      accent: "#FF0055",
+      primary: "#22C55E",
+      accent: "#A3E635",
     },
-    mode: "cyberpunk",
+    mode: "greenspace",
   },
   "space": {
     colors: {
@@ -79,7 +91,7 @@ const TEMPLATE_VARIANTS = {
 
 export default function TemplateRegistry({ templateId = "ai-future", eventData, onRegister }) {
   const activeTemplateId = eventData?.templateId || templateId || "ai-future";
-  const variantOverrides = TEMPLATE_VARIANTS[activeTemplateId] || TEMPLATE_VARIANTS["ai-future"];
+  const variantOverrides = TEMPLATE_VARIANTS[activeTemplateId] || TEMPLATE_VARIANTS["greenspace"];
 
   return (
     <AiFutureLayout

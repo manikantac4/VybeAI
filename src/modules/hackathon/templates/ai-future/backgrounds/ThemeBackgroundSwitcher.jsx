@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "../hooks/useTheme";
-import CyberpunkBackground from "./CyberpunkBackground";
+import GreenSpaceBackground from "./GreenSpaceBackground";
 import SpaceBackground from "./SpaceBackground";
 import CorporateBackground from "./CorporateBackground";
 import Spatial3dBackground from "./Spatial3dBackground";
@@ -11,8 +11,9 @@ export default function ThemeBackgroundSwitcher() {
   const theme = useTheme();
 
   switch (theme?.mode) {
+    case "greenspace":
     case "cyberpunk":
-      return <CyberpunkBackground />;
+      return <GreenSpaceBackground />;
     case "space":
       return <SpaceBackground />;
     case "corporate":

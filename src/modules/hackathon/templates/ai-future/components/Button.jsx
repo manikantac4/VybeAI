@@ -12,8 +12,8 @@ export default function Button({ children, to, href, onClick, type = 'button', v
 
   // Dynamic template primary styles
   const primaryStyle =
-    theme.mode === "cyberpunk"
-      ? "bg-[#00FF9D] text-black font-black uppercase tracking-widest shadow-[0_0_25px_rgba(0,255,157,0.5)] hover:scale-105"
+    theme.mode === "greenspace" || theme.mode === "cyberpunk"
+      ? "bg-[#22C55E] text-black font-extrabold uppercase tracking-widest shadow-[0_0_25px_rgba(34,197,94,0.6)] hover:bg-[#4ADE80] hover:scale-105"
       : theme.mode === "space"
       ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold tracking-wider shadow-lg shadow-indigo-500/30 hover:scale-105"
       : theme.mode === "corporate"
@@ -26,8 +26,8 @@ export default function Button({ children, to, href, onClick, type = 'button', v
 
   // Dynamic template secondary styles
   const secondaryStyle =
-    theme.mode === "cyberpunk"
-      ? "bg-transparent border-2 border-[#FF0055] text-[#FF0055] font-bold uppercase shadow-[0_0_15px_rgba(255,0,85,0.3)] hover:bg-[#FF0055] hover:text-white"
+    theme.mode === "greenspace" || theme.mode === "cyberpunk"
+      ? "bg-black/40 border border-[#22C55E]/60 text-[#4ADE80] font-bold uppercase backdrop-blur-md hover:bg-[#22C55E]/20 hover:text-white"
       : theme.mode === "space"
       ? "bg-transparent border border-indigo-400/40 text-indigo-300 font-bold hover:bg-indigo-500/20"
       : theme.mode === "corporate"

@@ -86,8 +86,8 @@ export default function TemplateLayout({ eventData = defaultEventData, themeOver
   };
 
   const bgClass =
-    theme.mode === "cyberpunk"
-      ? "bg-[#050014] text-white selection:bg-[#00FF9D] selection:text-black"
+    theme.mode === "greenspace" || theme.mode === "cyberpunk"
+      ? "bg-transparent text-white selection:bg-[#22C55E] selection:text-black"
       : theme.mode === "space"
       ? "bg-[#030712] text-white selection:bg-[#6366F1] selection:text-white"
       : theme.mode === "corporate"
