@@ -141,7 +141,7 @@ export default function CohortRegistrationPage() {
     <div className="min-h-screen bg-[#FAFAFA] text-[#090909] selection:bg-[#22C55E] selection:text-black font-sans flex flex-col">
       <Navbar />
 
-      <main className="flex-1 max-w-6xl mx-auto w-full px-5 sm:px-8 pt-24 sm:pt-32 lg:pt-36 pb-14 sm:pb-20">
+      <main className="flex-1 max-w-6xl mx-auto w-full px-5 sm:px-8 pt-14 pb-10 sm:pt-16 sm:pb-14 lg:pt-28 lg:pb-20">
 
         {!paymentSuccess && (
           /* MOBILE-ONLY COMPACT STEP LINE (hidden on desktop, replaced by the split-column header) */
@@ -275,7 +275,7 @@ export default function CohortRegistrationPage() {
               animate={{ opacity: 1, x: 0 }}
               className="lg:col-span-7 lg:pt-2"
             >
-              <form onSubmit={handleGoToSummary} className="space-y-6 lg:space-y-7">
+              <form onSubmit={handleGoToSummary} className="space-y-4 sm:space-y-6 lg:space-y-7">
 
                 {errorMessage && (
                   <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-700 text-xs font-bold flex items-center gap-2">
@@ -289,32 +289,32 @@ export default function CohortRegistrationPage() {
                     Full Name *
                   </label>
                   <div className="relative">
-                    <User className="w-4 h-4 text-black/40 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black/40 absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       required
                       placeholder="Full name"
                       value={formData.fullName}
                       onChange={(e) => handleInputChange('fullName', e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-black/15 text-sm text-[#090909] placeholder-black/40 focus:outline-none focus:border-[#22C55E]"
+                      className="w-full pl-9 sm:pl-10 pr-3.5 sm:pr-4 py-2.5 sm:py-3 rounded-xl bg-white border border-black/15 text-[13px] sm:text-sm text-[#090909] placeholder-black/40 focus:outline-none focus:border-[#22C55E]"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-[#090909] block">
                       Email Address *
                     </label>
                     <div className="relative">
-                      <Mail className="w-4 h-4 text-black/40 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black/40 absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2" />
                       <input
                         type="email"
                         required
                         placeholder="Email address"
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-black/15 text-sm text-[#090909] placeholder-black/40 focus:outline-none focus:border-[#22C55E]"
+                        className="w-full pl-9 sm:pl-10 pr-3.5 sm:pr-4 py-2.5 sm:py-3 rounded-xl bg-white border border-black/15 text-[13px] sm:text-sm text-[#090909] placeholder-black/40 focus:outline-none focus:border-[#22C55E]"
                       />
                     </div>
                   </div>
@@ -324,21 +324,21 @@ export default function CohortRegistrationPage() {
                       Phone Number *
                     </label>
                     <div className="relative">
-                      <Phone className="w-4 h-4 text-black/40 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black/40 absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2" />
                       <input
                         type="tel"
                         required
                         placeholder="Mobile number"
                         value={formData.phone}
                         onChange={(e) => handleInputChange('phone', e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-black/15 text-sm text-[#090909] placeholder-black/40 focus:outline-none focus:border-[#22C55E]"
+                        className="w-full pl-9 sm:pl-10 pr-3.5 sm:pr-4 py-2.5 sm:py-3 rounded-xl bg-white border border-black/15 text-[13px] sm:text-sm text-[#090909] placeholder-black/40 focus:outline-none focus:border-[#22C55E]"
                       />
                     </div>
                   </div>
                 </div>
 
                 {/* GENDER & GRADUATION YEAR */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-[#090909] block">
                       Gender *
@@ -346,7 +346,7 @@ export default function CohortRegistrationPage() {
                     <select
                       value={formData.gender}
                       onChange={(e) => handleInputChange('gender', e.target.value)}
-                      className="cursor-pointer w-full px-4 py-3 rounded-xl bg-white border border-black/15 text-sm text-[#090909] focus:outline-none focus:border-[#22C55E]"
+                      className="cursor-pointer w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-white border border-black/15 text-[13px] sm:text-sm text-[#090909] focus:outline-none focus:border-[#22C55E]"
                     >
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
@@ -362,7 +362,7 @@ export default function CohortRegistrationPage() {
                     <select
                       value={formData.graduationYear}
                       onChange={(e) => handleInputChange('graduationYear', e.target.value)}
-                      className="cursor-pointer w-full px-4 py-3 rounded-xl bg-white border border-black/15 text-sm text-[#090909] focus:outline-none focus:border-[#22C55E]"
+                      className="cursor-pointer w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-white border border-black/15 text-[13px] sm:text-sm text-[#090909] focus:outline-none focus:border-[#22C55E]"
                     >
                       <option value="2024">2024 (Graduated)</option>
                       <option value="2025">2025 (Graduating Soon)</option>
@@ -374,19 +374,19 @@ export default function CohortRegistrationPage() {
                 </div>
 
                 {/* COLLEGE & STUDY STATUS */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-[#090909] block">
                       College / Organization
                     </label>
                     <div className="relative">
-                      <Building className="w-4 h-4 text-black/40 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <Building className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black/40 absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2" />
                       <input
                         type="text"
                         placeholder="College or company name"
                         value={formData.collegeOrOrg}
                         onChange={(e) => handleInputChange('collegeOrOrg', e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-black/15 text-sm text-[#090909] placeholder-black/40 focus:outline-none focus:border-[#22C55E]"
+                        className="w-full pl-9 sm:pl-10 pr-3.5 sm:pr-4 py-2.5 sm:py-3 rounded-xl bg-white border border-black/15 text-[13px] sm:text-sm text-[#090909] placeholder-black/40 focus:outline-none focus:border-[#22C55E]"
                       />
                     </div>
                   </div>
@@ -398,7 +398,7 @@ export default function CohortRegistrationPage() {
                     <select
                       value={formData.studyStatus}
                       onChange={(e) => handleInputChange('studyStatus', e.target.value)}
-                      className="cursor-pointer w-full px-4 py-3 rounded-xl bg-white border border-black/15 text-sm text-[#090909] focus:outline-none focus:border-[#22C55E]"
+                      className="cursor-pointer w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-white border border-black/15 text-[13px] sm:text-sm text-[#090909] focus:outline-none focus:border-[#22C55E]"
                     >
                       <option value="1st Year Undergraduate">1st Year Undergraduate</option>
                       <option value="2nd Year Undergraduate">2nd Year Undergraduate</option>
@@ -417,7 +417,7 @@ export default function CohortRegistrationPage() {
                   <select
                     value={formData.experienceLevel}
                     onChange={(e) => handleInputChange('experienceLevel', e.target.value)}
-                    className="cursor-pointer w-full px-4 py-3 rounded-xl bg-white border border-black/15 text-sm text-[#090909] focus:outline-none focus:border-[#22C55E]"
+                    className="cursor-pointer w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-white border border-black/15 text-[13px] sm:text-sm text-[#090909] focus:outline-none focus:border-[#22C55E]"
                   >
                     <option value="Zero Prior Knowledge (Beginner)">Zero Prior Knowledge (Beginner)</option>
                     <option value="Self-Taught / Hobbyist Developer">Self-Taught / Hobbyist Developer</option>
@@ -428,7 +428,7 @@ export default function CohortRegistrationPage() {
 
                 <button
                   type="submit"
-                  className="cursor-pointer w-full py-4 rounded-2xl bg-[#090909] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#22C55E] hover:text-black transition-all flex items-center justify-center gap-2 shadow-xl mt-4 font-mono"
+                  className="cursor-pointer w-full py-3.5 sm:py-4 rounded-2xl bg-[#090909] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#22C55E] hover:text-black transition-all flex items-center justify-center gap-2 shadow-xl mt-3 sm:mt-4 font-mono"
                 >
                   <span>Continue to Registration Summary</span>
                   <ArrowRight className="w-5 h-5" />
@@ -490,69 +490,69 @@ export default function CohortRegistrationPage() {
             <motion.div
               initial={{ opacity: 0, x: 12 }}
               animate={{ opacity: 1, x: 0 }}
-              className="lg:col-span-7 lg:pt-2 space-y-9 lg:space-y-10"
+              className="lg:col-span-7 lg:pt-2 space-y-7 sm:space-y-9 lg:space-y-10"
             >
               {/* ITEM ROW */}
-              <div className="flex items-start justify-between gap-4 pb-6 border-b-2 border-[#090909]">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-[#FAFAFA] border border-black/10 flex items-center justify-center text-[#15803D] shrink-0">
-                    <CohortIcon className="w-5 h-5" />
+              <div className="flex items-start justify-between gap-3 sm:gap-4 pb-5 sm:pb-6 border-b-2 border-[#090909]">
+                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FAFAFA] border border-black/10 flex items-center justify-center text-[#15803D] shrink-0">
+                    <CohortIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div className="min-w-0">
                     <span className="text-[10px] font-bold uppercase text-[#15803D] font-mono">{activeCohortObj.badge}</span>
-                    <h3 className="text-base sm:text-lg font-extrabold text-[#090909] truncate">{activeCohortObj.name}</h3>
-                    <p className="text-xs text-black/50">{activeCohortObj.tagline}</p>
+                    <h3 className="text-sm sm:text-lg font-extrabold text-[#090909] truncate">{activeCohortObj.name}</h3>
+                    <p className="text-[11px] sm:text-xs text-black/50">{activeCohortObj.tagline}</p>
                   </div>
                 </div>
-                <span className="text-xl sm:text-2xl font-extrabold text-[#090909] font-mono shrink-0">₹{activeCohortObj.price}</span>
+                <span className="text-lg sm:text-2xl font-extrabold text-[#090909] font-mono shrink-0">₹{activeCohortObj.price}</span>
               </div>
 
               {/* STUDENT DETAILS — plain rows, no box */}
-              <div className="space-y-5">
+              <div className="space-y-4 sm:space-y-5">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-black/40 font-mono">Registrant Details</h3>
 
                 <dl className="divide-y divide-black/10">
-                  <div className="flex items-center justify-between py-4">
+                  <div className="flex items-center justify-between py-3 sm:py-4">
                     <dt className="text-xs text-black/50">Full Name</dt>
-                    <dd className="font-bold text-[#090909] text-sm text-right">{formData.fullName}</dd>
+                    <dd className="font-bold text-[#090909] text-xs sm:text-sm text-right">{formData.fullName}</dd>
                   </div>
-                  <div className="flex items-center justify-between py-4">
+                  <div className="flex items-center justify-between py-3 sm:py-4">
                     <dt className="text-xs text-black/50">Email Address</dt>
-                    <dd className="font-bold text-[#090909] text-sm text-right break-all">{formData.email}</dd>
+                    <dd className="font-bold text-[#090909] text-xs sm:text-sm text-right break-all">{formData.email}</dd>
                   </div>
-                  <div className="flex items-center justify-between py-4">
+                  <div className="flex items-center justify-between py-3 sm:py-4">
                     <dt className="text-xs text-black/50">Phone Number</dt>
-                    <dd className="font-bold text-[#090909] text-sm text-right">{formData.phone}</dd>
+                    <dd className="font-bold text-[#090909] text-xs sm:text-sm text-right">{formData.phone}</dd>
                   </div>
-                  <div className="flex items-center justify-between py-4">
+                  <div className="flex items-center justify-between py-3 sm:py-4">
                     <dt className="text-xs text-black/50">Gender / Grad Year</dt>
-                    <dd className="font-bold text-[#090909] text-sm text-right">{formData.gender} · {formData.graduationYear}</dd>
+                    <dd className="font-bold text-[#090909] text-xs sm:text-sm text-right">{formData.gender} · {formData.graduationYear}</dd>
                   </div>
-                  <div className="flex items-center justify-between py-4">
+                  <div className="flex items-center justify-between py-3 sm:py-4">
                     <dt className="text-xs text-black/50">College / Organization</dt>
-                    <dd className="font-bold text-[#090909] text-sm text-right">{formData.collegeOrOrg || 'Not specified'}</dd>
+                    <dd className="font-bold text-[#090909] text-xs sm:text-sm text-right">{formData.collegeOrOrg || 'Not specified'}</dd>
                   </div>
-                  <div className="flex items-center justify-between py-4">
+                  <div className="flex items-center justify-between py-3 sm:py-4">
                     <dt className="text-xs text-black/50">Current Year / Status</dt>
-                    <dd className="font-bold text-[#090909] text-sm text-right">{formData.studyStatus}</dd>
+                    <dd className="font-bold text-[#090909] text-xs sm:text-sm text-right">{formData.studyStatus}</dd>
                   </div>
                 </dl>
               </div>
 
               {/* TOTAL — the one highlighted moment */}
-              <div className="flex items-center justify-between p-6 rounded-2xl bg-[#22C55E]/15 border border-[#22C55E]/30">
-                <span className="text-sm font-bold text-[#090909]">Total Amount</span>
-                <span className="text-2xl font-extrabold text-[#15803D] font-mono">₹{activeCohortObj.price}</span>
+              <div className="flex items-center justify-between p-5 sm:p-6 rounded-2xl bg-[#22C55E]/15 border border-[#22C55E]/30">
+                <span className="text-xs sm:text-sm font-bold text-[#090909]">Total Amount</span>
+                <span className="text-xl sm:text-2xl font-extrabold text-[#15803D] font-mono">₹{activeCohortObj.price}</span>
               </div>
 
               {/* PAYMENT ACTIONS */}
-              <div className="space-y-5">
+              <div className="space-y-4 sm:space-y-5">
                 <button
                   type="button"
                   onClick={() => setShowRazorpayModal(true)}
-                  className="cursor-pointer w-full py-4 rounded-2xl bg-[#090909] text-white hover:bg-[#22C55E] hover:text-black font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl font-mono"
+                  className="cursor-pointer w-full py-3.5 sm:py-4 rounded-2xl bg-[#090909] text-white hover:bg-[#22C55E] hover:text-black font-extrabold text-[11px] sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl font-mono"
                 >
-                  <CreditCard className="w-5 h-5" />
+                  <CreditCard className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span>Proceed to Razorpay Payment • ₹{activeCohortObj.price}</span>
                 </button>
 

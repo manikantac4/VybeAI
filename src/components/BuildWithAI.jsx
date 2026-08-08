@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight, Sparkles, Layers, Cpu, Code2, ShieldCheck, Zap } from 'lucide-react'
 
 const topics = [
-  ['01', 'AI-native software development', 'Build full products with AI integrated into every step.', Cpu],
-  ['02', 'AI-assisted product design', 'Turn early thinking into interfaces worth using.', Sparkles],
-  ['03', 'AI coding workflows', 'Learn to direct agents, review outputs and own the code.', Code2],
-  ['04', 'Authentication & payments', 'Make production-ready experiences people can trust.', Zap],
-  ['05', 'AI integrations', 'Connect models, data and tools into useful product features.', Layers],
-  ['06', 'Deployment & DevOps', 'Ship confidently using modern cloud workflows.', Sparkles],
-  ['07', 'AI agents & automations', 'Design systems that can reason and take action.', Cpu],
-  ['08', 'AI-powered cyber security', 'Build with security as a creative engineering discipline.', ShieldCheck],
+  ['01', 'AI-native software development', 'Build full products with AI integrated into every step.'],
+  ['02', 'AI-assisted product design', 'Turn early thinking into interfaces worth using.'],
+  ['03', 'AI coding workflows', 'Learn to direct agents, review outputs and own the code.'],
+  ['04', 'Authentication & payments', 'Make production-ready experiences people can trust.'],
+  ['05', 'AI integrations', 'Connect models, data and tools into useful product features.'],
+  ['06', 'Deployment & DevOps', 'Ship confidently using modern cloud workflows.'],
+  ['07', 'AI agents & automations', 'Design systems that can reason and take action.'],
+  ['08', 'AI-powered cyber security', 'Build with security as a creative engineering discipline.'],
 ]
 
 const outcomes = [
@@ -48,7 +47,6 @@ export default function BuildWithAI() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [activeOutcomes, setActiveOutcomes] = useState(false)
   const outcomesRef = useRef(null)
-  const mobileSliderRef = useRef(null)
 
   useEffect(() => {
     const node = outcomesRef.current
@@ -66,27 +64,6 @@ export default function BuildWithAI() {
       observer.disconnect()
     }
   }, [])
-
-  // Auto scroll mobile horizontal slider when activeIndex changes via arrows
-  const scrollToCard = (index) => {
-    setActiveIndex(index)
-    if (mobileSliderRef.current) {
-      const cardEl = mobileSliderRef.current.children[index]
-      if (cardEl) {
-        cardEl.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
-      }
-    }
-  }
-
-  const handlePrev = () => {
-    const nextIdx = activeIndex > 0 ? activeIndex - 1 : topics.length - 1
-    scrollToCard(nextIdx)
-  }
-
-  const handleNext = () => {
-    const nextIdx = activeIndex < topics.length - 1 ? activeIndex + 1 : 0
-    scrollToCard(nextIdx)
-  }
 
   return (
     <section className="bg-[#fafafa] text-[#111] py-10 sm:py-16 md:py-24 px-4 sm:px-6 md:px-12 font-sans selection:bg-black selection:text-white overflow-hidden">
@@ -122,12 +99,26 @@ export default function BuildWithAI() {
         @keyframes dash {
           to { stroke-dashoffset: -100; }
         }
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
+        /* Touch & Mouse Smooth Scrollbar */
+        .cards-touch-container {
+          touch-action: pan-y;
+          -webkit-overflow-scrolling: touch;
+          overscroll-behavior: contain;
         }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+          height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(0, 0, 0, 0.03);
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.15);
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(0, 0, 0, 0.3);
         }
       `}</style>
 
@@ -147,75 +138,11 @@ export default function BuildWithAI() {
           </div>
         </div>
 
-        {/* MOBILE SLIDER CONTROLS (Visible on Mobile & Tablet) */}
-        <div className="flex lg:hidden items-center justify-between gap-4 mb-4 font-mono text-xs">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-[#090909]">Layer 0{activeIndex + 1} of 08</span>
-            <span className="text-black/40">• Swipe or tap arrows</span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handlePrev}
-              className="p-2 rounded-full border border-black/15 bg-white text-[#090909] active:scale-95 transition-all shadow-xs"
-              aria-label="Previous Layer"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={handleNext}
-              className="p-2 rounded-full border border-black/15 bg-white text-[#090909] active:scale-95 transition-all shadow-xs"
-              aria-label="Next Layer"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-
-        {/* MOBILE SLIDER ROW (Horizontal Swipeable Cards) */}
-        <div
-          ref={mobileSliderRef}
-          className="flex lg:hidden overflow-x-auto snap-x snap-mandatory gap-3 pb-4 no-scrollbar -mx-4 px-4 sm:-mx-6 sm:px-6"
-        >
-          {topics.map(([num, title, desc, IconComponent], idx) => {
-            const isActive = activeIndex === idx
-            return (
-              <div
-                key={num}
-                onClick={() => scrollToCard(idx)}
-                className={`snap-center shrink-0 w-[270px] sm:w-[320px] p-4 sm:p-5 border rounded-2xl transition-all duration-300 relative cursor-pointer ${
-                  isActive
-                    ? 'bg-[#090909] text-white border-[#090909] shadow-xl scale-[0.99]'
-                    : 'bg-white text-[#111] border-black/10 hover:border-black/30'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <span
-                    className={`font-mono text-xs font-bold px-2 py-0.5 rounded ${
-                      isActive ? 'bg-white/20 text-white' : 'bg-black/5 text-black/60'
-                    }`}
-                  >
-                    {num}
-                  </span>
-                  <span className={`text-[10px] font-mono uppercase tracking-wider ${isActive ? 'text-white/60' : 'text-black/40'}`}>
-                    LAYER 0{idx + 1}
-                  </span>
-                </div>
-                
-                <h3 className="text-sm sm:text-base font-bold tracking-tight mb-1.5">{title}</h3>
-                <p className={`text-xs leading-relaxed ${isActive ? 'text-white/80' : 'text-black/60'}`}>
-                  {desc}
-                </p>
-              </div>
-            )
-          })}
-        </div>
-
-        {/* DESKTOP & INTERACTIVE STACK ARCHITECTURE SECTION */}
+        {/* Stack Architecture Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-4 sm:my-8 md:my-12">
           
-          {/* Left Column: Vertical Interactive List for Desktop (Hidden on Mobile) */}
-          <div className="hidden lg:flex lg:col-span-5 flex-col gap-3 max-h-[580px] overflow-y-auto pr-2 custom-scrollbar">
+          {/* Left Column: Interactive 8 Topic Cards Container (Touch & Scroll Enabled) */}
+          <div className="lg:col-span-5 flex flex-col gap-3 max-h-[420px] sm:max-h-[520px] lg:max-h-[600px] overflow-y-auto pr-2 custom-scrollbar cards-touch-container order-2 lg:order-1">
             {topics.map(([num, title, desc], idx) => {
               const isActive = activeIndex === idx
               return (
@@ -228,6 +155,7 @@ export default function BuildWithAI() {
                       : 'bg-white text-[#111] border-black/10 hover:border-black/30 hover:bg-black/[0.02]'
                   }`}
                 >
+                  {/* Corner Accent Box */}
                   <div
                     className={`absolute top-3 right-3 w-2 h-2 border-t border-r transition-colors ${
                       isActive ? 'border-white' : 'border-black/30'
@@ -255,7 +183,7 @@ export default function BuildWithAI() {
           </div>
 
           {/* Right Column: Isometric Interactive Stack Diagram */}
-          <div className="lg:col-span-7 relative h-[320px] sm:h-[440px] lg:h-[580px] flex items-center justify-center diagram-container overflow-hidden rounded-2xl border border-black/10 bg-[#fafafa]">
+          <div className="lg:col-span-7 relative h-[320px] sm:h-[440px] lg:h-[580px] flex items-center justify-center diagram-container overflow-hidden rounded-2xl border border-black/10 bg-[#fafafa] order-1 lg:order-2">
             
             {/* Guide Grid Lines */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-15" xmlns="http://www.w3.org/2000/svg">
@@ -284,7 +212,7 @@ export default function BuildWithAI() {
                 return (
                   <div
                     key={num}
-                    onClick={() => scrollToCard(idx)}
+                    onClick={() => setActiveIndex(idx)}
                     style={{
                       position: 'absolute',
                       inset: 0,

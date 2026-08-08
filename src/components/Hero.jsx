@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import heroImg from '../assets/hero1.png'
 
@@ -261,13 +262,21 @@ export default function Hero() {
             Lead the future of engineering.
           </motion.p>
 
-          <motion.div variants={item} className="mt-12">
-            <a
-              href="#explore"
-              className="inline-flex items-center gap-4 text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#111] transition-opacity hover:opacity-70"
+          <motion.div variants={item} className="mt-12 flex flex-wrap items-center gap-4">
+            <Link
+              to="/cohorts"
+              onClick={(e) => {
+                const el = document.getElementById('cohorts') || document.getElementById('experience')
+                if (el && window.location.pathname === '/') {
+                  e.preventDefault()
+                  el.scrollIntoView({ behavior: 'smooth' })
+                }
+              }}
+              className="inline-flex items-center gap-3 text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#111] bg-white border border-black/15 px-6 py-3 rounded-full transition-all hover:bg-[#22C55E] hover:text-black hover:border-[#22C55E] shadow-sm font-mono"
             >
-              EXPLORE <span className="text-[#22C55E] transition-colors">→</span>
-            </a>
+              <span>Explore Flagship Cohorts</span>
+              <span className="text-[#22C55E] transition-colors group-hover:text-black">→</span>
+            </Link>
           </motion.div>
         </motion.div>
       </div>
