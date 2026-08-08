@@ -14,13 +14,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // lock body scroll when mobile menu is open
+  // lock body scroll while drawer is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
-  // close menu on route change
+  // close drawer on route change
   useEffect(() => {
     setMenuOpen(false)
   }, [location.pathname])
@@ -34,12 +34,13 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${scrolled || menuOpen ? 'bg-white/95 backdrop-blur-xl border-b border-black/10 shadow-sm' : ''}`}>
+    <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-xl border-b border-black/10 shadow-sm' : ''}`}>
       <div className="mx-auto flex h-14 md:h-16 max-w-[1600px] items-center justify-between px-4 sm:px-6 md:px-12">
         <Link to="/" aria-label="Turing Wings home" className="flex items-center overflow-hidden h-7 sm:h-8 md:h-11 shrink-0">
           <img src="/Logos/BlackFillNoBg.png" alt="Turing Wings" className="h-[160%] w-auto object-contain object-top" />
         </Link>
 
+        {/* PC VIEW NAVBAR (UNCHANGED) */}
         <div className="flex items-center gap-1.5 sm:gap-2 md:gap-4">
           <Link
             to="/cohorts"
@@ -71,9 +72,10 @@ export default function Navbar() {
             </span>
           </Link>
 
+          {/* MOBILE HAMBURGER BUTTON */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden flex items-center justify-center p-2 rounded-full border border-black/20 text-black bg-white shrink-0 shadow-xs"
+            className="md:hidden flex items-center justify-center p-2 rounded-full border border-black/20 text-black bg-white shrink-0 shadow-xs relative z-[70]"
             aria-label="Toggle Navigation Menu"
           >
             {menuOpen ? <X className="w-5 h-5 text-[#22C55E]" /> : <Menu className="w-5 h-5" />}
@@ -81,14 +83,38 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* MOBILE DROPDOWN — now absolutely positioned so it always overlays right under the navbar */}
-      {menuOpen && (
-        <div className="absolute top-full inset-x-0 z-[100] bg-white/95 backdrop-blur-2xl border-b border-black/10 px-6 py-6 space-y-3 shadow-2xl text-left animate-in fade-in max-w-[1600px] mx-auto md:hidden font-mono max-h-[calc(100vh-3.5rem)] overflow-y-auto">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-black/40 block pb-1 border-b border-black/10">
-            MOBILE NAVIGATION MENU
-          </span>
+      {/* BACKDROP OVERLAY */}
+      <div
+        onClick={() => setMenuOpen(false)}
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[55] md:hidden transition-opacity duration-300 ${
+          menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        aria-hidden="true"
+      />
 
-          <div className="flex flex-col gap-2 pt-1">
+      {/* SIDE DRAWER */}
+      <div
+        className={`fixed top-0 right-0 z-[60] h-full w-[78%] max-w-xs bg-white shadow-2xl md:hidden font-mono
+        transform transition-transform duration-300 ease-out
+        ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+      >
+        <div className="flex flex-col h-full">
+          {/* Drawer header */}
+          <div className="flex items-center justify-between px-6 h-14 border-b border-black/10 shrink-0">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-black/40">
+              Menu
+            </span>
+            <button
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center justify-center p-1.5 rounded-full border border-black/20 text-black bg-white"
+              aria-label="Close Navigation Menu"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Drawer nav items */}
+          <div className="flex flex-col gap-2 px-4 py-5 overflow-y-auto">
             {mobileNavItems.map((item) => {
               const ItemIcon = item.icon;
               const isActive = location.pathname === item.path;
@@ -113,7 +139,7 @@ export default function Navbar() {
             })}
           </div>
         </div>
-      )}
+      </div>
     </nav>
   )
 }
