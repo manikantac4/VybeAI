@@ -506,20 +506,20 @@ export default function AiEngineeringCohortPage() {
         </div>
 
         {/* TOOLS & STACK — animated ticker, click a tool for its main use */}
-        <div className="space-y-4 sm:space-y-5">
-          <div className="text-center space-y-1">
+        <div className="space-y-5 sm:space-y-6">
+          <div className="text-center space-y-1.5">
             <span className="text-[12px] sm:text-xs font-bold uppercase tracking-widest text-[#15803D] font-mono">STACK & TOOLS</span>
             <h2 className="text-xl sm:text-2xl font-extrabold">Technologies Mastered</h2>
-            <p className="text-[13px] sm:text-xs text-black/50">Tap any tool to see what it's actually used for in the cohort.</p>
+            <p className="text-[13px] sm:text-xs text-black/50">Tap a tool to see how it's used.</p>
           </div>
 
           <div className="relative -mx-4 sm:-mx-8">
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-6 sm:w-24 bg-gradient-to-r from-[#FAFAFA] to-transparent z-10" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-6 sm:w-24 bg-gradient-to-l from-[#FAFAFA] to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-8 sm:w-24 bg-gradient-to-r from-[#FAFAFA] to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-8 sm:w-24 bg-gradient-to-l from-[#FAFAFA] to-transparent z-10" />
 
-            <div className="ticker-row overflow-hidden py-1">
+            <div className="ticker-row overflow-hidden py-2">
               <motion.div
-                className="flex gap-2 sm:gap-3 w-max px-4 sm:px-8"
+                className="flex gap-3 sm:gap-4 w-max px-4 sm:px-8"
                 animate={{ x: ['0%', '-50%'] }}
                 transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
               >
@@ -531,15 +531,12 @@ export default function AiEngineeringCohortPage() {
                       onClick={() => setActiveTool(t)}
                       whileHover={{ y: -3, scale: 1.02 }}
                       whileTap={{ scale: 0.97 }}
-                      className="flex items-center gap-2 sm:gap-3 pl-2 sm:pl-3 pr-3.5 sm:pr-5 py-2 sm:py-3 rounded-xl sm:rounded-2xl bg-white border border-black/10 shadow-xs hover:border-[#15803D]/40 hover:shadow-md transition-all shrink-0"
+                      className="flex items-center gap-2.5 sm:gap-3 pl-2.5 sm:pl-3 pr-4 sm:pr-5 py-2.5 sm:py-3 rounded-2xl bg-white border border-black/10 shadow-xs hover:border-[#15803D]/40 hover:shadow-md transition-all shrink-0"
                     >
-                      <span className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#22C55E]/10 text-[#15803D] flex items-center justify-center shrink-0">
-                        <Icon className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5" />
+                      <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#22C55E]/10 text-[#15803D] flex items-center justify-center shrink-0">
+                        <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
                       </span>
-                      <span className="text-left leading-tight">
-                        <span className="text-[13px] sm:text-xs font-bold block font-mono whitespace-nowrap">{t.name}</span>
-                        <span className="text-[12px] sm:text-[10px] text-black/50 block whitespace-nowrap">{t.desc}</span>
-                      </span>
+                      <span className="text-[13px] sm:text-xs font-bold font-mono whitespace-nowrap">{t.name}</span>
                     </motion.button>
                   );
                 })}
@@ -593,20 +590,17 @@ export default function AiEngineeringCohortPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.5 }}
-          className="bg-white border border-black/10 rounded-2xl sm:rounded-3xl p-6 sm:p-10 text-center space-y-4 sm:space-y-5 shadow-xl"
+          className="bg-white border border-black/10 rounded-3xl p-8 sm:p-12 text-center space-y-6 sm:space-y-7 shadow-xl"
         >
-          <div className="space-y-2 max-w-xl mx-auto">
+          <div className="space-y-2.5 max-w-md mx-auto">
             <span className="text-[12px] sm:text-xs font-bold text-[#15803D] uppercase tracking-widest font-mono">JOIN THE COHORT</span>
-            <h2 className="text-xl sm:text-3xl font-extrabold">Become an AI Engineer</h2>
-            <p className="text-[13px] sm:text-xs text-black/70">
-              4 weeks of live hands-on engineering, 1-on-1 code review, and a production SaaS build.
-            </p>
+            <h2 className="text-2xl sm:text-3xl font-extrabold">Become an AI Engineer</h2>
           </div>
 
-          <div className="flex justify-center pt-1 sm:pt-2">
+          <div className="flex justify-center">
             <Link
               to="/cohorts/register?cohort=ai-engineering"
-              className="py-3 sm:py-3.5 px-6 sm:px-8 rounded-2xl bg-[#090909] text-white font-extrabold text-[13px] sm:text-xs uppercase tracking-wider hover:bg-[#22C55E] hover:text-black transition-all flex items-center gap-2 shadow-lg font-mono"
+              className="py-3.5 px-7 sm:px-8 rounded-2xl bg-[#090909] text-white font-extrabold text-[13px] sm:text-xs uppercase tracking-wider hover:bg-[#22C55E] hover:text-black transition-all flex items-center gap-2 shadow-lg font-mono"
             >
               Register Now • ₹4,999
               <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />

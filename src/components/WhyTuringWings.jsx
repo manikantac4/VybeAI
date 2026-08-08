@@ -43,18 +43,18 @@ export default function WhyTuringWings() {
   const [activeIdx, setActiveIdx] = useState(0)
 
   return (
-    <section id="community" className="bg-[#fafafa] text-[#111] px-4 py-16 sm:px-8 sm:py-24 md:px-12 md:py-32 font-sans overflow-hidden">
+    <section id="community" className="bg-[#fafafa] text-[#111] px-6 py-20 sm:py-28 md:py-36 font-sans overflow-hidden border-b border-black/10">
       <div className="mx-auto max-w-[1400px]">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-black/10 pb-8 sm:pb-12">
           <div>
-            <p className="text-[11px] font-mono font-bold tracking-widest text-black/40 uppercase mb-3">
+            <p className="font-mono text-xs font-bold tracking-widest text-[#15803D] uppercase mb-3">
               05 / WHY TURING WINGS
             </p>
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-light tracking-tight text-[#111] leading-[1.05]">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#090909] leading-[1.05]">
               Built for the ones <br />
-              <span className="text-black/40 font-serif italic">who want to build.</span>
+              <span className="text-[#15803D]">who want to build.</span>
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-black/60 max-w-sm leading-relaxed">

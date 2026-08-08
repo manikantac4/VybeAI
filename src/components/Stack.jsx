@@ -302,21 +302,21 @@ function LogoCarousel({ title, data, initialIndex = 0 }) {
 
 export default function Stack() {
   return (
-    <section className="relative overflow-hidden bg-[#fafafa] px-6 py-20 text-neutral-900 md:px-12 md:py-32">
+    <section id="stack" className="relative overflow-hidden bg-white px-6 py-20 sm:py-28 md:py-36 text-neutral-900 md:px-12 border-b border-black/10">
       <div className="mx-auto max-w-7xl">
         {/* Section Header */}
-        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end border-b border-black/10 pb-8">
           <div>
-            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-neutral-400">
+            <p className="font-mono text-xs font-bold uppercase tracking-widest text-[#15803D] mb-3">
               02 / THE ECOSYSTEM
             </p>
-            <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-neutral-900 md:text-6xl">
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#090909]">
               The modern AI<br />
-              <span className="text-neutral-400">engineering stack.</span>
+              <span className="text-[#15803D]">engineering stack.</span>
             </h2>
           </div>
-          <p className="max-w-sm text-sm leading-relaxed text-neutral-500 md:text-base">
-            Not a collection of isolated tools. A connected system for going from an idea to a reliable production software.
+          <p className="max-w-sm text-xs sm:text-sm leading-relaxed text-black/60 font-sans">
+            Not a collection of isolated tools. A connected system for going from an idea to reliable production software.
           </p>
         </div>
 

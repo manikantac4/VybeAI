@@ -149,7 +149,7 @@ export default function Evolution() {
   }
 
   return (
-    <section id="experience" className="comparison-section bg-[#fafafa]" ref={sectionRef} style={{ position: 'relative', overflow: 'hidden' }}>
+    <section id="experience" className="comparison-section bg-[#fafafa] border-b border-black/10 py-16 sm:py-24 md:py-32" ref={sectionRef} style={{ position: 'relative', overflow: 'hidden' }}>
 
       {/* Dynamic Keyframes for Flow Line Animation */}
       <style>{`
@@ -168,22 +168,25 @@ export default function Evolution() {
       `}</style>
 
       <div
-        className="comparison-inner"
-        style={{ padding: isMobile ? '0 16px' : undefined, boxSizing: 'border-box' }}
+        className="comparison-inner max-w-[1400px] mx-auto"
+        style={{ padding: isMobile ? '0 16px' : '0 32px', boxSizing: 'border-box' }}
       >
         <div
-          className="comparison-head"
+          className="comparison-head mb-12 border-b border-black/10 pb-8"
           style={{
             opacity: inView ? 1 : 0,
             transform: inView ? 'translateY(0)' : 'translateY(18px)',
             transition: `opacity 0.8s ${EASE_OUT}, transform 0.8s ${EASE_OUT}`,
           }}
         >
-          <h2 className="text-[#111]" style={{ fontSize: isMobile ? 'clamp(1.6rem, 7vw, 2.1rem)' : undefined, lineHeight: isMobile ? 1.2 : undefined }}>
-            From writing code<br /><span className="text-[#666]">to orchestrating intelligence.</span>
+          <p className="font-mono text-xs font-bold tracking-widest text-[#15803D] uppercase mb-3">
+            01 / EVOLUTION & ENGINEERING
+          </p>
+          <h2 className="text-[#090909] font-extrabold tracking-tight mb-4" style={{ fontSize: isMobile ? 'clamp(1.8rem, 7vw, 2.3rem)' : 'clamp(2.4rem, 4vw, 3.5rem)', lineHeight: 1.1 }}>
+            From writing code<br /><span className="text-[#15803D]">to orchestrating intelligence.</span>
           </h2>
-          <p className="text-[#444]" style={{ fontSize: isMobile ? '0.9rem' : undefined, lineHeight: isMobile ? 1.55 : undefined }}>
-            The tools have changed.<br />The role has evolved.<br />Welcome to <b className="text-[#111]">AI-Native Engineering.</b>
+          <p className="text-black/60 font-sans text-xs sm:text-sm max-w-lg leading-relaxed">
+            The tools have changed. The role has evolved. Welcome to <b className="text-[#090909]">AI-Native Engineering.</b>
           </p>
         </div>
 
