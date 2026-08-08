@@ -14,21 +14,16 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const handleNavAnchor = (hash) => {
+  // lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
+  // close menu on route change
+  useEffect(() => {
     setMenuOpen(false)
-    if (location.pathname !== '/') {
-      navigate('/')
-      setTimeout(() => {
-        const id = hash.replace('#', '')
-        const el = document.getElementById(id)
-        if (el) el.scrollIntoView({ behavior: 'smooth' })
-      }, 150)
-    } else {
-      const id = hash.replace('#', '')
-      const el = document.getElementById(id)
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
+  }, [location.pathname])
 
   const mobileNavItems = [
     { label: 'Cohorts', path: '/cohorts', icon: Cpu },
@@ -39,13 +34,12 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-xl border-b border-black/10 shadow-sm' : ''}`}>
+    <nav className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${scrolled || menuOpen ? 'bg-white/95 backdrop-blur-xl border-b border-black/10 shadow-sm' : ''}`}>
       <div className="mx-auto flex h-14 md:h-16 max-w-[1600px] items-center justify-between px-4 sm:px-6 md:px-12">
         <Link to="/" aria-label="Turing Wings home" className="flex items-center overflow-hidden h-7 sm:h-8 md:h-11 shrink-0">
           <img src="/Logos/BlackFillNoBg.png" alt="Turing Wings" className="h-[160%] w-auto object-contain object-top" />
         </Link>
 
-        {/* PC VIEW NAVBAR (UNCHANGED) */}
         <div className="flex items-center gap-1.5 sm:gap-2 md:gap-4">
           <Link
             to="/cohorts"
@@ -77,7 +71,6 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* MOBILE HAMBURGER BUTTON */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden flex items-center justify-center p-2 rounded-full border border-black/20 text-black bg-white shrink-0 shadow-xs"
@@ -88,9 +81,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* NEW MOBILE EXCLUSIVE NAVBAR DRAWER */}
+      {/* MOBILE DROPDOWN — now absolutely positioned so it always overlays right under the navbar */}
       {menuOpen && (
-        <div className="bg-white/95 backdrop-blur-2xl border-b border-black/10 px-6 py-6 space-y-3 shadow-2xl text-left animate-in fade-in max-w-[1600px] mx-auto md:hidden font-mono">
+        <div className="absolute top-full inset-x-0 z-[100] bg-white/95 backdrop-blur-2xl border-b border-black/10 px-6 py-6 space-y-3 shadow-2xl text-left animate-in fade-in max-w-[1600px] mx-auto md:hidden font-mono max-h-[calc(100vh-3.5rem)] overflow-y-auto">
           <span className="text-[10px] font-bold uppercase tracking-widest text-black/40 block pb-1 border-b border-black/10">
             MOBILE NAVIGATION MENU
           </span>

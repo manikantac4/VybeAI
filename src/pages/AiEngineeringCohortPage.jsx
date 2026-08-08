@@ -2,59 +2,58 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { 
-  Cpu, Rocket, Code2, Server, Database, Globe, Layers, ShieldCheck, 
-  CheckCircle2, ArrowRight, Sparkles, Terminal, ChevronDown, ChevronUp, Lock, Zap, Calendar
+import {
+  Cpu, Rocket, Server, Database, Globe, Layers, CheckCircle2, ArrowRight,
+  Sparkles, ChevronDown, Lock, Zap, Calendar, GitBranch, Timer,
+  ClipboardList, TrendingUp, Music, CreditCard, Video, Box, Cloud, Award,
+  Satellite, Compass, Plus, X,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AiEngineeringCohortPage() {
   const [activeWeek, setActiveWeek] = useState(1);
-  const [openClass, setOpenClass] = useState(null);
-
-  const teachingPattern = [
-    { step: '01', title: 'Problem', desc: 'Real-world product bottleneck' },
-    { step: '02', title: 'Architecture', desc: 'Core engineering principles' },
-    { step: '03', title: 'Tech Stack', desc: 'Industry production tools' },
-    { step: '04', title: 'Build w/ AI', desc: 'Pair-program with Cursor & Claude' },
-    { step: '05', title: 'Understand', desc: 'Code walkthrough & logic review' },
-    { step: '06', title: 'Deploy', desc: 'Cloud deployment & CI/CD' },
-    { step: '07', title: 'Reflect', desc: 'Technical explain-back' },
-  ];
+  const [openClass, setOpenClass] = useState(0);
+  const [activeTool, setActiveTool] = useState(null);
 
   const weeksData = [
     {
       week: 1,
-      title: 'Week 1 — Liftoff',
-      subtitle: 'From Web Fundamentals to Your First Live App',
-      goal: 'Understand web architecture → plan with AI → build interactive UI → publish to Vercel.',
+      icon: Rocket,
+      title: 'Liftoff',
+      subtitle: 'Web Fundamentals to Your First Live App',
+      goal: 'Understand web architecture, plan with AI, build interactive UI, publish to Vercel.',
       classes: [
         {
-          title: 'Class 1 — How the Internet & Web Apps Work',
+          icon: Globe,
+          title: 'How the Internet & Web Apps Work',
           objective: 'Master request-response cycles, DNS, hosting, and frontend-backend architecture.',
           topics: ['DNS & HTTP Requests', 'Frontend vs Backend vs Database', 'Request-Response Lifecycle'],
           build: 'Interactive Web Request Lifecycle visualizer.',
         },
         {
-          title: 'Class 2 — AI Product Planning & PRD Generation',
+          icon: ClipboardList,
+          title: 'AI Product Planning & PRD Generation',
           objective: 'Use AI to generate PRD/TRD documents, user stories, and task breakdowns.',
           topics: ['Git/GitHub Workflow', 'Context Windows & Tokens', 'PRD/TRD Specification Generation'],
           build: 'AI-assisted PRD & TRD documentation suite.',
         },
         {
-          title: 'Class 3 — FocusFlow Pomodoro App',
+          icon: Timer,
+          title: 'FocusFlow Pomodoro App',
           objective: 'Build an interactive app with HTML, CSS, JavaScript, Timers, and LocalStorage.',
           topics: ['DOM Events & State Management', 'LocalStorage Data Persistence', 'UI Micro-Animations'],
           build: 'FocusFlow productivity application with custom themes.',
         },
         {
-          title: 'Class 4 — Git & Production Deployment',
+          icon: GitBranch,
+          title: 'Git & Production Deployment',
           objective: 'Version control your code with Git & deploy to GitHub Pages.',
           topics: ['Git Commits & Branching', 'GitHub Repositories', 'GitHub Pages Deployment'],
           build: 'Live GitHub Pages application with documentation.',
         },
         {
-          title: 'Class 5 & 6 — Modern React & Portfolio Launch',
+          icon: Sparkles,
+          title: 'Modern React & Portfolio Launch',
           objective: 'Build and ship a professional React portfolio using v0 and Cursor.',
           topics: ['React Components & Props', 'State Management', 'Vercel Cloud Deployment'],
           build: 'Production React Developer Portfolio shipped live to Vercel.',
@@ -64,30 +63,35 @@ export default function AiEngineeringCohortPage() {
     },
     {
       week: 2,
-      title: 'Week 2 — Engine Room',
+      icon: Cpu,
+      title: 'Engine Room',
       subtitle: 'APIs, Cloud Databases & Authentication SaaS',
-      goal: 'Build Express REST APIs → persist data in Supabase & MongoDB → deploy SaaS.',
+      goal: 'Build Express REST APIs, persist data in Supabase & MongoDB, deploy SaaS.',
       classes: [
         {
-          title: 'Class 1 — Building Express REST APIs',
+          icon: Server,
+          title: 'Building Express REST APIs',
           objective: 'Build server-side HTTP endpoints with Express.js.',
           topics: ['Client vs Server', 'REST Methods (GET/POST)', 'Express Router & Middleware'],
           build: 'Backend API connected to frontend contact form.',
         },
         {
-          title: 'Class 2 — Cloud Databases with MongoDB Atlas',
+          icon: Database,
+          title: 'Cloud Databases with MongoDB Atlas',
           objective: 'Persist application data in MongoDB Atlas cloud database.',
           topics: ['SQL vs NoSQL', 'MongoDB Collections & Schemas', 'Database CRUD Operations'],
           build: 'Admin Dashboard fetching live MongoDB records.',
         },
         {
-          title: 'Class 3 — Render Cloud Deployment & JWT Auth',
+          icon: Lock,
+          title: 'Render Cloud Deployment & JWT Auth',
           objective: 'Deploy Express server to Render and implement JWT authentication.',
           topics: ['Render Cloud Hosting', 'Environment Variables', 'JWT Token Authentication'],
           build: 'Secure user login & session verification.',
         },
         {
-          title: 'Class 4 & 5 — SaaS Finance Tracker',
+          icon: TrendingUp,
+          title: 'SaaS Finance Tracker',
           objective: 'Build a full-stack financial tracker SaaS with Supabase PostgreSQL.',
           topics: ['Supabase Row-Level Security', 'Multi-Tenant Data Isolation', 'Dashboard Analytics'],
           build: 'Complete SaaS Finance Tracker with authentication & database storage.',
@@ -97,24 +101,28 @@ export default function AiEngineeringCohortPage() {
     },
     {
       week: 3,
-      title: 'Week 3 — Altitude',
+      icon: Compass,
+      title: 'Altitude',
       subtitle: 'Cloud Media Storage, Payments & AI Products',
-      goal: 'Integrate Cloudinary media → Razorpay payments → launch AI Study Companion SaaS.',
+      goal: 'Integrate Cloudinary media, Razorpay payments, launch AI Study Companion SaaS.',
       classes: [
         {
-          title: 'Class 1 & 2 — Spotify Clone & Firebase Auth',
+          icon: Music,
+          title: 'Spotify Clone & Firebase Auth',
           objective: 'Build music app layout with Firebase authentication and Firestore database.',
           topics: ['Firebase Google Auth', 'Firestore Collections', 'User Music Metadata'],
           build: 'Spotify-style music player with user accounts.',
         },
         {
-          title: 'Class 3 & 4 — Cloudinary Media & Razorpay Payment',
+          icon: CreditCard,
+          title: 'Cloudinary Media & Razorpay Payment',
           objective: 'Upload audio to Cloudinary and integrate Razorpay monetization checkout.',
           topics: ['Object Media Storage', 'Audio Streaming Pipeline', 'Razorpay Payment Gateway'],
           build: 'Premium Subscription tier with Razorpay verification.',
         },
         {
-          title: 'Class 5 & 6 — AI Study Companion Product',
+          icon: Sparkles,
+          title: 'AI Study Companion Product',
           objective: 'Build an AI-powered SaaS product consuming LLM APIs.',
           topics: ['OpenAI / Claude API Integration', 'Prompt Optimization', 'Cost Management'],
           build: 'AI Study Companion SaaS deployed live on Vercel.',
@@ -124,24 +132,28 @@ export default function AiEngineeringCohortPage() {
     },
     {
       week: 4,
-      title: 'Week 4 — Flight Systems',
+      icon: Satellite,
+      title: 'Flight Systems',
       subtitle: 'Real-Time Streaming, Docker & Cloud Launch',
-      goal: 'WebSockets & WebRTC → Docker containers → Google Cloud deployment → Demo Day.',
+      goal: 'WebSockets & WebRTC, Docker containers, Google Cloud deployment, Demo Day.',
       classes: [
         {
-          title: 'Class 1 & 2 — Real-Time Streaming with Socket.IO & WebRTC',
+          icon: Video,
+          title: 'Real-Time Streaming with Socket.IO & WebRTC',
           objective: 'Build real-time live chat and video streaming.',
           topics: ['WebSockets vs HTTP', 'Socket.IO Broadcasting', 'WebRTC Video Pipelines'],
           build: 'Live streaming platform with real-time viewer chat.',
         },
         {
-          title: 'Class 3 & 4 — Docker Containerization & Google Cloud',
+          icon: Box,
+          title: 'Docker Containerization & Google Cloud',
           objective: 'Package application into Docker container and deploy to Google Cloud.',
           topics: ['Dockerfiles & Images', 'Container Isolation', 'Google Cloud Run Deployment'],
           build: 'Containerized real-time app running on Google Cloud.',
         },
         {
-          title: 'Class 5 & 6 — CI/CD, Cloudflare Turnstile & Solo Demo Day',
+          icon: Award,
+          title: 'CI/CD, Cloudflare Turnstile & Solo Demo Day',
           objective: 'Automate deployments with GitHub Actions and present capstone project.',
           topics: ['GitHub Actions CI/CD', 'Cloudflare DDoS Protection', 'Capstone Demo Day'],
           build: 'Final Solo Capstone Project presentation.',
@@ -152,245 +164,448 @@ export default function AiEngineeringCohortPage() {
   ];
 
   const toolsList = [
-    { name: 'Antigravity & Cursor', desc: 'AI Coding Tools' },
-    { name: 'React 18 & Node.js', desc: 'Full-Stack Engine' },
-    { name: 'MongoDB & Supabase', desc: 'Cloud Databases' },
-    { name: 'Firebase & Cloudinary', desc: 'Auth & Media Storage' },
-    { name: 'Razorpay Gateway', desc: 'Monetization' },
-    { name: 'Socket.IO & WebRTC', desc: 'Real-Time Systems' },
-    { name: 'Docker & Google Cloud', desc: 'Container Launch' },
-    { name: 'GitHub Actions', desc: 'CI/CD Automation' },
+    {
+      name: 'Antigravity & Cursor', desc: 'AI Coding Tools', icon: Sparkles,
+      mainUse: 'AI pair-programming inside your editor. You describe what you want in plain language, review the generated code line by line, and ship faster without losing understanding of what was built.',
+    },
+    {
+      name: 'React 18 & Node.js', desc: 'Full-Stack Engine', icon: Cpu,
+      mainUse: 'The core engine behind every project in the cohort — React powers the interfaces you build, Node.js powers the servers that run behind them.',
+    },
+    {
+      name: 'MongoDB & Supabase', desc: 'Cloud Databases', icon: Database,
+      mainUse: 'Where your application data actually lives. MongoDB for flexible NoSQL collections, Supabase for a managed Postgres database with built-in auth and row-level security.',
+    },
+    {
+      name: 'Firebase & Cloudinary', desc: 'Auth & Media Storage', icon: Cloud,
+      mainUse: 'Firebase handles user sign-in and real-time data; Cloudinary stores and streams images, audio, and video so your app never has to manage files itself.',
+    },
+    {
+      name: 'Razorpay Gateway', desc: 'Monetization', icon: CreditCard,
+      mainUse: 'Turns your project into a real business. You wire up checkout, verify payments server-side, and unlock premium features on successful transactions.',
+    },
+    {
+      name: 'Socket.IO & WebRTC', desc: 'Real-Time Systems', icon: Video,
+      mainUse: 'Powers anything that has to update instantly — live chat, notifications, and peer-to-peer video streaming without page refreshes.',
+    },
+    {
+      name: 'Docker & Google Cloud', desc: 'Container Launch', icon: Box,
+      mainUse: 'Packages your app and everything it needs into one portable container, then ships that container to run reliably on Google Cloud infrastructure.',
+    },
+    {
+      name: 'GitHub Actions', desc: 'CI/CD Automation', icon: GitBranch,
+      mainUse: 'Automates the boring part of shipping — every push is tested and deployed automatically, the way production engineering teams actually work.',
+    },
   ];
 
   const activeWeekObj = weeksData.find((w) => w.week === activeWeek);
+  const activeIndex = weeksData.findIndex((w) => w.week === activeWeek);
+
+  const container = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.08 } },
+  };
+  const item = {
+    hidden: { opacity: 0, y: 14 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
+  };
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-[#090909] selection:bg-[#22C55E] selection:text-black font-sans flex flex-col">
+    <div className="min-h-screen bg-[#FAFAFA] text-[#090909] selection:bg-[#22C55E] selection:text-black font-sans flex flex-col overflow-x-hidden">
       <Navbar />
 
-      <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-8 py-10 space-y-12">
+      {/* AMBIENT BACKGROUND FIELD */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <motion.div
+          className="absolute -top-40 -left-32 w-[32rem] h-[32rem] rounded-full bg-[#22C55E]/20 blur-[110px]"
+          animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute top-1/3 -right-40 w-[28rem] h-[28rem] rounded-full bg-[#090909]/[0.06] blur-[110px]"
+          animate={{ x: [0, -30, 0], y: [0, -40, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </div>
 
-        {/* HERO SECTION */}
-        <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="bg-white border border-black/10 rounded-3xl p-6 sm:p-10 space-y-6 shadow-xl"
+      <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-8 pt-28 sm:pt-36 pb-10 space-y-20">
+
+        {/* HERO — cardless, sits directly in the background field */}
+        <motion.div
+          initial="hidden"
+          animate="show"
+          variants={container}
+          className="max-w-3xl space-y-7"
         >
-          <div className="space-y-4 max-w-3xl">
-            <div className="flex flex-wrap items-center gap-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/30 text-[#15803D] text-xs font-bold font-mono">
-                <Cpu className="w-4 h-4 text-[#15803D]" />
-                <span>4-WEEK FLAGSHIP COHORT</span>
-              </div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#090909] text-white text-xs font-bold font-mono">
-                <Calendar className="w-3.5 h-3.5 text-[#22C55E]" />
-                <span>Launch Date: August 25, 2026</span>
-              </div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-800 text-xs font-bold font-mono">
-                <span>Tuition Fee: ₹4,999</span>
-              </div>
-            </div>
+          <motion.div variants={item} className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/30 text-[#15803D] text-xs font-bold font-mono">
+              <Cpu className="w-4 h-4" />
+              4-WEEK FLAGSHIP COHORT
+            </span>
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#090909] text-white text-xs font-bold font-mono">
+              <Calendar className="w-3.5 h-3.5 text-[#22C55E]" />
+              Launch — August 25, 2026
+            </span>
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-800 text-xs font-bold font-mono">
+              Tuition ₹4,999
+            </span>
+          </motion.div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-[#090909] tracking-tight">
-              AI Engineering Cohort
-            </h1>
+          <motion.h1
+            variants={item}
+            className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.05]"
+          >
+            AI Engineering
+            <br />
+            <span className="text-[#15803D]">Cohort</span>
+          </motion.h1>
 
-            <p className="text-base sm:text-lg text-black/80 font-medium">
-              From web fundamentals to building, deploying, securing, and launching AI products.
-            </p>
+          <motion.p variants={item} className="text-base sm:text-lg text-black/70 font-medium max-w-xl">
+            From web fundamentals to building, deploying, securing, and launching real AI products — live, in four weeks.
+          </motion.p>
 
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-              <Link
-                to="/cohorts/register?cohort=ai-engineering"
-                className="py-3.5 px-7 rounded-2xl bg-[#090909] text-white font-extrabold text-xs uppercase tracking-wider hover:bg-[#22C55E] hover:text-black transition-all text-center flex items-center justify-center gap-2 shadow-md font-mono"
-              >
-                <Zap className="w-4 h-4 fill-current" />
-                <span>Register For Cohort • ₹4,999</span>
-              </Link>
-              <a
-                href="#curriculum-schedule"
-                className="py-3.5 px-5 rounded-2xl bg-[#FAF8F5] hover:bg-black/5 text-[#090909] font-bold text-xs text-center border border-black/15 transition-all flex items-center justify-center gap-2 font-mono"
-              >
-                <span>View 4-Week Schedule</span>
-                <ChevronDown className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
+          <motion.div variants={item} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+            <Link
+              to="/cohorts/register?cohort=ai-engineering"
+              className="group py-3.5 px-7 rounded-2xl bg-[#090909] text-white font-extrabold text-xs uppercase tracking-wider hover:bg-[#22C55E] hover:text-black transition-all text-center flex items-center justify-center gap-2 shadow-lg font-mono"
+            >
+              <Zap className="w-4 h-4 fill-current" />
+              Register For Cohort • ₹4,999
+              <ArrowRight className="w-4 h-4 -translate-x-1 group-hover:translate-x-0 transition-transform" />
+            </Link>
+            <a
+              href="#curriculum-schedule"
+              className="py-3.5 px-5 rounded-2xl hover:bg-black/5 text-[#090909] font-bold text-xs text-center border border-black/15 transition-all flex items-center justify-center gap-2 font-mono"
+            >
+              View 4-Week Schedule
+              <ChevronDown className="w-4 h-4" />
+            </a>
+          </motion.div>
 
-          {/* KEY STATS BAR */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-black/10 text-xs font-mono">
-            <div>
-              <span className="text-black/50 text-[10px] uppercase block">Launch Date</span>
-              <span className="text-sm font-bold text-[#15803D]">August 25, 2026</span>
-            </div>
-            <div>
-              <span className="text-black/50 text-[10px] uppercase block">Tuition Fee</span>
-              <span className="text-sm font-bold text-[#090909]">₹4,999</span>
-            </div>
-            <div>
-              <span className="text-black/50 text-[10px] uppercase block">Duration</span>
-              <span className="text-sm font-bold text-[#090909]">4 Weeks Live</span>
-            </div>
-            <div>
-              <span className="text-black/50 text-[10px] uppercase block">Projects</span>
-              <span className="text-sm font-bold text-[#15803D]">5+ Shipped SaaS</span>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* TEACHING FRAMEWORK */}
-        <div className="space-y-4">
-          <div className="text-center space-y-1">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#15803D] font-mono">THE TEACHING PATTERN</span>
-            <h2 className="text-2xl font-extrabold text-[#090909]">How You Learn & Build</h2>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 text-center">
-            {teachingPattern.map((tp) => (
-              <div key={tp.step} className="p-3.5 rounded-2xl bg-white border border-black/10 space-y-1 shadow-xs">
-                <span className="text-xs font-bold text-[#15803D] font-mono">{tp.step}</span>
-                <h3 className="text-xs font-bold text-[#090909]">{tp.title}</h3>
-                <p className="text-[10px] text-black/60 leading-tight">{tp.desc}</p>
+          <motion.div
+            variants={item}
+            className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 border-t border-black/10 text-xs font-mono"
+          >
+            {[
+              ['Launch Date', 'Aug 25, 2026', '#15803D'],
+              ['Tuition Fee', '₹4,999', '#090909'],
+              ['Duration', '4 Weeks Live', '#090909'],
+              ['Projects', '5+ Shipped SaaS', '#15803D'],
+            ].map(([label, value, color]) => (
+              <div key={label}>
+                <span className="text-black/45 text-[10px] uppercase block">{label}</span>
+                <span className="text-sm font-bold" style={{ color }}>{value}</span>
               </div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* 4-WEEK INTERACTIVE CURRICULUM */}
-        <div id="curriculum-schedule" className="space-y-6 pt-2">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#15803D] font-mono">4-WEEK SCHEDULE</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#090909]">Cohort Curriculum</h2>
-            </div>
-
-            {/* WEEK TABS */}
-            <div className="flex items-center gap-2 bg-white p-1 rounded-2xl border border-black/10 overflow-x-auto shadow-xs font-mono">
-              {weeksData.map((w) => (
-                <button
-                  key={w.week}
-                  onClick={() => {
-                    setActiveWeek(w.week);
-                    setOpenClass(null);
-                  }}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
-                    activeWeek === w.week
-                      ? 'bg-[#090909] text-white shadow-md'
-                      : 'text-black/60 hover:text-black'
-                  }`}
-                >
-                  Week {w.week}
-                </button>
-              ))}
-            </div>
+        {/* MISSION TIMELINE — the 4 weeks as a flight path, not tabs */}
+        <div id="curriculum-schedule" className="space-y-10">
+          <div className="text-center space-y-1">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#15803D] font-mono">THE FLIGHT PATH</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold">Four Weeks, One Trajectory</h2>
           </div>
 
-          {/* ACTIVE WEEK CARD DETAILS */}
-          {activeWeekObj && (
-            <div className="bg-white border border-black/10 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
-              <div className="space-y-1 border-b border-black/10 pb-4">
-                <span className="text-xs font-bold text-[#15803D] uppercase tracking-widest font-mono">
-                  WEEK 0{activeWeekObj.week} SUMMARY
-                </span>
-                <h3 className="text-2xl font-extrabold text-[#090909]">
-                  {activeWeekObj.title}
-                </h3>
-                <p className="text-xs text-black/70 leading-relaxed">{activeWeekObj.goal}</p>
-              </div>
-
-              {/* CLASSES ACCORDION */}
-              <div className="space-y-3">
-                {activeWeekObj.classes.map((cls, idx) => {
-                  const isOpen = openClass === idx;
+          {/* Path — horizontal on desktop, vertical stepper on mobile */}
+          <div className="relative">
+            {/* Desktop / tablet: horizontal path */}
+            <div className="hidden sm:block relative px-8">
+              <div className="absolute left-8 right-8 top-7 h-px bg-black/10" />
+              <motion.div
+                className="absolute left-8 top-7 h-px bg-[#15803D]"
+                initial={false}
+                animate={{ width: `calc(${(activeIndex / (weeksData.length - 1)) * 100}% - ${(activeIndex / (weeksData.length - 1)) * 4}rem)` }}
+                transition={{ type: 'spring', stiffness: 110, damping: 22 }}
+              />
+              <div className="relative grid grid-cols-4 gap-2">
+                {weeksData.map((w, idx) => {
+                  const Icon = w.icon;
+                  const isActive = w.week === activeWeek;
+                  const isPast = idx < activeIndex;
                   return (
-                    <div
-                      key={idx}
-                      className="bg-[#FAF8F5] border border-black/10 hover:border-[#22C55E]/50 rounded-2xl overflow-hidden transition-all"
+                    <button
+                      key={w.week}
+                      onClick={() => { setActiveWeek(w.week); setOpenClass(0); }}
+                      className="flex flex-col items-center gap-3 group"
                     >
-                      <button
-                        onClick={() => setOpenClass(isOpen ? null : idx)}
-                        className="w-full p-4 flex items-center justify-between text-left gap-4"
+                      <motion.span
+                        animate={{
+                          scale: isActive ? 1.08 : 1,
+                          backgroundColor: isActive || isPast ? '#15803D' : '#FFFFFF',
+                          borderColor: isActive || isPast ? '#15803D' : 'rgba(0,0,0,0.15)',
+                        }}
+                        whileHover={{ scale: isActive ? 1.08 : 1.05 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+                        className="relative w-14 h-14 rounded-2xl border flex items-center justify-center shadow-sm"
                       >
-                        <div className="flex items-center gap-3">
-                          <span className="w-7 h-7 rounded-xl bg-[#22C55E]/15 text-[#15803D] font-bold text-xs flex items-center justify-center shrink-0 font-mono">
-                            {idx + 1}
-                          </span>
-                          <div>
-                            <h4 className="text-sm font-bold text-[#090909]">{cls.title}</h4>
-                            <p className="text-xs text-black/60">{cls.objective}</p>
-                          </div>
-                        </div>
-                        {isOpen ? <ChevronUp className="w-4 h-4 text-[#15803D]" /> : <ChevronDown className="w-4 h-4 text-black/40" />}
-                      </button>
-
-                      <AnimatePresence>
-                        {isOpen && (
-                          <motion.div 
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="p-4 pt-0 border-t border-black/10 space-y-3 text-xs text-black/80"
-                          >
-                            <div className="pt-2">
-                              <span className="font-bold text-[#15803D] block mb-1">Topics:</span>
-                              <div className="flex flex-wrap gap-1.5 font-mono">
-                                {cls.topics.map((t, i) => (
-                                  <span key={i} className="px-2.5 py-1 rounded-md bg-white border border-black/10 text-[11px]">
-                                    {t}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-
-                            <div className="p-3 rounded-xl bg-white border border-black/10">
-                              <span className="font-bold text-[#090909] block mb-0.5">🛠️ Hands-on Build:</span>
-                              <p className="text-[11px] text-black/70">{cls.build}</p>
-                            </div>
-                          </motion.div>
+                        {isActive && (
+                          <motion.span
+                            layoutId="week-ring"
+                            className="absolute -inset-1.5 rounded-[1.1rem] border border-[#15803D]/30"
+                            transition={{ type: 'spring', stiffness: 300, damping: 26 }}
+                          />
                         )}
-                      </AnimatePresence>
-                    </div>
+                        <Icon className={`w-6 h-6 relative ${isActive || isPast ? 'text-white' : 'text-black/35'}`} />
+                      </motion.span>
+                      <div className="text-center">
+                        <span className={`block text-[10px] font-mono font-bold uppercase tracking-wide ${isActive ? 'text-[#15803D]' : 'text-black/40'}`}>
+                          Week {w.week}
+                        </span>
+                        <span className={`block text-sm font-bold ${isActive ? 'text-[#090909]' : 'text-black/50 group-hover:text-black/70'} transition-colors`}>
+                          {w.title}
+                        </span>
+                      </div>
+                    </button>
                   );
                 })}
               </div>
+            </div>
 
-              {/* WEEKLY CHALLENGE */}
-              <div className="p-3.5 rounded-2xl bg-[#22C55E]/10 border border-[#22C55E]/30 flex items-center justify-between gap-4 text-xs font-mono">
-                <div>
-                  <span className="font-bold text-[#15803D] block">Weekly Deliverable:</span>
-                  <p className="text-black/75">{activeWeekObj.challenge}</p>
-                </div>
-                <CheckCircle2 className="w-5 h-5 text-[#15803D] shrink-0" />
+            {/* Mobile: compact horizontal scroll stepper */}
+            <div className="sm:hidden -mx-4 px-4 overflow-x-auto">
+              <div className="flex items-center gap-2 min-w-max pb-1">
+                {weeksData.map((w, idx) => {
+                  const Icon = w.icon;
+                  const isActive = w.week === activeWeek;
+                  const isPast = idx < activeIndex;
+                  return (
+                    <React.Fragment key={w.week}>
+                      <button
+                        onClick={() => { setActiveWeek(w.week); setOpenClass(0); }}
+                        className={`flex items-center gap-2 pl-2 pr-3 py-2 rounded-xl border transition-colors ${
+                          isActive ? 'border-[#15803D] bg-[#15803D]' : isPast ? 'border-[#15803D]/40 bg-[#15803D]/5' : 'border-black/15 bg-white'
+                        }`}
+                      >
+                        <span className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                          isActive ? 'bg-white/15' : 'bg-black/5'
+                        }`}>
+                          <Icon className={`w-4 h-4 ${isActive ? 'text-white' : isPast ? 'text-[#15803D]' : 'text-black/40'}`} />
+                        </span>
+                        <span className="text-left leading-tight">
+                          <span className={`block text-[9px] font-mono font-bold uppercase ${isActive ? 'text-white/70' : 'text-black/40'}`}>
+                            Wk {w.week}
+                          </span>
+                          <span className={`block text-xs font-bold whitespace-nowrap ${isActive ? 'text-white' : 'text-black/70'}`}>
+                            {w.title}
+                          </span>
+                        </span>
+                      </button>
+                      {idx < weeksData.length - 1 && (
+                        <div className={`w-4 h-px shrink-0 ${idx < activeIndex ? 'bg-[#15803D]' : 'bg-black/15'}`} />
+                      )}
+                    </React.Fragment>
+                  );
+                })}
               </div>
             </div>
-          )}
+          </div>
+
+          {/* ACTIVE WEEK DETAIL */}
+          <AnimatePresence mode="wait">
+            {activeWeekObj && (
+              <motion.div
+                key={activeWeekObj.week}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.35, ease: 'easeOut' }}
+                className="space-y-6"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 border-b border-black/10 pb-4">
+                  <div>
+                    <span className="text-xs font-bold text-[#15803D] uppercase tracking-widest font-mono">
+                      Week 0{activeWeekObj.week} — {activeWeekObj.subtitle}
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-extrabold">{activeWeekObj.goal}</h3>
+                  </div>
+                </div>
+
+                {/* CLASS MISSION LOG — icon-led cards, click to expand */}
+                <div className="grid gap-3">
+                  {activeWeekObj.classes.map((cls, idx) => {
+                    const Icon = cls.icon;
+                    const isOpen = openClass === idx;
+                    return (
+                      <motion.div
+                        key={idx}
+                        layout
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.05, duration: 0.3, ease: 'easeOut' }}
+                        className={`rounded-2xl border overflow-hidden transition-colors duration-200 ${
+                          isOpen ? 'border-[#15803D]/40 bg-white shadow-md' : 'border-black/10 bg-white/80 hover:border-black/20 hover:bg-white'
+                        }`}
+                      >
+                        <button
+                          onClick={() => setOpenClass(isOpen ? -1 : idx)}
+                          className="w-full p-4 sm:p-5 flex items-center gap-3 sm:gap-4 text-left"
+                        >
+                          <span className="text-[10px] font-mono font-bold text-black/30 w-4 shrink-0 hidden sm:block">
+                            {String(idx + 1).padStart(2, '0')}
+                          </span>
+                          <motion.span
+                            animate={{ scale: isOpen ? 1.04 : 1 }}
+                            transition={{ duration: 0.2 }}
+                            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-200 ${
+                              isOpen ? 'bg-[#15803D] text-white' : 'bg-[#22C55E]/10 text-[#15803D]'
+                            }`}
+                          >
+                            <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                          </motion.span>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-xs sm:text-sm font-bold leading-snug">{cls.title}</h4>
+                            <p className="text-[11px] sm:text-xs text-black/55 truncate">{cls.objective}</p>
+                          </div>
+                          <motion.span
+                            animate={{ rotate: isOpen ? 45 : 0 }}
+                            transition={{ duration: 0.25 }}
+                            className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center ${isOpen ? 'bg-black/5 text-[#15803D]' : 'text-black/35'}`}
+                          >
+                            <Plus className="w-4 h-4" />
+                          </motion.span>
+                        </button>
+
+                        <AnimatePresence>
+                          {isOpen && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.28, ease: 'easeInOut' }}
+                            >
+                              <div className="px-4 sm:px-5 pb-5 pt-1 space-y-3 text-xs text-black/80">
+                                <div className="flex flex-wrap gap-1.5 font-mono">
+                                  {cls.topics.map((t, i) => (
+                                    <span key={i} className="px-2.5 py-1 rounded-md bg-[#FAF8F5] border border-black/10 text-[11px]">
+                                      {t}
+                                    </span>
+                                  ))}
+                                </div>
+                                <div className="p-3 rounded-xl bg-[#22C55E]/[0.06] border border-[#22C55E]/20 flex items-start gap-2.5">
+                                  <Rocket className="w-4 h-4 text-[#15803D] shrink-0 mt-0.5" />
+                                  <p className="text-[11px] text-black/70">{cls.build}</p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                {/* WEEKLY CHALLENGE */}
+                <motion.div
+                  whileHover={{ scale: 1.01 }}
+                  className="p-4 rounded-2xl bg-[#090909] text-white flex items-center justify-between gap-4 text-xs font-mono"
+                >
+                  <div>
+                    <span className="font-bold text-[#22C55E] block">Weekly Deliverable</span>
+                    <p className="text-white/75">{activeWeekObj.challenge}</p>
+                  </div>
+                  <CheckCircle2 className="w-5 h-5 text-[#22C55E] shrink-0" />
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
-        {/* TOOLS & STACK COVERED */}
-        <div className="space-y-4">
+        {/* TOOLS & STACK — animated ticker, click a tool for its main use */}
+        <div className="space-y-5">
           <div className="text-center space-y-1">
             <span className="text-xs font-bold uppercase tracking-widest text-[#15803D] font-mono">STACK & TOOLS</span>
-            <h2 className="text-2xl font-extrabold text-[#090909]">Technologies Mastered</h2>
+            <h2 className="text-2xl font-extrabold">Technologies Mastered</h2>
+            <p className="text-xs text-black/50">Tap any tool to see what it's actually used for in the cohort.</p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {toolsList.map((t) => (
-              <div key={t.name} className="p-3.5 rounded-2xl bg-white border border-black/10 space-y-0.5 shadow-xs">
-                <span className="text-xs font-bold text-[#090909] block font-mono">{t.name}</span>
-                <span className="text-[11px] text-black/60 block">{t.desc}</span>
-              </div>
-            ))}
+          <div className="relative -mx-4 sm:-mx-8">
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-10 sm:w-24 bg-gradient-to-r from-[#FAFAFA] to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-10 sm:w-24 bg-gradient-to-l from-[#FAFAFA] to-transparent z-10" />
+
+            <div className="ticker-row overflow-hidden py-1">
+              <motion.div
+                className="flex gap-3 w-max px-4 sm:px-8"
+                animate={{ x: ['0%', '-50%'] }}
+                transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
+              >
+                {[...toolsList, ...toolsList].map((t, i) => {
+                  const Icon = t.icon;
+                  return (
+                    <motion.button
+                      key={`${t.name}-${i}`}
+                      onClick={() => setActiveTool(t)}
+                      whileHover={{ y: -3, scale: 1.02 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="flex items-center gap-3 pl-3 pr-5 py-3 rounded-2xl bg-white border border-black/10 shadow-xs hover:border-[#15803D]/40 hover:shadow-md transition-all shrink-0"
+                    >
+                      <span className="w-9 h-9 rounded-xl bg-[#22C55E]/10 text-[#15803D] flex items-center justify-center shrink-0">
+                        <Icon className="w-4.5 h-4.5" />
+                      </span>
+                      <span className="text-left leading-tight">
+                        <span className="text-xs font-bold block font-mono whitespace-nowrap">{t.name}</span>
+                        <span className="text-[10px] text-black/50 block whitespace-nowrap">{t.desc}</span>
+                      </span>
+                    </motion.button>
+                  );
+                })}
+              </motion.div>
+            </div>
           </div>
         </div>
 
+        {/* TOOL DETAIL MODAL */}
+        <AnimatePresence>
+          {activeTool && (
+            <motion.div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                onClick={() => setActiveTool(null)}
+              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.92, y: 16 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.94, y: 10 }}
+                transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+                className="relative bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl space-y-4"
+              >
+                <button
+                  onClick={() => setActiveTool(null)}
+                  className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-black/40 hover:bg-black/5 hover:text-black transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+                <span className="w-12 h-12 rounded-2xl bg-[#22C55E]/10 text-[#15803D] flex items-center justify-center">
+                  {activeTool && <activeTool.icon className="w-6 h-6" />}
+                </span>
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#15803D]">{activeTool?.desc}</span>
+                  <h3 className="text-lg font-extrabold leading-snug">{activeTool?.name}</h3>
+                </div>
+                <p className="text-sm text-black/70 leading-relaxed">{activeTool?.mainUse}</p>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* BOTTOM BANNER */}
-        <div className="bg-white border border-black/10 rounded-3xl p-8 sm:p-10 text-center space-y-5 shadow-xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white border border-black/10 rounded-3xl p-8 sm:p-10 text-center space-y-5 shadow-xl"
+        >
           <div className="space-y-2 max-w-xl mx-auto">
             <span className="text-xs font-bold text-[#15803D] uppercase tracking-widest font-mono">JOIN THE COHORT</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#090909]">Become an AI Engineer</h2>
+            <h2 className="text-2xl sm:text-3xl font-extrabold">Become an AI Engineer</h2>
             <p className="text-xs text-black/70">
-              4 Weeks of live hands-on engineering, 1-on-1 code review, and production SaaS build.
+              4 weeks of live hands-on engineering, 1-on-1 code review, and a production SaaS build.
             </p>
           </div>
 
@@ -399,11 +614,11 @@ export default function AiEngineeringCohortPage() {
               to="/cohorts/register?cohort=ai-engineering"
               className="py-3.5 px-8 rounded-2xl bg-[#090909] text-white font-extrabold text-xs uppercase tracking-wider hover:bg-[#22C55E] hover:text-black transition-all flex items-center gap-2 shadow-lg font-mono"
             >
-              <span>Register Now • ₹4,999</span>
+              Register Now • ₹4,999
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-        </div>
+        </motion.div>
 
       </main>
 
