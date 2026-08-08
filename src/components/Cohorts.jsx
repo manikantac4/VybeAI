@@ -259,7 +259,7 @@ export default function Cohorts() {
       if (!measure()) return
 
       gsap.set(track, { x: 0, force3D: true })
-      gsap.set(cardWrapperRefs.current, { scale: 0.94, opacity: 0.45 })
+      gsap.set(cardWrapperRefs.current, { scale: 0.94, opacity: 0.75 })
 
       quickX = gsap.quickTo(track, 'x', { duration: 0.55, ease: 'power3' })
 
@@ -326,7 +326,7 @@ export default function Cohorts() {
             if (quick) {
               const normalizedDist = Math.min(distance / (cardWidth * 1.2), 1)
               const scale = Math.max(0.94, 1.04 - normalizedDist * 0.1)
-              const opacity = Math.max(0.45, 1 - normalizedDist * 0.55)
+              const opacity = Math.max(0.75, 1 - normalizedDist * 0.25)
               quick.scale(scale)
               quick.opacity(opacity)
             }

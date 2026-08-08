@@ -57,7 +57,7 @@
     font-size: 11px;
     font-weight: 700;
     letter-spacing: .18em;
-    color: rgba(255,255,255,.5);
+    color: rgba(255,255,255,.72);
 }
 
 .cohort-explore-card h3 {
@@ -71,7 +71,7 @@
 .cohort-explore-card > p:not(.cohort-explore-kicker) {
     max-width: 260px;
     margin: 1.5rem 0 0;
-    color: rgba(255,255,255,.62);
+    color: rgba(255,255,255,.82);
     font-size: 15px;
     line-height: 1.6;
 }
@@ -99,7 +99,7 @@
 .cohort-explore-link span { font-size: 18px; line-height: 0; }
 
 .cohort-social-block { margin-top: auto; padding-top: 2rem; }
-.cohort-social-block > p { margin: 0 0 .8rem; color: rgba(255,255,255,.5); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.cohort-social-block > p { margin: 0 0 .8rem; color: rgba(255,255,255,.72); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
 .cohort-social-links { display: flex; flex-wrap: wrap; gap: .5rem; }
 .cohort-social-links a { display:inline-flex; align-items:center; gap:.45rem; padding: .56rem .72rem; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; background:rgba(255,255,255,.08); color: #ffffff; font-size: 11px; font-weight:600; text-decoration: none; transition: background .2s ease,color .2s ease,transform .2s ease; }
 .cohort-social-links a:hover { background: #dfff43; border-color:#dfff43; color: #111111; transform:translateY(-2px); }
@@ -215,7 +215,7 @@
 .cohort-showcase-desc {
     font-size: 14px;
     line-height: 1.5;
-    color: #A1A1AA;
+    color: #C4C4CC;
     margin: 0;
     font-weight: 400;
 }
