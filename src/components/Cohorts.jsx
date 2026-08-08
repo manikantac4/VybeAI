@@ -4,6 +4,11 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './cohorts.css'
 
+// Cohort artwork — adjust the path below if your assets folder lives
+// somewhere other than "../assets" relative to this file.
+import aiEngineeringCohort from '../assets/aiEngineeringCohort.png'
+import aiCybersecurityCohort from '../assets/aiCybersecurityCohort.png'
+
 gsap.registerPlugin(ScrollTrigger)
 
 // This runs once, at module load. The real cause of the mobile "gap after
@@ -34,6 +39,7 @@ const cohorts = [
     technologies: ['Antigravity', 'Cursor', 'Claude', 'React', 'Node.js', 'Supabase', 'Docker'],
     duration: '4 weeks',
     path: '/cohorts/ai-engineering',
+    image: aiEngineeringCohort,
   },
   {
     id: 'ai-cybersecurity',
@@ -43,6 +49,7 @@ const cohorts = [
     technologies: ['Kali Linux', 'Burp Suite', 'Nmap', 'Python', 'Ollama', 'OpenClaw', 'MCP'],
     duration: '4 weeks',
     path: '/cohorts/ai-cybersecurity',
+    image: aiCybersecurityCohort,
   },
 ]
 
@@ -61,14 +68,22 @@ const socialLinks = [
    TRIONN-STYLE VISUAL ARTWORK STAGE FOR EACH COHORT
    ═══════════════════════════════════════════════════════════════════════════ */
 function CohortVisualStage({ cohort }) {
-  const { number, id } = cohort
+  const { number, id, image, title } = cohort
 
   return (
     <div className="cohort-visual-stage">
       <span className="cohort-stage-tag">PROGRAM {number}</span>
       <span className="cohort-stage-number">{number}</span>
       <div className="cohort-stage-graphic">
-        {id === 'web-dev' && (
+        {image && (
+          <img
+            src={image}
+            alt={title}
+            className="cohort-stage-image"
+            loading="lazy"
+          />
+        )}
+        {!image && id === 'web-dev' && (
           <svg viewBox="0 0 500 350" className="w-full h-full p-8 opacity-90">
             <rect x="40" y="40" width="420" height="270" rx="12" fill="#FFFFFF" stroke="#E2E2E6" strokeWidth="2" />
             <path d="M40 85 H460" stroke="#E2E2E6" strokeWidth="2" />
