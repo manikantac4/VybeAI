@@ -4,12 +4,12 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { 
   ShieldCheck, Cpu, CheckCircle2, Lock, Sparkles, CreditCard, 
-  ArrowRight, AlertCircle, Building, User, Mail, Phone, Award, Check, Calendar, Users
+  ArrowRight, AlertCircle, Building, User, Mail, Phone, Award, Check, Calendar, Users, X, HelpCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function CohortRegistrationPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const initialCohort = searchParams.get('cohort') === 'ai-cybersecurity' ? 'ai-cybersecurity' : 'ai-engineering';
 
   const [selectedCohort, setSelectedCohort] = useState(initialCohort);
@@ -26,6 +26,7 @@ export default function CohortRegistrationPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showRazorpayModal, setShowRazorpayModal] = useState(false);
+  const [showCancelConfirmModal, setShowCancelConfirmModal] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [transactionRef, setTransactionRef] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -63,6 +64,7 @@ export default function CohortRegistrationPage() {
   };
 
   const activeCohortObj = cohortDetails[selectedCohort];
+  const CohortIcon = activeCohortObj.icon;
 
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -116,12 +118,18 @@ export default function CohortRegistrationPage() {
 
       setTransactionRef(mockTxn);
       setShowRazorpayModal(false);
+      setShowCancelConfirmModal(false);
       setPaymentSuccess(true);
     } catch (err) {
       setErrorMessage('Payment processing failed. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleConfirmCancelRegistration = () => {
+    setShowCancelConfirmModal(false);
+    setShowRazorpayModal(false);
   };
 
   return (
@@ -140,9 +148,9 @@ export default function CohortRegistrationPage() {
             <Lock className="w-3.5 h-3.5" />
             <span>256-Bit SSL Encrypted Checkout</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-[#090909]">Cohort Registration & Checkout</h1>
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-[#090909]">Cohort Registration</h1>
           <p className="text-sm sm:text-base text-black/70">
-            Secure your seat for the upcoming 4-week flagship cohort program.
+            Secure your seat for <strong className="text-[#090909]">{activeCohortObj.name}</strong>.
           </p>
         </motion.div>
 
@@ -206,51 +214,37 @@ export default function CohortRegistrationPage() {
             {/* LEFT COLUMN: FORM */}
             <div className="lg:col-span-7 bg-white border border-black/10 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
 
-              {/* COHORT SELECTOR TOGGLE BUTTONS */}
+              {/* FIXED & LOCKED SELECTED COHORT CARD */}
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-black/60 block font-mono">
-                  1. Select Your Flagship Cohort
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSelectedCohort('ai-engineering');
-                      setSearchParams({ cohort: 'ai-engineering' });
-                    }}
-                    className={`p-4 rounded-2xl border text-left flex flex-col justify-between transition-all ${
-                      selectedCohort === 'ai-engineering'
-                        ? 'bg-[#22C55E]/15 border-[#22C55E] text-[#090909] shadow-md'
-                        : 'bg-[#FAF8F5] border-black/10 text-black/60 hover:border-black/20'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between w-full mb-2">
-                      <Cpu className="w-5 h-5 text-[#15803D]" />
-                      {selectedCohort === 'ai-engineering' && <Check className="w-4 h-4 text-[#15803D]" />}
-                    </div>
-                    <span className="text-sm font-bold block text-[#090909]">AI Engineering</span>
-                    <span className="text-xs text-black/60 font-mono">4 Weeks • Build & Launch SaaS</span>
-                  </button>
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold uppercase tracking-wider text-black/60 block font-mono">
+                    1. Enrolling Cohort (Fixed)
+                  </label>
+                  <Link to="/cohorts" className="text-[11px] font-bold text-[#15803D] hover:underline font-mono">
+                    Change Program ↗
+                  </Link>
+                </div>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSelectedCohort('ai-cybersecurity');
-                      setSearchParams({ cohort: 'ai-cybersecurity' });
-                    }}
-                    className={`p-4 rounded-2xl border text-left flex flex-col justify-between transition-all ${
-                      selectedCohort === 'ai-cybersecurity'
-                        ? 'bg-[#0284C7]/15 border-[#0284C7] text-[#090909] shadow-md'
-                        : 'bg-[#FAF8F5] border-black/10 text-black/60 hover:border-black/20'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between w-full mb-2">
-                      <ShieldCheck className="w-5 h-5 text-[#0284C7]" />
-                      {selectedCohort === 'ai-cybersecurity' && <Check className="w-4 h-4 text-[#0284C7]" />}
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#FAF8F5] border border-black/15 flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-12 h-12 rounded-2xl bg-white border border-black/10 flex items-center justify-center text-[#15803D] shrink-0 shadow-xs">
+                      <CohortIcon className="w-6 h-6" />
                     </div>
-                    <span className="text-sm font-bold block text-[#090909]">AI & Cybersecurity</span>
-                    <span className="text-xs text-black/60 font-mono">4 Weeks • Pentest & AI MCP</span>
-                  </button>
+                    <div>
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span className="text-[10px] font-bold uppercase text-[#15803D] bg-[#22C55E]/10 px-2 py-0.5 rounded font-mono">
+                          {activeCohortObj.badge}
+                        </span>
+                        <span className="text-[10px] font-bold text-black/40 font-mono">LOCKED SELECTION</span>
+                      </div>
+                      <h3 className="text-base font-extrabold text-[#090909]">{activeCohortObj.name}</h3>
+                      <p className="text-xs text-black/60">{activeCohortObj.duration}</p>
+                    </div>
+                  </div>
+
+                  <div className="w-8 h-8 rounded-full bg-white border border-black/10 flex items-center justify-center text-[#15803D] shrink-0">
+                    <Lock className="w-4 h-4" />
+                  </div>
                 </div>
               </div>
 
@@ -494,9 +488,14 @@ export default function CohortRegistrationPage() {
                   <CreditCard className="w-5 h-5 text-[#15803D]" />
                   <span className="text-sm font-bold text-[#090909]">Razorpay Checkout</span>
                 </div>
-                <span className="text-[10px] font-bold text-[#15803D] bg-[#22C55E]/10 px-2.5 py-1 rounded border border-[#22C55E]/30 font-mono">
-                  VERIFIED GATEWAY
-                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowCancelConfirmModal(true)}
+                  className="p-1.5 rounded-full hover:bg-black/5 text-black/40 hover:text-black transition-colors"
+                  title="Cancel Payment"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
 
               <div className="space-y-3 text-xs">
@@ -530,10 +529,53 @@ export default function CohortRegistrationPage() {
 
                 <button
                   type="button"
-                  onClick={() => setShowRazorpayModal(false)}
+                  onClick={() => setShowCancelConfirmModal(true)}
                   className="w-full py-2.5 rounded-xl bg-[#FAF8F5] hover:bg-black/5 text-black/60 text-xs font-bold transition-colors font-mono"
                 >
                   Cancel Transaction
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* CONFIRMATION POPUP FOR CANCELLING PAYMENT / REGISTRATION */}
+      <AnimatePresence>
+        {showCancelConfirmModal && (
+          <div className="fixed inset-0 bg-black/75 backdrop-blur-md z-[60] flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              className="bg-white border border-red-200 rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center space-y-5 shadow-2xl relative"
+            >
+              <div className="w-12 h-12 rounded-full bg-red-100 border border-red-200 text-red-600 flex items-center justify-center mx-auto">
+                <HelpCircle className="w-7 h-7" />
+              </div>
+
+              <div className="space-y-2">
+                <h3 className="text-lg font-extrabold text-[#090909]">Cancel Registration?</h3>
+                <p className="text-xs text-black/70 leading-relaxed font-sans">
+                  Are you sure you want to cancel your payment for <strong className="text-[#090909]">{activeCohortObj.name}</strong>? Your reserved seat and early bird discount will be released.
+                </p>
+              </div>
+
+              <div className="space-y-2.5 pt-2 font-mono">
+                <button
+                  type="button"
+                  onClick={handleConfirmCancelRegistration}
+                  className="w-full py-3 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md"
+                >
+                  Yes, Cancel Registration
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setShowCancelConfirmModal(false)}
+                  className="w-full py-3 rounded-2xl bg-[#090909] hover:bg-[#22C55E] hover:text-black text-white font-bold text-xs uppercase tracking-wider transition-all shadow-xs"
+                >
+                  No, Continue Payment
                 </button>
               </div>
             </motion.div>
