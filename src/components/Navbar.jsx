@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Menu, X, ArrowUpRight, ShieldCheck, Cpu, Phone, FileText, Lock } from 'lucide-react'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -29,6 +30,14 @@ export default function Navbar() {
     }
   }
 
+  const mobileNavItems = [
+    { label: 'Cohorts', path: '/cohorts', icon: Cpu },
+    { label: 'Buildathons', path: '/buildathons', icon: ShieldCheck },
+    { label: 'Contact', path: '/contact', icon: Phone },
+    { label: 'Privacy Policy', path: '/privacy', icon: Lock },
+    { label: 'Terms & Service', path: '/terms', icon: FileText },
+  ];
+
   return (
     <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-xl border-b border-black/10 shadow-sm' : ''}`}>
       <div className="mx-auto flex h-14 md:h-16 max-w-[1600px] items-center justify-between px-4 sm:px-6 md:px-12">
@@ -36,6 +45,7 @@ export default function Navbar() {
           <img src="/Logos/BlackFillNoBg.png" alt="Turing Wings" className="h-[160%] w-auto object-contain object-top" />
         </Link>
 
+        {/* PC VIEW NAVBAR (UNCHANGED) */}
         <div className="flex items-center gap-1.5 sm:gap-2 md:gap-4">
           <Link
             to="/cohorts"
@@ -67,59 +77,47 @@ export default function Navbar() {
             </span>
           </Link>
 
+          {/* MOBILE HAMBURGER BUTTON */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden flex items-center justify-center p-2 rounded-full border border-black/20 text-black bg-white shrink-0"
+            className="md:hidden flex items-center justify-center p-2 rounded-full border border-black/20 text-black bg-white shrink-0 shadow-xs"
             aria-label="Toggle Navigation Menu"
           >
-            <span className="block h-[1px] w-4 bg-current"></span>
+            {menuOpen ? <X className="w-5 h-5 text-[#22C55E]" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile / Full Dropdown Menu */}
+      {/* NEW MOBILE EXCLUSIVE NAVBAR DRAWER */}
       {menuOpen && (
-        <div className="bg-white border-b border-black/10 px-6 py-6 space-y-4 shadow-xl text-left animate-in fade-in max-w-[1600px] mx-auto md:hidden">
-          <div className="flex flex-col gap-3">
-            <button
-              onClick={() => handleNavAnchor('#top')}
-              className="text-left text-xs font-mono font-bold uppercase tracking-wider text-black/70 hover:text-[#22C55E]"
-            >
-              01 / Ecosystem
-            </button>
-            <button
-              onClick={() => handleNavAnchor('#experience')}
-              className="text-left text-xs font-mono font-bold uppercase tracking-wider text-black/70 hover:text-[#22C55E]"
-            >
-              02 / Evolution & Engineering
-            </button>
-            <Link
-              to="/cohorts"
-              onClick={() => setMenuOpen(false)}
-              className="text-xs font-mono font-bold uppercase tracking-wider text-[#22C55E]"
-            >
-              03 / Flagship Cohorts
-            </Link>
-            <Link
-              to="/buildathons"
-              onClick={() => setMenuOpen(false)}
-              className="text-xs font-mono font-bold uppercase tracking-wider text-[#22C55E]"
-            >
-              04 / Buildathons Directory
-            </Link>
-            <button
-              onClick={() => handleNavAnchor('#community')}
-              className="text-left text-xs font-mono font-bold uppercase tracking-wider text-black/70 hover:text-[#22C55E]"
-            >
-              05 / Community & Why Turing Wings
-            </button>
-            <Link
-              to="/contact"
-              onClick={() => setMenuOpen(false)}
-              className="text-xs font-mono font-bold uppercase tracking-wider text-black/70 hover:text-[#22C55E]"
-            >
-              06 / Contact Leads & Mentors
-            </Link>
+        <div className="bg-white/95 backdrop-blur-2xl border-b border-black/10 px-6 py-6 space-y-3 shadow-2xl text-left animate-in fade-in max-w-[1600px] mx-auto md:hidden font-mono">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-black/40 block pb-1 border-b border-black/10">
+            MOBILE NAVIGATION MENU
+          </span>
+
+          <div className="flex flex-col gap-2 pt-1">
+            {mobileNavItems.map((item) => {
+              const ItemIcon = item.icon;
+              const isActive = location.pathname === item.path;
+              return (
+                <Link
+                  key={item.label}
+                  to={item.path}
+                  onClick={() => setMenuOpen(false)}
+                  className={`flex items-center justify-between p-3.5 rounded-2xl border transition-all ${
+                    isActive
+                      ? 'bg-[#090909] text-white border-[#090909] font-bold shadow-md'
+                      : 'bg-[#FAF8F5] text-[#090909] border-black/10 hover:border-[#22C55E] hover:bg-[#22C55E]/10'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <ItemIcon className={`w-4 h-4 ${isActive ? 'text-[#22C55E]' : 'text-black/50'}`} />
+                    <span className="text-xs uppercase tracking-wider font-bold">{item.label}</span>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 opacity-50" />
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}

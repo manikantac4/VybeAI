@@ -253,38 +253,16 @@ export default function CohortRegistrationPage() {
           <div className="max-w-2xl mx-auto w-full">
             <div className="bg-white border border-black/10 rounded-3xl p-6 sm:p-10 space-y-6 shadow-xl">
 
-              {/* FIXED & LOCKED SELECTED COHORT CARD */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold uppercase tracking-wider text-black/60 block font-mono">
-                    Enrolling Cohort Program (Fixed)
-                  </label>
-                  <Link to="/cohorts" className="text-[11px] font-bold text-[#15803D] hover:underline font-mono">
-                    Change Program ↗
-                  </Link>
+              {/* ENROLLING COHORT HEADER STRIP */}
+              <div className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-black/10 flex items-center justify-between gap-3 font-mono text-xs">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#22C55E]" />
+                  <span className="font-bold text-[#090909]">Enrolling for: {activeCohortObj.name}</span>
+                  <span className="text-black/50 text-[11px] hidden sm:inline">• Launch {activeCohortObj.launchDate}</span>
                 </div>
-
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#FAF8F5] border border-black/15 flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-12 h-12 rounded-2xl bg-white border border-black/10 flex items-center justify-center text-[#15803D] shrink-0 shadow-xs">
-                      <CohortIcon className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2 mb-0.5">
-                        <span className="text-[10px] font-bold uppercase text-[#15803D] bg-[#22C55E]/10 px-2 py-0.5 rounded font-mono">
-                          {activeCohortObj.badge}
-                        </span>
-                        <span className="text-[10px] font-bold text-black/40 font-mono">LOCKED SELECTION</span>
-                      </div>
-                      <h3 className="text-base font-extrabold text-[#090909]">{activeCohortObj.name}</h3>
-                      <p className="text-xs text-black/60 font-mono">Launch: {activeCohortObj.launchDate} • Fee: ₹{activeCohortObj.price}</p>
-                    </div>
-                  </div>
-
-                  <div className="w-8 h-8 rounded-full bg-white border border-black/10 flex items-center justify-center text-[#15803D] shrink-0">
-                    <Lock className="w-4 h-4" />
-                  </div>
-                </div>
+                <Link to="/cohorts" className="text-[11px] font-bold text-[#15803D] hover:underline shrink-0">
+                  Change ↗
+                </Link>
               </div>
 
               {/* BUILDER DETAILS FORM */}

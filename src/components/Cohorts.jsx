@@ -47,7 +47,7 @@ const cohorts = [
 ]
 
 const featuredCohorts = cohorts
-const showcaseItems = [...featuredCohorts, { id: 'explore' }]
+const showcaseItems = featuredCohorts
 const socialLinks = [
   { label: 'LinkedIn', href: '#' },
   { label: 'Instagram', href: '#' },
