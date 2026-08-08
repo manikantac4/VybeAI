@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { 
   ShieldCheck, Cpu, CheckCircle2, Lock, Sparkles, CreditCard, 
-  ArrowRight, AlertCircle, Building, User, Mail, Phone, Award, Check, Calendar, Users, X, HelpCircle
+  ArrowRight, ArrowLeft, AlertCircle, Building, User, Mail, Phone, Award, Check, Calendar, Users, X, HelpCircle, Edit3
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -13,6 +13,8 @@ export default function CohortRegistrationPage() {
   const initialCohort = searchParams.get('cohort') === 'ai-cybersecurity' ? 'ai-cybersecurity' : 'ai-engineering';
 
   const [selectedCohort, setSelectedCohort] = useState(initialCohort);
+  const [currentPhase, setCurrentPhase] = useState(1); // Phase 1 = Fill Details, Phase 2 = Summary & Payment
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -71,13 +73,14 @@ export default function CohortRegistrationPage() {
     if (errorMessage) setErrorMessage('');
   };
 
-  const handleFormSubmit = (e) => {
+  const handleGoToSummary = (e) => {
     e.preventDefault();
     if (!formData.fullName.trim() || !formData.email.trim() || !formData.phone.trim()) {
-      setErrorMessage('Please fill in your Name, Email, and Phone Number before proceeding.');
+      setErrorMessage('Please fill in your Name, Email, and Phone Number before continuing.');
       return;
     }
-    setShowRazorpayModal(true);
+    setCurrentPhase(2);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleRazorpayPaymentComplete = async () => {
@@ -136,9 +139,9 @@ export default function CohortRegistrationPage() {
     <div className="min-h-screen bg-[#FAFAFA] text-[#090909] selection:bg-[#22C55E] selection:text-black font-sans flex flex-col">
       <Navbar />
 
-      <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-8 py-12 space-y-12">
+      <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-8 py-12 space-y-8">
 
-        {/* TOP HEADER */}
+        {/* TOP HEADER & PHASE INDICATOR */}
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -148,10 +151,46 @@ export default function CohortRegistrationPage() {
             <Lock className="w-3.5 h-3.5" />
             <span>256-Bit SSL Encrypted Checkout</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-[#090909]">Cohort Registration</h1>
+          
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-[#090909]">
+            {currentPhase === 1 ? 'Cohort Registration' : 'Registration Summary'}
+          </h1>
+          
           <p className="text-sm sm:text-base text-black/70">
-            Secure your seat for <strong className="text-[#090909]">{activeCohortObj.name}</strong>.
+            {currentPhase === 1 
+              ? `Step 1: Fill student details for ${activeCohortObj.name}`
+              : `Step 2: Review your registration summary before payment`
+            }
           </p>
+
+          {/* TWO-PHASE STEP INDICATOR */}
+          {!paymentSuccess && (
+            <div className="flex items-center justify-center gap-3 pt-2 font-mono text-xs">
+              <button
+                onClick={() => setCurrentPhase(1)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all ${
+                  currentPhase === 1
+                    ? 'bg-[#090909] text-white font-bold border-[#090909] shadow-md'
+                    : 'bg-[#22C55E]/15 border-[#22C55E]/40 text-[#15803D] hover:bg-[#22C55E]/25'
+                }`}
+              >
+                <span>1. Fill Student Details</span>
+                {currentPhase === 2 && <Check className="w-3.5 h-3.5 text-[#15803D]" />}
+              </button>
+              
+              <span className="text-black/30 font-bold">→</span>
+              
+              <div
+                className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all ${
+                  currentPhase === 2
+                    ? 'bg-[#090909] text-white font-bold border-[#090909] shadow-md'
+                    : 'bg-black/5 border-black/10 text-black/40'
+                }`}
+              >
+                <span>2. Summary & Payment</span>
+              </div>
+            </div>
+          )}
         </motion.div>
 
         {paymentSuccess ? (
@@ -207,8 +246,8 @@ export default function CohortRegistrationPage() {
               Return to Homepage
             </Link>
           </motion.div>
-        ) : (
-          /* REGISTRATION FORM & SUMMARY GRID */
+        ) : currentPhase === 1 ? (
+          /* PHASE 1: FILL STUDENT DETAILS */
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
             {/* LEFT COLUMN: FORM */}
@@ -218,7 +257,7 @@ export default function CohortRegistrationPage() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-bold uppercase tracking-wider text-black/60 block font-mono">
-                    1. Enrolling Cohort (Fixed)
+                    Enrolling Cohort Program (Fixed)
                   </label>
                   <Link to="/cohorts" className="text-[11px] font-bold text-[#15803D] hover:underline font-mono">
                     Change Program ↗
@@ -249,9 +288,9 @@ export default function CohortRegistrationPage() {
               </div>
 
               {/* BUILDER DETAILS FORM */}
-              <form onSubmit={handleFormSubmit} className="space-y-5">
+              <form onSubmit={handleGoToSummary} className="space-y-5">
                 <label className="text-xs font-bold uppercase tracking-wider text-black/60 block font-mono">
-                  2. Student & Builder Details
+                  Student Information Form
                 </label>
 
                 {errorMessage && (
@@ -407,17 +446,17 @@ export default function CohortRegistrationPage() {
                   type="submit"
                   className="w-full py-4 rounded-2xl bg-[#090909] text-white font-extrabold text-sm uppercase tracking-wider hover:bg-[#22C55E] hover:text-black transition-all flex items-center justify-center gap-2 shadow-xl mt-4 font-mono"
                 >
-                  <CreditCard className="w-5 h-5" />
-                  <span>Proceed to Payment • ₹{activeCohortObj.price}</span>
+                  <span>Continue to Registration Summary</span>
+                  <ArrowRight className="w-5 h-5" />
                 </button>
               </form>
             </div>
 
-            {/* RIGHT COLUMN: ORDER SUMMARY & PAYMENT BADGES */}
+            {/* RIGHT COLUMN: ORDER SUMMARY SIDEBAR */}
             <div className="lg:col-span-5 space-y-6">
               <div className="bg-white border border-black/10 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
                 <span className="text-xs font-bold uppercase tracking-wider text-black/60 block border-b border-black/10 pb-3 font-mono">
-                  Enrollment Order Summary
+                  Selected Program Overview
                 </span>
 
                 <div className="space-y-3">
@@ -446,29 +485,117 @@ export default function CohortRegistrationPage() {
                     <span>Turing Wings Verified Certificate</span>
                   </div>
                 </div>
-
-                <div className="pt-4 border-t border-black/10 flex items-center justify-between font-mono">
-                  <div>
-                    <span className="text-[10px] text-black/50 uppercase tracking-wider block">Total Tuition Fee</span>
-                    <span className="text-xs text-black/40 line-through">₹{activeCohortObj.originalPrice}</span>
-                  </div>
-                  <span className="text-2xl font-extrabold text-[#15803D]">₹{activeCohortObj.price}</span>
-                </div>
-              </div>
-
-              {/* RAZORPAY VERIFIED GATEWAY BADGE */}
-              <div className="p-4 rounded-2xl bg-white border border-black/10 text-center space-y-2 shadow-xs">
-                <div className="flex items-center justify-center gap-2 text-xs font-bold text-[#090909]">
-                  <Lock className="w-4 h-4 text-[#15803D]" />
-                  <span>Razorpay Verified Payment Gateway</span>
-                </div>
-                <p className="text-[11px] text-black/60">
-                  Supports UPI, GPay, Credit/Debit Cards, NetBanking, and EMI.
-                </p>
               </div>
             </div>
 
           </div>
+        ) : (
+          /* PHASE 2: REGISTRATION SUMMARY PAGE */
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="max-w-3xl mx-auto space-y-8"
+          >
+            <div className="bg-white border border-black/10 rounded-3xl p-6 sm:p-10 space-y-8 shadow-2xl">
+              
+              <div className="flex items-center justify-between border-b border-black/10 pb-6">
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#15803D] font-mono">STEP 2 OF 2 • REGISTRATION SUMMARY</span>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-[#090909]">Review Your Registration</h2>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setCurrentPhase(1)}
+                  className="px-4 py-2 rounded-xl bg-[#FAF8F5] border border-black/15 text-xs font-bold text-[#090909] hover:bg-[#22C55E]/15 hover:border-[#22C55E] transition-all flex items-center gap-2 font-mono"
+                >
+                  <Edit3 className="w-4 h-4 text-[#15803D]" />
+                  <span>Edit Details</span>
+                </button>
+              </div>
+
+              {/* COHORT PROGRAM SUMMARY BOX */}
+              <div className="p-5 rounded-2xl bg-[#FAF8F5] border border-black/10 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-white border border-black/10 flex items-center justify-center text-[#15803D]">
+                      <CohortIcon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-bold uppercase text-[#15803D] font-mono">{activeCohortObj.badge}</span>
+                      <h3 className="text-base font-extrabold text-[#090909]">{activeCohortObj.name}</h3>
+                    </div>
+                  </div>
+                  <span className="text-xl font-extrabold text-[#15803D] font-mono">₹{activeCohortObj.price}</span>
+                </div>
+                <p className="text-xs text-black/60 leading-relaxed font-sans">{activeCohortObj.tagline}</p>
+              </div>
+
+              {/* STUDENT DETAILS REVIEW BOX */}
+              <div className="space-y-3 font-mono text-xs">
+                <div className="flex items-center justify-between border-b border-black/10 pb-2">
+                  <span className="font-bold text-black/60 uppercase">STUDENT PROFILE REVIEW</span>
+                  <button onClick={() => setCurrentPhase(1)} className="text-[#15803D] hover:underline font-bold">Edit ↗</button>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-[#FAF8F5] p-5 rounded-2xl border border-black/10">
+                  <div>
+                    <span className="text-black/50 text-[10px] uppercase block">Full Name</span>
+                    <span className="font-bold text-[#090909] text-sm">{formData.fullName}</span>
+                  </div>
+                  <div>
+                    <span className="text-black/50 text-[10px] uppercase block">Email Address</span>
+                    <span className="font-bold text-[#090909] text-sm">{formData.email}</span>
+                  </div>
+                  <div>
+                    <span className="text-black/50 text-[10px] uppercase block">Phone Number</span>
+                    <span className="font-bold text-[#090909]">{formData.phone}</span>
+                  </div>
+                  <div>
+                    <span className="text-black/50 text-[10px] uppercase block">Gender / Grad Year</span>
+                    <span className="font-bold text-[#090909]">{formData.gender} · {formData.graduationYear}</span>
+                  </div>
+                  <div>
+                    <span className="text-black/50 text-[10px] uppercase block">College / Organization</span>
+                    <span className="font-bold text-[#090909]">{formData.collegeOrOrg || 'Not specified'}</span>
+                  </div>
+                  <div>
+                    <span className="text-black/50 text-[10px] uppercase block">Current Year / Status</span>
+                    <span className="font-bold text-[#090909]">{formData.studyStatus}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* PAYMENT ACTION BUTTONS */}
+              <div className="pt-4 border-t border-black/10 space-y-4">
+                <button
+                  type="button"
+                  onClick={() => setShowRazorpayModal(true)}
+                  className="w-full py-4 rounded-2xl bg-[#090909] text-white hover:bg-[#22C55E] hover:text-black font-extrabold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl font-mono"
+                >
+                  <CreditCard className="w-5 h-5" />
+                  <span>Proceed to Razorpay Payment • ₹{activeCohortObj.price}</span>
+                </button>
+
+                <div className="flex justify-between items-center text-xs font-mono">
+                  <button
+                    type="button"
+                    onClick={() => setCurrentPhase(1)}
+                    className="text-black/60 hover:text-[#090909] font-bold flex items-center gap-1.5"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    <span>Back to Edit Student Details</span>
+                  </button>
+
+                  <span className="text-black/40 flex items-center gap-1">
+                    <Lock className="w-3.5 h-3.5 text-[#15803D]" />
+                    <span>SSL Encrypted</span>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </motion.div>
         )}
 
       </main>
@@ -498,7 +625,7 @@ export default function CohortRegistrationPage() {
                 </button>
               </div>
 
-              <div className="space-y-3 text-xs">
+              <div className="space-y-3 text-xs font-mono">
                 <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-black/10 space-y-1">
                   <span className="text-black/50 text-[10px] uppercase block font-mono">Paying To</span>
                   <span className="font-bold text-[#090909] block">Turing Wings Education Technologies</span>
