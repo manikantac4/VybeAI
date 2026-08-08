@@ -259,7 +259,7 @@ export default function CohortsListPage() {
     <div className="min-h-screen bg-[#FAFAFA] text-[#090909] selection:bg-[#22C55E] selection:text-black font-mono flex flex-col relative">
       <Navbar />
 
-      <main className="relative flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 sm:py-12 space-y-10 sm:space-y-14">
+      <main className="relative flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 lg:pt-36 pb-12 sm:pb-16 space-y-10 sm:space-y-14">
         <AmbientBackground />
 
         {/* HERO — trimmed to one line of support copy */}

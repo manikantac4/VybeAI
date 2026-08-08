@@ -33,7 +33,7 @@ export default function BuildathonsPage() {
     <div className="w-full min-h-screen relative bg-white text-[#090909] font-mono selection:bg-[#22C55E] selection:text-black">
       <Navbar />
 
-      <main className="pt-28 md:pt-36 pb-28 max-w-[1500px] mx-auto px-6 md:px-12 space-y-16 text-left">
+      <main className="pt-24 sm:pt-32 lg:pt-36 pb-24 max-w-[1500px] mx-auto px-6 md:px-12 space-y-16 text-left">
         
         {/* Section Header */}
         <div className="space-y-4 max-w-3xl">

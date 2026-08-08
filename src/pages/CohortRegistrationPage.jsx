@@ -141,7 +141,7 @@ export default function CohortRegistrationPage() {
     <div className="min-h-screen bg-[#FAFAFA] text-[#090909] selection:bg-[#22C55E] selection:text-black font-sans flex flex-col">
       <Navbar />
 
-      <main className="flex-1 max-w-6xl mx-auto w-full px-5 sm:px-8 pt-14 pb-10 sm:pt-16 sm:pb-14 lg:pt-28 lg:pb-20">
+      <main className="flex-1 max-w-6xl mx-auto w-full px-5 sm:px-8 pt-24 sm:pt-32 lg:pt-36 pb-14 sm:pb-20">
 
         {!paymentSuccess && (
           /* MOBILE-ONLY COMPACT STEP LINE (hidden on desktop, replaced by the split-column header) */
