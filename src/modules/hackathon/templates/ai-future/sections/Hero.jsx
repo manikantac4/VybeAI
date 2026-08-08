@@ -10,14 +10,19 @@ import { motion } from 'framer-motion';
 import { heroHeadline } from '../animations/variants';
 import { useHeroAnimation } from '../hooks/useHeroAnimation';
 
+import { useTheme } from '../hooks/useTheme';
+
 /** Hero — the thesis statement of the whole site. Headline, tagline, CTAs, live countdown. */
 export default function Hero() {
   const { meta, hero } = useEventData();
+  const theme = useTheme();
   const stage = useHeroAnimation();
+
+  const isGreenSpace = theme.mode === "greenspace" || theme.mode === "cyberpunk";
 
   const content = (
     <div>
-      <Badge tone={meta.status === 'live' ? 'rose' : 'cyan'} className={stage >= 1 ? 'opacity-100' : 'opacity-0'}>
+      <Badge tone={meta.status === 'live' ? 'rose' : isGreenSpace ? 'emerald' : 'cyan'} className={stage >= 1 ? 'opacity-100' : 'opacity-0'}>
         {meta.status === 'live' ? 'Live now' : hero.eyebrow}
       </Badge>
 
@@ -25,12 +30,12 @@ export default function Hero() {
         initial="hidden"
         animate={stage >= 2 ? 'visible' : 'hidden'}
         variants={heroHeadline}
-        className="font-display text-4xl md:text-6xl font-bold mt-5 leading-[1.05] text-text"
+        className={`font-display text-4xl md:text-6xl font-bold mt-5 leading-[1.05] ${isGreenSpace ? 'text-white drop-shadow-[0_0_20px_rgba(34,197,94,0.3)]' : 'text-text'}`}
       >
         {hero.headline}
       </motion.h1>
 
-      <p className={`text-text-muted text-lg mt-5 max-w-md transition-opacity duration-700 ${stage >= 3 ? 'opacity-100' : 'opacity-0'}`}>
+      <p className={`text-lg mt-5 max-w-md transition-opacity duration-700 ${isGreenSpace ? 'text-[#4ADE80] font-medium' : 'text-text-muted'} ${stage >= 3 ? 'opacity-100' : 'opacity-0'}`}>
         {hero.subheadline}
       </p>
 
@@ -39,7 +44,7 @@ export default function Hero() {
         <SecondaryButton to={hero.secondaryCta.path} size="lg">{hero.secondaryCta.label}</SecondaryButton>
       </div>
 
-      <p className="text-text-faint text-xs font-mono mt-8 uppercase tracking-widest">{meta.venue} · {meta.mode}</p>
+      <p className={`text-xs font-mono mt-8 uppercase tracking-widest ${isGreenSpace ? 'text-[#22C55E] font-bold' : 'text-text-faint'}`}>{meta.venue} · {meta.mode}</p>
     </div>
   );
 
