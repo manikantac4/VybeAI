@@ -179,11 +179,11 @@ export default function Evolution() {
             transition: `opacity 0.8s ${EASE_OUT}, transform 0.8s ${EASE_OUT}`,
           }}
         >
-          <p className="font-mono text-xs font-bold tracking-widest text-[#15803D] uppercase mb-3">
+          <p className="font-mono text-xs font-bold tracking-widest text-black/50 uppercase mb-3">
             01 / EVOLUTION & ENGINEERING
           </p>
           <h2 className="text-[#090909] font-extrabold tracking-tight mb-4" style={{ fontSize: isMobile ? 'clamp(1.8rem, 7vw, 2.3rem)' : 'clamp(2.4rem, 4vw, 3.5rem)', lineHeight: 1.1 }}>
-            From writing code<br /><span className="text-[#15803D]">to orchestrating intelligence.</span>
+            From writing code<br /><span className="text-black/45">to orchestrating intelligence.</span>
           </h2>
           <p className="text-black/60 font-sans text-xs sm:text-sm max-w-lg leading-relaxed">
             The tools have changed. The role has evolved. Welcome to <b className="text-[#090909]">AI-Native Engineering.</b>

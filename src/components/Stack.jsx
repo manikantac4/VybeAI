@@ -307,12 +307,12 @@ export default function Stack() {
         {/* Section Header */}
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end border-b border-black/10 pb-8">
           <div>
-            <p className="font-mono text-xs font-bold uppercase tracking-widest text-[#15803D] mb-3">
+            <p className="font-mono text-xs font-bold uppercase tracking-widest text-black/50 mb-3">
               02 / THE ECOSYSTEM
             </p>
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#090909]">
               The modern AI<br />
-              <span className="text-[#15803D]">engineering stack.</span>
+              <span className="text-black/45">engineering stack.</span>
             </h2>
           </div>
           <p className="max-w-sm text-xs sm:text-sm leading-relaxed text-black/60 font-sans">

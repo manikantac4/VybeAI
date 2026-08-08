@@ -49,12 +49,12 @@ export default function WhyTuringWings() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-black/10 pb-8 sm:pb-12">
           <div>
-            <p className="font-mono text-xs font-bold tracking-widest text-[#15803D] uppercase mb-3">
+            <p className="font-mono text-xs font-bold tracking-widest text-black/50 uppercase mb-3">
               05 / WHY TURING WINGS
             </p>
             <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#090909] leading-[1.05]">
               Built for the ones <br />
-              <span className="text-[#15803D]">who want to build.</span>
+              <span className="text-black/45 font-serif italic">who want to build.</span>
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-black/60 max-w-sm leading-relaxed">

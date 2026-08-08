@@ -125,12 +125,12 @@ export default function BuildWithAI() {
       <div className="mx-auto max-w-[1400px]">
         {/* Section Header */}
         <div className="mb-8 sm:mb-12 md:mb-16 border-b border-black/10 pb-5 sm:pb-8">
-          <p className="font-mono text-xs font-bold tracking-widest text-[#15803D] uppercase mb-3">
+          <p className="font-mono text-xs font-bold tracking-widest text-black/50 uppercase mb-3">
             03 / ARCHITECTURE & WORKFLOW
           </p>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6">
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#090909] max-w-2xl leading-tight">
-              Learn by making <span className="text-[#15803D]">the future tangible.</span>
+              Learn by making <span className="text-black/45 font-serif italic">the future tangible.</span>
             </h2>
             <p className="text-xs sm:text-sm text-black/60 max-w-sm leading-relaxed">
               8 Hands-on AI-first engineering workflows structured like modern production stacks.
