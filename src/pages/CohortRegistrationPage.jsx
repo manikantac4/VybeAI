@@ -13,7 +13,7 @@ export default function CohortRegistrationPage() {
   const initialCohort = searchParams.get('cohort') === 'ai-cybersecurity' ? 'ai-cybersecurity' : 'ai-engineering';
 
   const [selectedCohort, setSelectedCohort] = useState(initialCohort);
-  const [currentPhase, setCurrentPhase] = useState(1); // Phase 1 = Fill Details, Phase 2 = Summary & Payment
+  const [currentPhase, setCurrentPhase] = useState(1); // Phase 1 = Fill Details (Centered), Phase 2 = Summary & Payment
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -46,6 +46,7 @@ export default function CohortRegistrationPage() {
       name: 'AI Engineering Cohort',
       badge: 'FLAGSHIP 01',
       tagline: 'From Web Fundamentals to Building & Launching AI Products',
+      launchDate: 'August 25, 2026',
       duration: '4 Weeks (Live Intensive)',
       price: 4999,
       originalPrice: 9999,
@@ -57,6 +58,7 @@ export default function CohortRegistrationPage() {
       name: 'AI & Cybersecurity Cohort',
       badge: 'FLAGSHIP 02',
       tagline: 'Networking, Kali Linux, Pentesting & AI Security Agents (MCP)',
+      launchDate: 'September 01, 2026',
       duration: '4 Weeks (Hands-On Lab)',
       price: 4999,
       originalPrice: 9999,
@@ -139,7 +141,7 @@ export default function CohortRegistrationPage() {
     <div className="min-h-screen bg-[#FAFAFA] text-[#090909] selection:bg-[#22C55E] selection:text-black font-sans flex flex-col">
       <Navbar />
 
-      <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-8 py-12 space-y-8">
+      <main className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-8 py-12 space-y-8">
 
         {/* TOP HEADER & PHASE INDICATOR */}
         <motion.div 
@@ -174,7 +176,7 @@ export default function CohortRegistrationPage() {
                     : 'bg-[#22C55E]/15 border-[#22C55E]/40 text-[#15803D] hover:bg-[#22C55E]/25'
                 }`}
               >
-                <span>1. Fill Student Details</span>
+                <span>1. Student Details</span>
                 {currentPhase === 2 && <Check className="w-3.5 h-3.5 text-[#15803D]" />}
               </button>
               
@@ -247,11 +249,9 @@ export default function CohortRegistrationPage() {
             </Link>
           </motion.div>
         ) : currentPhase === 1 ? (
-          /* PHASE 1: FILL STUDENT DETAILS */
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-
-            {/* LEFT COLUMN: FORM */}
-            <div className="lg:col-span-7 bg-white border border-black/10 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+          /* PHASE 1: FILL STUDENT DETAILS (CENTERED FORM CONTAINER) */
+          <div className="max-w-2xl mx-auto w-full">
+            <div className="bg-white border border-black/10 rounded-3xl p-6 sm:p-10 space-y-6 shadow-xl">
 
               {/* FIXED & LOCKED SELECTED COHORT CARD */}
               <div className="space-y-2">
@@ -277,7 +277,7 @@ export default function CohortRegistrationPage() {
                         <span className="text-[10px] font-bold text-black/40 font-mono">LOCKED SELECTION</span>
                       </div>
                       <h3 className="text-base font-extrabold text-[#090909]">{activeCohortObj.name}</h3>
-                      <p className="text-xs text-black/60">{activeCohortObj.duration}</p>
+                      <p className="text-xs text-black/60 font-mono">Launch: {activeCohortObj.launchDate} • Fee: ₹{activeCohortObj.price}</p>
                     </div>
                   </div>
 
@@ -289,7 +289,7 @@ export default function CohortRegistrationPage() {
 
               {/* BUILDER DETAILS FORM */}
               <form onSubmit={handleGoToSummary} className="space-y-5">
-                <label className="text-xs font-bold uppercase tracking-wider text-black/60 block font-mono">
+                <label className="text-xs font-bold uppercase tracking-wider text-black/60 block font-mono border-b border-black/10 pb-2">
                   Student Information Form
                 </label>
 
@@ -451,50 +451,13 @@ export default function CohortRegistrationPage() {
                 </button>
               </form>
             </div>
-
-            {/* RIGHT COLUMN: ORDER SUMMARY SIDEBAR */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="bg-white border border-black/10 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
-                <span className="text-xs font-bold uppercase tracking-wider text-black/60 block border-b border-black/10 pb-3 font-mono">
-                  Selected Program Overview
-                </span>
-
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-[#090909]">{activeCohortObj.name}</span>
-                    <span className="text-sm font-extrabold text-[#15803D]">₹{activeCohortObj.price}</span>
-                  </div>
-                  <p className="text-xs text-black/60 leading-relaxed">{activeCohortObj.tagline}</p>
-                </div>
-
-                <div className="space-y-2.5 pt-3 border-t border-black/10 text-xs text-black/80">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#15803D]" />
-                    <span>4 Weeks Live Intensive Access</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#15803D]" />
-                    <span>5+ Shipped Production Projects</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#15803D]" />
-                    <span>1-on-1 Mentor Code Review</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#15803D]" />
-                    <span>Turing Wings Verified Certificate</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
         ) : (
           /* PHASE 2: REGISTRATION SUMMARY PAGE */
           <motion.div 
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="max-w-3xl mx-auto space-y-8"
+            className="max-w-2xl mx-auto space-y-8"
           >
             <div className="bg-white border border-black/10 rounded-3xl p-6 sm:p-10 space-y-8 shadow-2xl">
               
@@ -524,6 +487,7 @@ export default function CohortRegistrationPage() {
                     <div>
                       <span className="text-[10px] font-bold uppercase text-[#15803D] font-mono">{activeCohortObj.badge}</span>
                       <h3 className="text-base font-extrabold text-[#090909]">{activeCohortObj.name}</h3>
+                      <p className="text-xs text-black/50 font-mono">Launch: {activeCohortObj.launchDate}</p>
                     </div>
                   </div>
                   <span className="text-xl font-extrabold text-[#15803D] font-mono">₹{activeCohortObj.price}</span>

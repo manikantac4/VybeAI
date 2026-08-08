@@ -272,9 +272,18 @@ export default function AiEngineeringCohortPage() {
           className="relative bg-white border border-black/10 rounded-3xl p-6 sm:p-12 overflow-hidden shadow-xl space-y-8"
         >
           <div className="space-y-4 max-w-3xl relative z-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/30 text-[#15803D] text-xs font-bold uppercase tracking-wider">
-              <Cpu className="w-4 h-4 text-[#15803D]" />
-              <span>4-WEEK FLAGSHIP COHORT</span>
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/30 text-[#15803D] text-xs font-bold uppercase tracking-wider font-mono">
+                <Cpu className="w-4 h-4 text-[#15803D]" />
+                <span>4-WEEK FLAGSHIP COHORT</span>
+              </div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#090909] text-white text-xs font-bold uppercase tracking-wider font-mono">
+                <Calendar className="w-3.5 h-3.5 text-[#22C55E]" />
+                <span>Launch Date: August 25, 2026</span>
+              </div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-800 text-xs font-bold uppercase tracking-wider font-mono">
+                <span>Tuition Fee: ₹4,999</span>
+              </div>
             </div>
 
             <h1 className="text-3xl sm:text-6xl font-extrabold text-[#090909] tracking-tight leading-tight font-sans">
@@ -310,16 +319,16 @@ export default function AiEngineeringCohortPage() {
           {/* KEY STATS BAR */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-black/10 text-xs">
             <div>
-              <span className="text-[10px] text-black/50 uppercase tracking-wider block">Duration</span>
-              <span className="text-sm font-bold text-[#090909]">4 Weeks (Live)</span>
+              <span className="text-[10px] text-black/50 uppercase tracking-wider block">Launch Date</span>
+              <span className="text-sm font-bold text-[#15803D]">August 25, 2026</span>
             </div>
             <div>
-              <span className="text-[10px] text-black/50 uppercase tracking-wider block">Projects</span>
-              <span className="text-sm font-bold text-[#15803D]">5+ Shipped SaaS</span>
+              <span className="text-[10px] text-black/50 uppercase tracking-wider block">Tuition Fee</span>
+              <span className="text-sm font-bold text-[#090909]">₹4,999 (50% Off)</span>
             </div>
             <div>
-              <span className="text-[10px] text-black/50 uppercase tracking-wider block">Methodology</span>
-              <span className="text-sm font-bold text-[#090909]">AI Pair-Programming</span>
+              <span className="text-[10px] text-black/50 uppercase tracking-wider block">Duration & Labs</span>
+              <span className="text-sm font-bold text-[#090909]">4 Weeks Live</span>
             </div>
             <div>
               <span className="text-[10px] text-black/50 uppercase tracking-wider block">Prerequisites</span>
