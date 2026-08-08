@@ -382,6 +382,8 @@ export default function Cohorts() {
   return (
     <section ref={sectionRef} id="cohorts" className="cohort-showcase-section">
       <div ref={pinRef} className="cohort-showcase-sticky">
+        <h2 className="cohort-section-heading">Cohorts</h2>
+
         {/* Horizontal card track with smooth scrolling — opens directly on the first cohort */}
         <div ref={trackRef} className="cohort-showcase-track">
           {showcaseItems.map((item, i) => (
