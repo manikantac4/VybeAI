@@ -39,11 +39,17 @@ export default function Hero() {
   const [formSize] = useState(() => {
     if (typeof window === 'undefined') return 640
     const mobile = window.innerWidth < 768
-    isMobileRef.current = mobile
     return mobile
       ? Math.min(window.innerWidth * 0.82, 380)
       : Math.min(window.innerWidth * 0.5, 860)
   })
+
+  // isMobileRef is read by the particle-building effect below. It's set here,
+  // in an effect (not during render), and captured once on mount so a
+  // mid-animation breakpoint change can't restart the build.
+  useEffect(() => {
+    isMobileRef.current = window.innerWidth < 768
+  }, [])
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 767px)')
